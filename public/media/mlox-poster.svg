@@ -1,0 +1,18 @@
+<svg width="1280" height="720" viewBox="0 0 1280 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1280" height="720" rx="42" fill="#0B0C0E"/>
+  <rect x="120" y="120" width="1040" height="480" rx="32" fill="url(#gradient)" opacity="0.9"/>
+  <g opacity="0.8">
+    <path d="M220 240h240v24H220zM220 300h320v24H220zM220 360h280v24H220z" fill="#0B0C0E" opacity="0.7"/>
+    <path d="M620 240h340v260H620z" stroke="#0B0C0E" stroke-width="6" stroke-dasharray="12 20"/>
+    <circle cx="660" cy="280" r="18" fill="#0B0C0E" opacity="0.4"/>
+    <circle cx="708" cy="280" r="18" fill="#0B0C0E" opacity="0.25"/>
+    <circle cx="756" cy="280" r="18" fill="#0B0C0E" opacity="0.15"/>
+  </g>
+  <text x="140" y="540" fill="#E7E9EC" font-size="52" font-family="'Inter', sans-serif" font-weight="600">Bytecode trace in flight</text>
+  <defs>
+    <linearGradient id="gradient" x1="160" y1="120" x2="1040" y2="600" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#6BC1FF"/>
+      <stop offset="1" stop-color="#1E293B"/>
+    </linearGradient>
+  </defs>
+</svg>

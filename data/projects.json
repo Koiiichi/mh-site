@@ -1,0 +1,69 @@
+[
+  {
+    "slug": "mlox",
+    "title": "MLOX — Augmented Lox in C",
+    "summary": "A bytecode virtual machine and language extensions for Lox with interactive tooling.",
+    "tags": ["C", "Compilers", "VM"],
+    "links": {
+      "demo": "https://editor.cocode.dev/mlox",
+      "repo": "https://github.com/muneeb-hassan/mlox"
+    },
+    "media": { "type": "image", "src": "/media/mlox-poster.svg", "alt": "MLOX bytecode preview" },
+    "metrics": ["45% faster bytecode", "Realtime tracing"],
+    "role": "Design Engineer",
+    "timeframe": "2024 — Present"
+  },
+  {
+    "slug": "cocode",
+    "title": "CoCode — Collaborative Code Editor",
+    "summary": "Realtime multi-cursor editing with Monaco, Firebase, and multiplayer presence.",
+    "tags": ["React", "TypeScript", "Firebase"],
+    "links": {
+      "site": "https://cocode.dev",
+      "repo": "https://github.com/muneeb-hassan/cocode"
+    },
+    "media": { "type": "image", "src": "/media/cocode-poster.svg", "alt": "CoCode interface preview" },
+    "metrics": ["<50ms latency", "Presence sync"],
+    "role": "Founder & DX lead",
+    "timeframe": "2023 — Present"
+  },
+  {
+    "slug": "atlas",
+    "title": "Atlas Workflows",
+    "summary": "Composable automation for growth teams with visual query building and AI-assisted ops.",
+    "tags": ["Next.js", "LangChain", "Tailwind"],
+    "links": {
+      "case": "https://atlas.workflows.dev"
+    },
+    "media": { "type": "image", "src": "/media/atlas-poster.svg", "alt": "Atlas automation preview" },
+    "metrics": ["28% lift in activation", "10+ integrations"],
+    "role": "Product Design", 
+    "timeframe": "2022 — 2024"
+  },
+  {
+    "slug": "spectrum",
+    "title": "Spectrum Kits",
+    "summary": "Accessibility-first component system powering multiple SaaS brands.",
+    "tags": ["Design Systems", "Accessibility", "Storybook"],
+    "links": {
+      "overview": "https://spectrumkits.design"
+    },
+    "media": { "type": "image", "src": "/media/spectrum-poster.svg", "alt": "Spectrum components" },
+    "metrics": ["17 themes", "WCAG 2.1 AA"],
+    "role": "Systems Designer",
+    "timeframe": "2021 — 2023"
+  },
+  {
+    "slug": "sonar",
+    "title": "Sonar Pulse",
+    "summary": "A calm analytics surface for product teams with narrative reporting and live embeds.",
+    "tags": ["Data Viz", "Svelte", "Edge"],
+    "links": {
+      "preview": "https://sonarpulse.app"
+    },
+    "media": { "type": "image", "src": "/media/sonar-poster.svg", "alt": "Sonar dashboard" },
+    "metrics": ["Ambient alerts", "Scenario playback"],
+    "role": "Product & Engineering",
+    "timeframe": "2020 — 2022"
+  }
+]

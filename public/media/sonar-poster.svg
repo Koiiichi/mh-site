@@ -1,0 +1,10 @@
+<svg width="1280" height="720" viewBox="0 0 1280 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1280" height="720" rx="42" fill="#0B0C0E"/>
+  <rect x="160" y="150" width="960" height="420" rx="26" fill="#111216" stroke="#1A1D23" stroke-width="3"/>
+  <path d="M220 400c80-120 180-60 260 0s180 80 260-40 180-80 240-20" stroke="#6BC1FF" stroke-width="6" stroke-linecap="round" fill="none"/>
+  <path d="M220 460h720" stroke="#1E2735" stroke-width="2" stroke-dasharray="14 12"/>
+  <circle cx="480" cy="340" r="24" fill="#6BC1FF"/>
+  <circle cx="760" cy="300" r="20" fill="#8AFFE0" opacity="0.7"/>
+  <text x="220" y="520" fill="#E7E9EC" font-size="46" font-family="'Inter', sans-serif" font-weight="600">Narratives from every signal</text>
+  <text x="220" y="568" fill="#8A8F98" font-size="24" font-family="'IBM Plex Mono', monospace">ambient alerts · scenario playback · embeds</text>
+</svg>
