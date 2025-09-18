@@ -1,0 +1,21 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" rx="48" fill="#0B0C0E"/>
+  <circle cx="240" cy="180" r="160" fill="url(#paint0_radial)" opacity="0.65"/>
+  <circle cx="960" cy="120" r="190" fill="url(#paint1_radial)" opacity="0.55"/>
+  <text x="120" y="360" fill="#E7E9EC" font-family="'Inter', 'Helvetica Neue', Arial, sans-serif" font-size="120" font-weight="700">
+    Muneeb Hassan
+  </text>
+  <text x="120" y="450" fill="#8A8F98" font-family="'IBM Plex Mono', 'Courier New', monospace" font-size="42" letter-spacing="0.02em">
+    Design Engineer · Systems Thinker · Builder
+  </text>
+  <defs>
+    <radialGradient id="paint0_radial" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(240 180) rotate(90) scale(160)">
+      <stop stop-color="#6BC1FF"/>
+      <stop offset="1" stop-color="#0B0C0E" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="paint1_radial" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(960 120) rotate(90) scale(190)">
+      <stop stop-color="#8AFFE0"/>
+      <stop offset="1" stop-color="#0B0C0E" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+</svg>

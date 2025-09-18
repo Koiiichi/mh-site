@@ -1,0 +1,31 @@
+[
+  {
+    "name": "MLOX Docs",
+    "status": "Active",
+    "started": "2025-06-01",
+    "progress": 0.6,
+    "collaborators": true,
+    "description": "Documenting the VM internals with interactive notebooks."
+  },
+  {
+    "name": "CoCode v2 UI",
+    "status": "Active",
+    "started": "2025-03-01",
+    "progress": 0.35,
+    "description": "Refining multiplayer primitives and offline sync."
+  },
+  {
+    "name": "Personal Site Polish",
+    "status": "Paused",
+    "started": "2025-05-12",
+    "progress": 0.2,
+    "description": "Further explorations on storytelling and motion."
+  },
+  {
+    "name": "Systems Field Notes",
+    "status": "Exploring",
+    "started": "2025-08-20",
+    "progress": 0.1,
+    "description": "Small essays on systems thinking and developer tooling."
+  }
+]

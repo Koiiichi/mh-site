@@ -1,0 +1,57 @@
+import type { Metadata } from 'next';
+import { IBM_Plex_Mono, Inter } from 'next/font/google';
+import './globals.css';
+import { ThemeProvider } from './(components)/theme-provider';
+import { ThemeHotkey } from './(components)/theme-hotkey';
+import { HoldPreviewProvider } from './(components)/hold-preview/hold-preview';
+
+const inter = Inter({ subsets: ['latin'], variable: '--font-sans', display: 'swap' });
+const plex = IBM_Plex_Mono({ subsets: ['latin'], weight: ['300', '400', '500', '600'], variable: '--font-mono', display: 'swap' });
+
+export const metadata: Metadata = {
+  metadataBase: new URL('https://muneeb.design'),
+  title: {
+    default: 'Muneeb Hassan — Design Engineer',
+    template: '%s · Muneeb Hassan'
+  },
+  description: 'Design engineer crafting tactile software, systems, and developer tooling.',
+  openGraph: {
+    title: 'Muneeb Hassan — Design Engineer',
+    description: 'Design engineer crafting tactile software, systems, and developer tooling.',
+    type: 'website',
+    url: 'https://muneeb.design',
+    images: [
+      {
+        url: '/og.svg',
+        width: 1200,
+        height: 630,
+        alt: 'Muneeb Hassan portfolio preview'
+      }
+    ]
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Muneeb Hassan — Design Engineer',
+    description: 'Design engineer crafting tactile software, systems, and developer tooling.'
+  },
+  alternates: {
+    canonical: 'https://muneeb.design'
+  }
+};
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en" className={`${inter.variable} ${plex.variable}`} suppressHydrationWarning>
+      <body className="bg-background text-foreground antialiased">
+        <ThemeProvider>
+          <ThemeHotkey />
+          <HoldPreviewProvider>
+            <div className="mx-auto flex min-h-screen max-w-6xl flex-col px-6 pb-16 pt-10 sm:px-12">
+              {children}
+            </div>
+          </HoldPreviewProvider>
+        </ThemeProvider>
+      </body>
+    </html>
+  );
+}
