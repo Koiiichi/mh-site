@@ -1,0 +1,27 @@
+<svg width="960" height="640" viewBox="0 0 960 640" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="960" height="640" rx="48" fill="url(#paint0_linear)"/>
+  <rect x="48" y="64" width="864" height="512" rx="36" fill="url(#paint1_radial)" opacity="0.85"/>
+  <g filter="url(#filter0_f)">
+    <path d="M176 272C280 208 392 188 480 240C568 292 704 252 784 220" stroke="rgba(255,255,255,0.4)" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  <g stroke="rgba(255,255,255,0.7)" stroke-width="2" stroke-linecap="round">
+    <path d="M168 356C236 324 316 340 384 368C452 396 540 404 616 360C692 316 772 300 824 320" opacity="0.85"/>
+    <path d="M168 412C244 384 322 396 392 420C462 444 548 452 624 416C700 380 784 366 824 380" opacity="0.6"/>
+  </g>
+  <text x="96" y="180" fill="rgba(255,255,255,0.9)" font-family="'IBM Plex Mono', monospace" font-size="18" letter-spacing="0.25em">DATA PLAYBOOK</text>
+  <text x="96" y="228" fill="white" font-family="'Inter', sans-serif" font-weight="600" font-size="48">ChabaCrunch</text>
+  <text x="96" y="274" fill="rgba(255,255,255,0.76)" font-family="'Inter', sans-serif" font-size="22">TouchBistro tipping intelligence</text>
+  <defs>
+    <linearGradient id="paint0_linear" x1="64" y1="32" x2="896" y2="608" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1B2B4A"/>
+      <stop offset="1" stop-color="#3D1A51"/>
+    </linearGradient>
+    <radialGradient id="paint1_radial" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(480 320) rotate(90) scale(320 432)">
+      <stop stop-color="#5EA9FF" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#120F1A" stop-opacity="0.8"/>
+    </radialGradient>
+    <filter id="filter0_f" x="120" y="178" width="704" height="142" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="18"/>
+    </filter>
+  </defs>
+</svg>

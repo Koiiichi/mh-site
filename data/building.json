@@ -1,0 +1,31 @@
+[
+  {
+    "name": "MLOX Docs Toolkit",
+    "status": "Active",
+    "started": "2025-06-01",
+    "progress": 0.6,
+    "collaborators": true,
+    "description": "Turning runtime internals into interactive notebooks with tracing and visual bytecode diffing."
+  },
+  {
+    "name": "CoCode Release Candidate",
+    "status": "Active",
+    "started": "2024-11-15",
+    "progress": 0.45,
+    "description": "Hardening merge-safe branching, comments, and offline resilience for upcoming community pilots."
+  },
+  {
+    "name": "MSXVI Telemetry HUD",
+    "status": "Active",
+    "started": "2025-02-01",
+    "progress": 0.3,
+    "description": "Designing a lightweight HUD to surface sensor health and lap deltas for race strategy."
+  },
+  {
+    "name": "Harmonics Revamp",
+    "status": "Exploring",
+    "started": "2024-12-10",
+    "progress": 0.2,
+    "description": "Experimenting with new signal processing pipelines for real-time particle sonification."
+  }
+]

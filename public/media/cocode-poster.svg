@@ -1,0 +1,15 @@
+<svg width="1280" height="720" viewBox="0 0 1280 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1280" height="720" rx="42" fill="#0B0C0E"/>
+  <rect x="160" y="140" width="960" height="440" rx="28" fill="#111216" stroke="#1F2937" stroke-width="4"/>
+  <g opacity="0.9">
+    <rect x="200" y="200" width="320" height="260" rx="18" fill="#0F172A"/>
+    <rect x="560" y="200" width="320" height="120" rx="18" fill="#0F172A"/>
+    <rect x="560" y="340" width="280" height="60" rx="14" fill="#0F172A"/>
+    <rect x="560" y="420" width="360" height="40" rx="12" fill="#0F172A"/>
+    <circle cx="640" cy="260" r="10" fill="#F45D48"/>
+    <circle cx="670" cy="260" r="10" fill="#FFD166"/>
+    <circle cx="700" cy="260" r="10" fill="#6BC1FF"/>
+  </g>
+  <text x="200" y="520" fill="#E7E9EC" font-size="48" font-family="'Inter', sans-serif" font-weight="600">Live cursors in sync</text>
+  <text x="200" y="570" fill="#8A8F98" font-size="24" font-family="'IBM Plex Mono', monospace">firebase · monaco · threads</text>
+</svg>

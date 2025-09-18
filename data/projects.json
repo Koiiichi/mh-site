@@ -1,0 +1,69 @@
+[
+  {
+    "slug": "mlox",
+    "title": "MLOX — Augmented Lox in C",
+    "summary": "A custom interpreter with bytecode dispatch, garbage-collected VM, and interactive tooling inspired by Crafting Interpreters.",
+    "tags": ["C", "Compilers", "Virtual Machine"],
+    "links": {
+      "Docs": "https://github.com/Koiiichi/mlox#readme",
+      "Repo": "https://github.com/Koiiichi/mlox"
+    },
+    "media": { "type": "image", "src": "/media/mlox-poster.svg", "alt": "MLOX bytecode preview" },
+    "metrics": ["Bytecode VM", "Interactive REPL"],
+    "role": "Lead Developer",
+    "timeframe": "Jun 2025 — Aug 2025"
+  },
+  {
+    "slug": "cocode",
+    "title": "CoCode — Collaborative Code Editor",
+    "summary": "A multiplayer editor with real-time presence, diffing, and secure Firebase-backed sessions for the UW CS community.",
+    "tags": ["TypeScript", "React", "Firebase"],
+    "links": {
+      "Site": "https://co-c0de.vercel.app/",
+      "Repo": "https://github.com/Koiiichi/CoCode"
+    },
+    "media": { "type": "image", "src": "/media/cocode-poster.svg", "alt": "CoCode interface preview" },
+    "metrics": ["Live cursors", "Merge-safe branching"],
+    "role": "Product & DX Lead",
+    "timeframe": "Oct 2024 — Jun 2025"
+  },
+  {
+    "slug": "msxvi-controls",
+    "title": "MSXVI Input Manager",
+    "summary": "Firmware upgrades for Midnight Sun’s steering and telemetry stack with debounced inputs and FreeRTOS orchestration.",
+    "tags": ["Embedded C", "FreeRTOS", "STM32"],
+    "links": {
+      "Team": "https://uwmidsun.com/"
+    },
+    "media": { "type": "image", "src": "/media/msxvi-poster.svg", "alt": "Midnight Sun firmware visualization" },
+    "metrics": ["10% reliability lift", "Real-time safe"],
+    "role": "Firmware Developer",
+    "timeframe": "Oct 2024 — Present"
+  },
+  {
+    "slug": "chabacrunch",
+    "title": "ChabaCrunch — TouchBistro Analytics",
+    "summary": "Hackathon-winning data pipelines with feature engineering, random forests, and tipping insights across 1M+ transactions.",
+    "tags": ["Python", "Pandas", "scikit-learn"],
+    "links": {
+      "Repo": "https://github.com/Koiiichi/ChabaCrunch-CXC2025"
+    },
+    "media": { "type": "image", "src": "/media/chabacrunch-poster.svg", "alt": "ChabaCrunch analytics preview" },
+    "metrics": ["1M+ rows processed", "85% concept accuracy"],
+    "role": "Team Lead, Data Science",
+    "timeframe": "Feb 2025"
+  },
+  {
+    "slug": "harmonics",
+    "title": "Project Harmonics",
+    "summary": "A particle-physics sonification toolkit that maps datasets into expressive MIDI for inclusive STEM storytelling.",
+    "tags": ["Python", "Pandas", "MIDI"],
+    "links": {
+      "Repo": "https://github.com/Koiiichi/project-harmonics"
+    },
+    "media": { "type": "image", "src": "/media/harmonics-poster.svg", "alt": "Project Harmonics sonification graphic" },
+    "metrics": ["Accessible outreach", "Realtime mappings"],
+    "role": "Creator",
+    "timeframe": "Mar 2023 — Present"
+  }
+]
