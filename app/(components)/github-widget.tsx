@@ -18,6 +18,20 @@ interface GitHubCommit {
   html_url: string;
 }
 
+interface GitHubEvent {
+  type: string;
+  payload: {
+    commits: Array<{
+      sha: string;
+      message: string;
+    }>;
+  };
+  repo: {
+    name: string;
+  };
+  created_at: string;
+}
+
 export function GitHubWidget() {
   const [latestCommit, setLatestCommit] = useState<GitHubCommit | null>(null);
   const [loading, setLoading] = useState(true);
@@ -33,10 +47,10 @@ export function GitHubWidget() {
           throw new Error('Failed to fetch GitHub data');
         }
 
-        const events = await response.json();
+        const events = await response.json() as GitHubEvent[];
         
         // Find the latest push event
-        const pushEvent = events.find((event: any) => event.type === 'PushEvent');
+        const pushEvent = events.find((event: GitHubEvent) => event.type === 'PushEvent');
         
         if (pushEvent && pushEvent.payload.commits.length > 0) {
           const commit = pushEvent.payload.commits[0];

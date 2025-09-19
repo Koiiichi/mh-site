@@ -44,7 +44,7 @@ export function Hero() {
             transition={{ delay: prefersReducedMotion ? 0 : 0.15, duration: prefersReducedMotion ? 0 : 0.6, ease: 'easeOut' }}
             className="max-w-2xl text-lg text-muted sm:text-xl"
           >
-            I'm Muneeb Hassan — a computational mathematics student at the University of Waterloo with a passion for 
+            I&apos;m Muneeb Hassan — a computational mathematics student at the University of Waterloo with a passion for 
             systems programming, compiler design, and collaborative developer tools. Currently working on firmware 
             development for the Midnight Sun Solar Car Team and building innovative programming languages.
           </motion.p>
