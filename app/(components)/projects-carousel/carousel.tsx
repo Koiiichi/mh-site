@@ -33,7 +33,7 @@ export function ProjectsCarousel() {
       <div
         ref={sectionRef}
         className="relative"
-        style={{ height: `calc(${projects.length} * 100vh)` }}
+        style={{ height: `calc(${projects.length * 0.8} * 100vh + 100vh)` }}
       >
         <div className="sticky top-16 flex min-h-[80vh] flex-col justify-center gap-6 pb-16">
           <header className="flex items-center justify-between gap-6 px-2">

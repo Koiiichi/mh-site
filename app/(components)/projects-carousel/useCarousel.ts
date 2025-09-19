@@ -14,9 +14,11 @@ export function useCarousel(slugs: string[]) {
       const clamped = Math.max(0, Math.min(index, slugsMemo.length - 1));
       const section = sectionRef.current;
       const rect = section.getBoundingClientRect();
+      // Account for the reduced height calculation (0.8 factor)
       const totalHeight = section.offsetHeight - window.innerHeight;
       const progress = slugsMemo.length > 1 ? clamped / (slugsMemo.length - 1) : 0;
-      const target = rect.top + window.scrollY + totalHeight * progress;
+      // Limit the scroll to 80% of the total height to allow natural release
+      const target = rect.top + window.scrollY + (totalHeight * 0.8) * progress;
       isManualScroll.current = true;
       window.scrollTo({ top: target, behavior });
       window.setTimeout(() => {

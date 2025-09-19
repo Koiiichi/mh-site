@@ -4,6 +4,7 @@ import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion
 import Link from 'next/link';
 import { useRef } from 'react';
 import { ThemeToggle } from './theme-toggle';
+import { HeroBackground } from './hero-background';
 import { useClock } from '@/lib/hooks/useClock';
 
 export function Hero() {
@@ -18,11 +19,12 @@ export function Hero() {
       <header className="flex items-center justify-between gap-6">
         <div className="flex flex-col">
           <span className="font-mono text-xs uppercase tracking-[0.3em] text-muted">Currently in</span>
-          <span className="font-mono text-sm text-foreground">Karachi, PK · {formatted}</span>
+          <span className="font-mono text-sm text-foreground">Waterloo, ON · {formatted}</span>
         </div>
         <ThemeToggle />
       </header>
       <div className="relative overflow-hidden rounded-[2.75rem] border border-subtle bg-surface/80 p-10 sm:p-16">
+        <HeroBackground />
         <motion.div
           className="pointer-events-none absolute inset-x-0 top-0 h-[120%] -translate-y-1/4 bg-[radial-gradient(circle_at_top,_rgba(107,193,255,0.2),_transparent_70%)]"
           style={{ y: translateY }}
@@ -34,7 +36,7 @@ export function Hero() {
             transition={{ duration: prefersReducedMotion ? 0 : 0.7, ease: 'easeOut' }}
             className="max-w-3xl text-balance text-5xl font-semibold leading-[1.05] tracking-tight text-foreground sm:text-6xl md:text-7xl"
           >
-            Designing tactile systems and developer tooling that feel inevitable.
+            Building expressive developer tools and exploring the intersection of systems programming and design.
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 24 }}
@@ -42,9 +44,9 @@ export function Hero() {
             transition={{ delay: prefersReducedMotion ? 0 : 0.15, duration: prefersReducedMotion ? 0 : 0.6, ease: 'easeOut' }}
             className="max-w-2xl text-lg text-muted sm:text-xl"
           >
-            I’m Muneeb Hassan — a design engineer focused on expressive interfaces, well-crafted developer
-            experiences, and resilient product systems. Currently shaping collaborative creation tools and augmented
-            programming environments.
+            I'm Muneeb Hassan — a computational mathematics student at the University of Waterloo with a passion for 
+            systems programming, compiler design, and collaborative developer tools. Currently working on firmware 
+            development for the Midnight Sun Solar Car Team and building innovative programming languages.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 16 }}

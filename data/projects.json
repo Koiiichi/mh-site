@@ -2,68 +2,54 @@
   {
     "slug": "mlox",
     "title": "MLOX — Augmented Lox in C",
-    "summary": "A bytecode virtual machine and language extensions for Lox with interactive tooling.",
-    "tags": ["C", "Compilers", "VM"],
+    "summary": "A custom interpreted language in C, extending LOX with runtime enhancements and modern features like ternary operators, OOP primitives, native string methods, mathematical operations, and file I/O.",
+    "tags": ["C", "Compilers", "VM", "Make"],
     "links": {
-      "demo": "https://editor.cocode.dev/mlox",
-      "repo": "https://github.com/muneeb-hassan/mlox"
+      "repo": "https://github.com/Koiiichi/mlox"
     },
     "media": { "type": "image", "src": "/media/mlox-poster.svg", "alt": "MLOX bytecode preview" },
-    "metrics": ["45% faster bytecode", "Realtime tracing"],
-    "role": "Design Engineer",
-    "timeframe": "2024 — Present"
+    "metrics": ["Virtual machine architecture", "Recursive descent parsing"],
+    "role": "Language Designer & Developer",
+    "timeframe": "June 2025 — August 2025"
   },
   {
     "slug": "cocode",
     "title": "CoCode — Collaborative Code Editor",
-    "summary": "Realtime multi-cursor editing with Monaco, Firebase, and multiplayer presence.",
-    "tags": ["React", "TypeScript", "Firebase"],
+    "summary": "A web-based collaborative code editor with real-time syncing, multi-user concurrency, and Monaco-based editing using Firebase Realtime Database.",
+    "tags": ["TypeScript", "React", "Tailwind CSS", "Firebase", "Vercel"],
     "links": {
-      "site": "https://cocode.dev",
-      "repo": "https://github.com/muneeb-hassan/cocode"
+      "site": "https://co-c0de.vercel.app/",
+      "repo": "https://github.com/Koiiichi/CoCode"
     },
     "media": { "type": "image", "src": "/media/cocode-poster.svg", "alt": "CoCode interface preview" },
-    "metrics": ["<50ms latency", "Presence sync"],
-    "role": "Founder & DX lead",
-    "timeframe": "2023 — Present"
+    "metrics": ["Real-time collaboration", "Git automation scripts"],
+    "role": "Full-Stack Developer",
+    "timeframe": "October 2024 — June 2025"
   },
   {
-    "slug": "atlas",
-    "title": "Atlas Workflows",
-    "summary": "Composable automation for growth teams with visual query building and AI-assisted ops.",
-    "tags": ["Next.js", "LangChain", "Tailwind"],
+    "slug": "chabacrunch",
+    "title": "ChabaCrunch — Restaurant Analytics",
+    "summary": "Led a 4-member team processing 1M+ TouchBistro transactions across Canada and the U.S. through unified pipelines, with Random Forest model achieving 85% accuracy for venue concept imputation.",
+    "tags": ["Python", "Pandas", "scikit-learn"],
     "links": {
-      "case": "https://atlas.workflows.dev"
+      "repo": "https://github.com/Koiiichi/ChabaCrunch-CXC2025"
     },
-    "media": { "type": "image", "src": "/media/atlas-poster.svg", "alt": "Atlas automation preview" },
-    "metrics": ["28% lift in activation", "10+ integrations"],
-    "role": "Product Design", 
-    "timeframe": "2022 — 2024"
+    "media": { "type": "image", "src": "/media/chabacrunch-poster.svg", "alt": "ChabaCrunch analytics dashboard" },
+    "metrics": ["1M+ transactions processed", "85% ML accuracy"],
+    "role": "Team Lead & Data Scientist",
+    "timeframe": "February 2025"
   },
   {
-    "slug": "spectrum",
-    "title": "Spectrum Kits",
-    "summary": "Accessibility-first component system powering multiple SaaS brands.",
-    "tags": ["Design Systems", "Accessibility", "Storybook"],
+    "slug": "harmonics",
+    "title": "Project Harmonics — Data Sonification",
+    "summary": "A Python/Pandas tool to sonify particle physics datasets by mapping particle IDs, momentum, and angles into MIDI files, promoting accessible STEM education for differently abled students.",
+    "tags": ["Python", "Pandas", "MIDI", "Data Visualization"],
     "links": {
-      "overview": "https://spectrumkits.design"
+      "repo": "https://github.com/Koiiichi/project-harmonics"
     },
-    "media": { "type": "image", "src": "/media/spectrum-poster.svg", "alt": "Spectrum components" },
-    "metrics": ["17 themes", "WCAG 2.1 AA"],
-    "role": "Systems Designer",
-    "timeframe": "2021 — 2023"
-  },
-  {
-    "slug": "sonar",
-    "title": "Sonar Pulse",
-    "summary": "A calm analytics surface for product teams with narrative reporting and live embeds.",
-    "tags": ["Data Viz", "Svelte", "Edge"],
-    "links": {
-      "preview": "https://sonarpulse.app"
-    },
-    "media": { "type": "image", "src": "/media/sonar-poster.svg", "alt": "Sonar dashboard" },
-    "metrics": ["Ambient alerts", "Scenario playback"],
-    "role": "Product & Engineering",
-    "timeframe": "2020 — 2022"
+    "media": { "type": "image", "src": "/media/harmonics-poster.svg", "alt": "Project Harmonics visualization" },
+    "metrics": ["30+ students reached", "Accessible STEM education"],
+    "role": "Research Developer & Educator",
+    "timeframe": "March 2023"
   }
 ]

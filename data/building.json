@@ -1,31 +1,39 @@
 [
   {
-    "name": "MLOX Docs",
+    "name": "Midnight Sun Solar Car Firmware",
+    "status": "Active",
+    "started": "2024-10-01",
+    "progress": 0.7,
+    "collaborators": false,
+    "description": "Developing modular button manager with debounced polling and FreeRTOS integration for MSXVI solar vehicle."
+  },
+  {
+    "name": "MLOX Language Extensions",
     "status": "Active",
     "started": "2025-06-01",
-    "progress": 0.6,
+    "progress": 0.8,
     "collaborators": true,
-    "description": "Documenting the VM internals with interactive notebooks."
+    "description": "Extending the Lox interpreter with modern language features and interactive tooling."
   },
   {
-    "name": "CoCode v2 UI",
+    "name": "CoCode Collaboration Features",
     "status": "Active",
-    "started": "2025-03-01",
-    "progress": 0.35,
-    "description": "Refining multiplayer primitives and offline sync."
+    "started": "2024-10-01",
+    "progress": 0.6,
+    "description": "Building real-time collaborative editing with multi-user presence and conflict resolution."
   },
   {
-    "name": "Personal Site Polish",
-    "status": "Paused",
-    "started": "2025-05-12",
-    "progress": 0.2,
-    "description": "Further explorations on storytelling and motion."
+    "name": "University Coursework",
+    "status": "Active",
+    "started": "2024-09-01",
+    "progress": 0.4,
+    "description": "Computational Mathematics major with Statistics joint and Computing minor at University of Waterloo."
   },
   {
-    "name": "Systems Field Notes",
+    "name": "Personal Portfolio",
     "status": "Exploring",
-    "started": "2025-08-20",
-    "progress": 0.1,
-    "description": "Small essays on systems thinking and developer tooling."
+    "started": "2025-09-01",
+    "progress": 0.3,
+    "description": "Building a modern portfolio site with Next.js, showcasing projects and technical skills."
   }
 ]

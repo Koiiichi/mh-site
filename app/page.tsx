@@ -2,31 +2,32 @@ import { Hero } from './(components)/hero';
 import { ProjectsCarousel } from './(components)/projects-carousel/carousel';
 import { BuildingList } from './(components)/building/building-list';
 import { FooterClock } from './(components)/footer-clock';
+import { GitHubWidget } from './(components)/github-widget';
 import Link from 'next/link';
 
 const writingLinks = [
   {
-    title: 'Parallax as narrative device',
-    href: 'https://mirror.xyz/muneeb/writing/parallax-narrative',
-    meta: 'Notes · Coming soon'
+    title: 'Building a Custom Language Interpreter in C',
+    href: '#',
+    meta: 'Technical deep-dive · Coming soon'
   },
   {
-    title: 'Designing multiplayer editors that stay quiet',
-    href: 'https://mirror.xyz/muneeb/writing/multiplayer-editors',
-    meta: 'Essay · Drafting'
+    title: 'Real-time Collaboration in Web Applications',
+    href: '#',
+    meta: 'Case study · Planning'
   },
   {
-    title: 'Edge-first analytics for ambient teams',
-    href: 'https://mirror.xyz/muneeb/writing/ambient-teams',
-    meta: 'Field notes · Outline'
+    title: 'From Data to Sound: Particle Physics Sonification',
+    href: '#',
+    meta: 'Research notes · Draft'
   }
 ];
 
 const connectLinks = [
-  { label: 'Email', href: 'mailto:hello@muneeb.design' },
-  { label: 'GitHub', href: 'https://github.com/muneeb-hassan' },
-  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/muneeb-hassan/' },
-  { label: 'Dribbble', href: 'https://dribbble.com/muneebhassan' }
+  { label: 'Email', href: 'mailto:m57hassa@uwaterloo.ca' },
+  { label: 'GitHub', href: 'https://github.com/Koiiichi' },
+  { label: 'LinkedIn', href: 'https://linkedin.com/in/muneeb-hassan-mh' },
+  { label: 'Phone', href: 'tel:+14376693239' }
 ];
 
 export default function HomePage() {
@@ -40,32 +41,38 @@ export default function HomePage() {
             <p className="font-mono text-xs uppercase tracking-[0.3em] text-muted">Now</p>
             <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">What I’m orbiting</h2>
           </div>
-          <p className="text-base text-muted">
-            Building developer tools that feel like collaborators, evolving CoCode’s multiplayer rituals, and shaping
-            humane documentation for the MLOX VM. Between cycles, I’m sketching tactile analytics surfaces and learning
-            Urdu calligraphy again.
-          </p>
+          <div className="space-y-4">
+            <p className="text-base text-muted">
+              Developing firmware for the Midnight Sun Solar Car Team, extending the MLOX language interpreter, and 
+              building collaborative tools with CoCode. Currently pursuing Computational Mathematics at the University 
+              of Waterloo while exploring systems programming and compiler design.
+            </p>
+            <div>
+              <p className="font-mono text-xs uppercase tracking-[0.3em] text-muted mb-3">Latest commit</p>
+              <GitHubWidget />
+            </div>
+          </div>
         </div>
         <div className="grid gap-8 md:grid-cols-3">
           <div data-surface className="flex flex-col gap-3 p-6">
             <span className="font-mono text-xs uppercase tracking-[0.3em] text-muted">Focus</span>
-            <p className="text-lg font-semibold">Design engineering at the compiler layer</p>
+            <p className="text-lg font-semibold">Systems programming & firmware development</p>
             <p className="text-sm text-muted">
-              Extending Lox into a tactile language with tracing, interactive notebooks, and visual bytecode diffing.
+              Building modular button managers with FreeRTOS integration for the MSXVI solar vehicle, focusing on real-time reliability.
             </p>
           </div>
           <div data-surface className="flex flex-col gap-3 p-6">
             <span className="font-mono text-xs uppercase tracking-[0.3em] text-muted">Exploration</span>
-            <p className="text-lg font-semibold">Ambient metrics without dashboards</p>
+            <p className="text-lg font-semibold">Language design & compiler architecture</p>
             <p className="text-sm text-muted">
-              Experimenting with narrative-driven analytics that live inside the workflows instead of dashboards.
+              Extending the Lox interpreter with modern features, exploring virtual machine architecture and bytecode optimization.
             </p>
           </div>
           <div data-surface className="flex flex-col gap-3 p-6">
             <span className="font-mono text-xs uppercase tracking-[0.3em] text-muted">Learning</span>
-            <p className="text-lg font-semibold">Calligraphy, Urdu type, and motion systems</p>
+            <p className="text-lg font-semibold">Collaborative development tools</p>
             <p className="text-sm text-muted">
-              Studying stroke contrast to inform variable typography and responsive motion curves in product systems.
+              Building real-time collaborative editors with conflict resolution, studying distributed systems and user experience design.
             </p>
           </div>
         </div>
@@ -74,7 +81,7 @@ export default function HomePage() {
       <section id="writing" className="space-y-6">
         <header className="flex flex-col gap-2">
           <p className="font-mono text-xs uppercase tracking-[0.3em] text-muted">Writing</p>
-          <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">Signals in draft</h2>
+          <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">Blogs coming soon!</h2>
         </header>
         <div className="grid gap-4">
           {writingLinks.map((entry) => (
@@ -112,10 +119,10 @@ export default function HomePage() {
           </div>
           <div data-surface className="flex flex-col gap-3 p-6">
             <a
-              href="mailto:hello@muneeb.design"
+              href="mailto:m57hassa@uwaterloo.ca"
               className="text-lg font-semibold text-foreground transition hover:text-accent-1"
             >
-              hello@muneeb.design
+              m57hassa@uwaterloo.ca
             </a>
             <div className="flex flex-wrap gap-3 text-sm text-muted">
               {connectLinks.map((link) => (
