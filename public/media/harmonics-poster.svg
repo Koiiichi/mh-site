@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" style="background: linear-gradient(135deg, #ff6b6b 0%, #4ecdc4 100%)">
+  <defs>
+    <linearGradient id="harmonic-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff6b6b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#4ecdc4;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="400" height="300" fill="url(#harmonic-grad)"/>
+  
+  <!-- Sound wave visualization -->
+  <g opacity="0.8">
+    <!-- Sine wave representing sound -->
+    <path d="M 50 150 Q 75 100 100 150 T 150 150 T 200 150 T 250 150 T 300 150 T 350 150" 
+          stroke="#fff" stroke-width="3" fill="none"/>
+    
+    <!-- Secondary wave -->
+    <path d="M 50 180 Q 75 220 100 180 T 150 180 T 200 180 T 250 180 T 300 180 T 350 180" 
+          stroke="#fff" stroke-width="2" fill="none" opacity="0.6"/>
+    
+    <!-- Particle physics symbols -->
+    <g opacity="0.7">
+      <!-- Atoms/particles -->
+      <circle cx="100" cy="80" r="6" fill="none" stroke="#fff" stroke-width="2"/>
+      <circle cx="100" cy="80" r="2" fill="#fff"/>
+      
+      <circle cx="200" cy="60" r="6" fill="none" stroke="#fff" stroke-width="2"/>
+      <circle cx="200" cy="60" r="2" fill="#fff"/>
+      
+      <circle cx="300" cy="90" r="6" fill="none" stroke="#fff" stroke-width="2"/>
+      <circle cx="300" cy="90" r="2" fill="#fff"/>
+    </g>
+    
+    <!-- Musical notes -->
+    <g opacity="0.6">
+      <ellipse cx="120" cy="240" rx="6" ry="4" fill="#fff" transform="rotate(-20 120 240)"/>
+      <line x1="126" y1="236" x2="126" y2="210" stroke="#fff" stroke-width="2"/>
+      
+      <ellipse cx="280" cy="230" rx="6" ry="4" fill="#fff" transform="rotate(-20 280 230)"/>
+      <line x1="286" y1="226" x2="286" y2="200" stroke="#fff" stroke-width="2"/>
+    </g>
+  </g>
+  
+  <!-- Title -->
+  <text x="200" y="40" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="24" font-weight="bold">Harmonics</text>
+  <text x="200" y="60" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="14" opacity="0.9">Data Sonification</text>
+  
+  <!-- MIDI symbol -->
+  <g opacity="0.4">
+    <rect x="320" y="250" width="60" height="30" fill="none" stroke="#fff" stroke-width="2" rx="5"/>
+    <text x="350" y="270" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="10">MIDI</text>
+  </g>
+</svg>

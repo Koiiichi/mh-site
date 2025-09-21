@@ -4,6 +4,7 @@ import './globals.css';
 import { ThemeProvider } from './(components)/theme-provider';
 import { ThemeHotkey } from './(components)/theme-hotkey';
 import { HoldPreviewProvider } from './(components)/hold-preview/hold-preview';
+import { CursorHalo } from './(components)/cursor-halo';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans', display: 'swap' });
 const plex = IBM_Plex_Mono({ subsets: ['latin'], weight: ['300', '400', '500', '600'], variable: '--font-mono', display: 'swap' });
@@ -45,6 +46,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="bg-background text-foreground antialiased">
         <ThemeProvider>
           <ThemeHotkey />
+          <CursorHalo />
           <HoldPreviewProvider>
             <div className="mx-auto flex min-h-screen max-w-6xl flex-col px-6 pb-16 pt-10 sm:px-12">
               {children}
