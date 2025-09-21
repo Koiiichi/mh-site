@@ -6,11 +6,9 @@ import { useMemo } from 'react';
 function AnalogClock({ time }: { time: Date }) {
   const hours = time.getHours() % 12;
   const minutes = time.getMinutes();
-  const seconds = time.getSeconds();
   
   const hourAngle = (hours * 30) + (minutes * 0.5);
   const minuteAngle = minutes * 6;
-  const secondAngle = seconds * 6;
 
   return (
     <div className="relative w-8 h-8 rounded-full border border-muted/30">
@@ -39,7 +37,7 @@ function AnalogClock({ time }: { time: Date }) {
 }
 
 export function FooterClock() {
-  const { now, formatted } = useClock({ interval: 1000 });
+  const { now } = useClock({ interval: 1000 });
 
   const humanDate = useMemo(
     () =>

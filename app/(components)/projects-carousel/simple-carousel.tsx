@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowUpRight, X } from 'lucide-react';
 import projectsData from '@/data/projects.json';

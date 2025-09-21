@@ -18,17 +18,17 @@ export default function HomePage() {
       <section id="connect" className="space-y-8">
         <header className="flex flex-col gap-2">
           <p className="font-mono text-xs uppercase tracking-[0.3em] text-muted">Connect</p>
-          <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">Let's build resonance</h2>
+          <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">Let&apos;s build resonance</h2>
         </header>
         <div className="grid gap-6 md:grid-cols-[1.2fr_1fr] md:items-start">
           <div className="space-y-4 text-base text-muted">
             <p>
-              I'm open to collaborations on developer tooling, creative research, and systems work where design and
+              I&apos;m open to collaborations on developer tooling, creative research, and systems work where design and
               engineering blur. The sweet spot: small teams shipping purposeful craft with patience.
             </p>
             <p>
               Email is best. I read everything, even if it takes a moment to reply. Mentorship requests are welcome—tell
-              me what you're exploring.
+              me what you&apos;re exploring.
             </p>
           </div>
           <div data-surface className="flex flex-col gap-3 p-6">
