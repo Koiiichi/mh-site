@@ -41,7 +41,7 @@ export function Hero() {
           className="pointer-events-none absolute inset-x-0 top-0 h-[120%] -translate-y-1/4 bg-[radial-gradient(circle_at_top,_rgba(107,193,255,0.2),_transparent_70%)]"
           style={{ y: translateY }}
         />
-        <div className="relative flex flex-col gap-12">
+        <div className="relative flex flex-col gap-8">
           <motion.h1
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
@@ -62,15 +62,13 @@ export function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: prefersReducedMotion ? 0 : 0.3, duration: prefersReducedMotion ? 0 : 0.5, ease: 'easeOut' }}
-            className="flex justify-center pt-8"
+            className="flex justify-center pt-4"
           >
             <Link
               href="#projects"
               className="group inline-flex flex-col items-center gap-2 text-muted hover:text-accent-1 transition-colors"
               aria-label="Scroll to projects section"
-              data-no-cursor-outline
             >
-              <span className="text-sm font-medium">View Projects</span>
               <motion.div
                 animate={{
                   y: prefersReducedMotion ? 0 : [0, 8, 0],

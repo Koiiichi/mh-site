@@ -33,8 +33,10 @@ export function ProjectsCarousel() {
             {projects.map((project) => (
               <motion.div
                 key={project.slug}
-                className="group relative overflow-hidden rounded-[1.5rem] border border-subtle bg-surface/80 p-6 shadow-[0_8px_30px_rgb(0,0,0,0.12)] transition-all hover:shadow-[0_16px_40px_rgb(0,0,0,0.16)] cursor-pointer"
-                whileHover={{ y: -4 }}
+                className="group relative overflow-hidden rounded-[1.5rem] border border-subtle bg-surface/80 p-6 shadow-[0_8px_30px_rgb(0,0,0,0.12)] transition-all duration-300 hover:shadow-[0_16px_40px_rgb(0,0,0,0.16)] hover:border-accent-1/20 cursor-pointer"
+                whileHover={{ y: -4, scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ duration: 0.2, ease: "easeOut" }}
                 onClick={() => openModal(project.slug)}
               >
                 <div className="flex flex-col gap-4">

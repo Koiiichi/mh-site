@@ -35,11 +35,6 @@ body {
   min-height: 100vh;
   text-rendering: optimizeLegibility;
   scroll-behavior: smooth;
-  cursor: none;
-}
-
-* {
-  cursor: none !important;
 }
 
 body::before {

@@ -49,7 +49,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <ThemeHotkey />
           <CursorHalo />
           <HoldPreviewProvider>
-            <div className="mx-auto flex min-h-screen max-w-6xl flex-col px-6 pb-16 pt-10 sm:px-12">
+            <div className="mx-auto flex min-h-screen max-w-6xl flex-col px-6 pb-8 pt-10 sm:px-12">
               {children}
             </div>
           </HoldPreviewProvider>
