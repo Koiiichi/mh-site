@@ -2,7 +2,7 @@
   {
     "slug": "mlox",
     "title": "MLOX — Augmented Lox in C",
-    "summary": "A custom interpreted language in C, extending LOX with runtime enhancements and modern features like ternary operators, OOP primitives, native string methods, mathematical operations, and file I/O.",
+    "summary": "Custom interpreted language built in C with modern runtime features",
     "tags": ["C", "Compilers", "VM", "Make"],
     "links": {
       "repo": "https://github.com/Koiiichi/mlox"
@@ -15,7 +15,7 @@
   {
     "slug": "cocode",
     "title": "CoCode — Collaborative Code Editor",
-    "summary": "A web-based collaborative code editor with real-time syncing, multi-user concurrency, and Monaco-based editing using Firebase Realtime Database.",
+    "summary": "Real-time collaborative code editor with multi-user sync",
     "tags": ["TypeScript", "React", "Tailwind CSS", "Firebase", "Vercel"],
     "links": {
       "site": "https://co-c0de.vercel.app/",
@@ -29,7 +29,7 @@
   {
     "slug": "chabacrunch",
     "title": "ChabaCrunch — Restaurant Analytics",
-    "summary": "Led a 4-member team processing 1M+ TouchBistro transactions across Canada and the U.S. through unified pipelines, with Random Forest model achieving 85% accuracy for venue concept imputation.",
+    "summary": "Restaurant analytics pipeline processing 8M+ transactions",
     "tags": ["Python", "Pandas", "scikit-learn"],
     "links": {
       "repo": "https://github.com/Koiiichi/ChabaCrunch-CXC2025"
@@ -42,7 +42,7 @@
   {
     "slug": "harmonics",
     "title": "Project Harmonics — Data Sonification",
-    "summary": "A Python/Pandas tool to sonify particle physics datasets by mapping particle IDs, momentum, and angles into MIDI files, promoting accessible STEM education for differently abled students.",
+    "summary": "Data sonification tool transforming physics datasets into sound",
     "tags": ["Python", "Pandas", "MIDI", "Data Visualization"],
     "links": {
       "repo": "https://github.com/Koiiichi/project-harmonics"

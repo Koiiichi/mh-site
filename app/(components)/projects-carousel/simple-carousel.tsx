@@ -6,74 +6,7 @@ import Link from 'next/link';
 import { ArrowUpRight, X } from 'lucide-react';
 import projectsData from '@/data/projects.json';
 import { Project } from '@/lib/types';
-
-const projectDetails: Record<string, { overview: string; architecture: string[]; timeline: string; tools: string; links: { label: string; url: string }[] }> = {
-  cocode: {
-    overview: "CoCode is a collaborative, web-based code editor designed for real-time programming and team workflows. Inspired by the simplicity of Google Docs and the familiarity of desktop IDEs, it combines multi-user concurrency, conflict resolution, and project persistence with a VS Code–like interface powered by Monaco Editor. What started as a \"glorified Notepad++ online\" grew into a fully featured development platform for teams.",
-    architecture: [
-      "Frontend: TypeScript, React, Tailwind CSS for scalable UI/UX",
-      "Editor Core: Monaco Editor integration providing syntax highlighting, auto-detection of languages, and a VS Code–like editing experience",
-      "Backend & Persistence: Firebase Realtime Database for live synchronization and Firestore/Storage for structured persistence",
-      "Authentication: Firebase Authentication supporting Google, GitHub, and email login",
-      "Collaboration Features: Live cursors, session presence tracking, tabbed file navigation, and cross-user project sync",
-      "Deployment: Vercel-hosted with GitHub workflows for CI/CD"
-    ],
-    timeline: "October 2024 – June 2025",
-    tools: "TypeScript · React · Tailwind CSS · Firebase (Realtime DB, Firestore, Storage, Authentication) · Monaco Editor · Bash · GitHub Workflows · Vercel",
-    links: [
-      { label: "Visit Website →", url: "https://co-c0de.vercel.app/" },
-      { label: "View Source →", url: "https://github.com/Koiiichi/CoCode" }
-    ]
-  },
-  mlox: {
-    overview: "MLOX is a custom interpreted programming language built in C, extending the Lox language from Crafting Interpreters with modern runtime features. Designed as both a learning project and a language playground, MLOX introduces ternary operators, object-oriented primitives, native string methods, mathematical operations, and file I/O.",
-    architecture: [
-      "Core Interpreter: Written in C with a focus on performance and clarity",
-      "Parsing: Recursive descent parser extended to handle ternary operators and new language constructs",
-      "Bytecode VM: Stack-based virtual machine handling execution with dispatch loops and dynamic memory management",
-      "Object-Oriented Primitives: Extended value system to support class-like structures, methods, and property access",
-      "Native Methods: Implemented standard library features for string manipulation, file I/O, and math operations",
-      "Documentation: Doxygen-style wiki generated directly from annotated C source"
-    ],
-    timeline: "June 2025 – August 2025",
-    tools: "C · Make · Doxygen · Vim · GCC/Clang",
-    links: [
-      { label: "View Source →", url: "https://github.com/Koiiichi/mlox" },
-      { label: "Documentation →", url: "https://github.com/Koiiichi/mlox" }
-    ]
-  },
-  harmonics: {
-    overview: "Project Harmonics is a data sonification tool that transforms particle physics datasets into sound, creating auditory representations of scientific phenomena. Originally developed in 2023 as a scientific outreach initiative, it maps collision data to musical parameters such as pitch, velocity, and timing using MIDI-based outputs.",
-    architecture: [
-      "Data Processing: Python + Pandas to clean and structure physics datasets",
-      "Mapping Engine: Converts attributes (particle type, momentum, angle) into musical values (pitch, velocity, timing)",
-      "MIDI Generation: Outputs portable MIDI files for use in DAWs (Digital Audio Workstations)",
-      "Pipeline: sonify_dataset.py transforms raw CSV physics data into playable .mid files"
-    ],
-    timeline: "March 2023 – Present (Ongoing Expansion)",
-    tools: "Python · Pandas · MIDI Libraries · Digital Audio Workstation (DAW)",
-    links: [
-      { label: "View Source →", url: "https://github.com/Koiiichi/project-harmonics/tree/main" },
-      { label: "Listen Demo →", url: "https://projectharmonics.wixsite.com/about/method" }
-    ]
-  },
-  chabacrunch: {
-    overview: "ChabaCrunch is a data science project built during the TouchBistro x UW Hackathon (Feb 2025) that analyzed over 8 million restaurant transactions across Canada and the U.S. The system unified messy bill- and venue-level datasets into an analysis-ready pipeline, enabling insights into tipping culture across cities, venue concepts, and order types.",
-    architecture: [
-      "Data Integration: Merged bills.csv and venues.csv on venue_xref_id to build a unified dataset",
-      "Data Cleaning: Tagged transactions as refunds vs. sales, removed invalid rows, applied concept-based outlier capping",
-      "Feature Engineering: Derived tip percentage per transaction, aggregated venue-level features",
-      "Modeling: Used tuned Random Forest to impute missing venue concepts (22% missing) with ~85% accuracy",
-      "Exploratory Data Analysis: Visualized average tip percentages and amounts by city"
-    ],
-    timeline: "February 2025",
-    tools: "Python · Pandas · scikit-learn · NumPy · Matplotlib · Seaborn · Google Colab",
-    links: [
-      { label: "Devpost →", url: "https://devpost.com/software/chabacrunch" },
-      { label: "View Source →", url: "https://github.com/Koiiichi/ChabaCrunch-CXC2025" }
-    ]
-  }
-};
+import { projectDetails } from './project-details';
 
 export function ProjectsCarousel() {
   const [selectedProject, setSelectedProject] = useState<string | null>(null);
@@ -155,7 +88,7 @@ export function ProjectsCarousel() {
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="relative w-full max-w-4xl max-h-[80vh] overflow-y-auto bg-surface border border-subtle rounded-[2rem] p-8 shadow-[0_32px_64px_rgb(0,0,0,0.2)]"
+              className="relative w-full max-w-5xl max-h-[85vh] overflow-y-auto bg-surface/95 backdrop-blur-xl border border-subtle rounded-[2rem] p-8 shadow-[0_32px_64px_rgb(0,0,0,0.2)]"
               onClick={(e) => e.stopPropagation()}
             >
               <button
@@ -167,26 +100,57 @@ export function ProjectsCarousel() {
 
               {(() => {
                 const project = projects.find(p => p.slug === selectedProject);
-                const details = projectDetails[selectedProject];
+                const details = projectDetails[selectedProject as keyof typeof projectDetails];
                 if (!project || !details) return null;
 
                 return (
                   <div className="space-y-8">
+                    {/* Header */}
                     <header className="space-y-4">
                       <h1 className="text-3xl font-semibold tracking-tight">{project.title}</h1>
                       <p className="text-lg text-muted max-w-3xl">{details.overview}</p>
                     </header>
 
-                    <div className="space-y-6">
+                    <div className="space-y-8">
+                      {/* Background */}
+                      <div>
+                        <h3 className="text-xl font-semibold mb-3">Background</h3>
+                        <p className="text-muted">{details.background}</p>
+                      </div>
+
+                      {/* Architecture */}
                       <div>
                         <h3 className="text-xl font-semibold mb-3">Architecture</h3>
                         <ul className="space-y-2">
-                          {details.architecture.map((item, index) => (
-                            <li key={index} className="text-muted">• {item}</li>
+                          {details.architecture.map((item: string, index: number) => (
+                            <li key={index} className="text-muted flex">
+                              <span className="mr-2">•</span>
+                              <span>{item}</span>
+                            </li>
                           ))}
                         </ul>
                       </div>
 
+                      {/* Challenges */}
+                      <div>
+                        <h3 className="text-xl font-semibold mb-3">Challenges</h3>
+                        <ul className="space-y-2">
+                          {details.challenges.map((item: string, index: number) => (
+                            <li key={index} className="text-muted flex">
+                              <span className="mr-2">•</span>
+                              <span>{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      {/* Results */}
+                      <div>
+                        <h3 className="text-xl font-semibold mb-3">Results</h3>
+                        <p className="text-muted">{details.results}</p>
+                      </div>
+
+                      {/* Timeline & Tools */}
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                           <h3 className="text-xl font-semibold mb-3">Timeline</h3>
@@ -195,14 +159,24 @@ export function ProjectsCarousel() {
                         
                         <div>
                           <h3 className="text-xl font-semibold mb-3">Tools</h3>
-                          <p className="text-muted">{details.tools}</p>
+                          <div className="flex flex-wrap gap-2">
+                            {details.tools.map((tool: string, index: number) => (
+                              <span
+                                key={index}
+                                className="rounded-full bg-surface-muted px-3 py-1 text-sm text-muted"
+                              >
+                                {tool}
+                              </span>
+                            ))}
+                          </div>
                         </div>
                       </div>
 
+                      {/* Links */}
                       <div>
                         <h3 className="text-xl font-semibold mb-3">Links</h3>
                         <div className="flex flex-wrap gap-3">
-                          {details.links.map((link, index) => (
+                          {details.links.map((link: { label: string; url: string }, index: number) => (
                             <Link
                               key={index}
                               href={link.url}
