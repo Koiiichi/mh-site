@@ -33,7 +33,7 @@ const workExperience = [
 
 export default function HomePage() {
   return (
-    <main className="flex flex-1 flex-col gap-24">
+    <main className="flex flex-1 flex-col gap-16">
       <Hero />
       <ProjectsCarousel />
       

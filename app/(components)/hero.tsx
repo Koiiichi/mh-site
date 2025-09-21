@@ -14,7 +14,7 @@ export function Hero() {
   const translateY = useTransform(scrollYProgress, [0, 1], prefersReducedMotion ? [0, 0] : [0, -60]);
 
   return (
-    <section ref={containerRef} className="relative mb-24 flex flex-col gap-16">
+    <section ref={containerRef} className="relative mb-8 flex flex-col gap-16">
       <header className="flex items-center justify-between gap-6">
         <div className="flex items-center gap-8">
           <span className="text-lg font-medium text-foreground">Muneeb Hassan</span>
@@ -48,7 +48,7 @@ export function Hero() {
             transition={{ duration: prefersReducedMotion ? 0 : 0.7, ease: 'easeOut' }}
             className="max-w-3xl text-balance text-3xl font-semibold leading-[1.1] tracking-tight text-foreground sm:text-4xl md:text-5xl"
           >
-            <em className="font-newsreader italic">Software Engineer</em>
+            I am a <em className="font-newsreader italic">Software Engineer</em> with experience building across web, backend, ML, and embedded systems.
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 24 }}
@@ -56,7 +56,7 @@ export function Hero() {
             transition={{ delay: prefersReducedMotion ? 0 : 0.15, duration: prefersReducedMotion ? 0 : 0.6, ease: 'easeOut' }}
             className="max-w-3xl text-base text-muted sm:text-lg"
           >
-            I am a Software Engineer with experience building across web, backend, ML, and embedded systems. I&apos;ve worked on projects spanning scalable platforms, data pipelines, and real-time firmware — while also exploring new areas like frontend engineering and AI-driven agents. Currently a Computational Math & CS student at the University of Waterloo and a Firmware Developer with the Midnight Sun Solar Car Team.
+            I&apos;ve worked on projects spanning scalable platforms, data pipelines, and real-time firmware — while also exploring new areas like frontend engineering and AI-driven agents. Currently a Computational Math & CS student at the University of Waterloo and a Firmware Developer with the Midnight Sun Solar Car Team.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 16 }}
@@ -68,6 +68,7 @@ export function Hero() {
               href="#projects"
               className="group inline-flex flex-col items-center gap-2 text-muted hover:text-accent-1 transition-colors"
               aria-label="Scroll to projects section"
+              data-no-cursor-outline
             >
               <span className="text-sm font-medium">View Projects</span>
               <motion.div
