@@ -9,7 +9,7 @@ export function CursorHalo() {
   const [isHovering, setIsHovering] = useState(false);
   const [buttonDimensions, setButtonDimensions] = useState({ width: 0, height: 0, x: 0, y: 0 });
   const { theme } = useTheme();
-  const rafId = useRef<number | undefined>();
+  const rafId = useRef<number | undefined>(undefined);
 
   useEffect(() => {
     const updateMousePosition = (e: MouseEvent) => {
