@@ -93,6 +93,36 @@ const { sectionRef, activeIndex, setActiveIndex, goTo, isManualScroll } = useCar
 - Next.js font optimization with `display: 'swap'` for performance
 - CSS variables set in root layout for consistent font access
 
+## Project Backgrounds
+
+### CoCode
+CoCode is a collaborative, web-based code editor designed for real-time programming and team workflows. Inspired by the simplicity of Google Docs and the familiarity of desktop IDEs, it combines multi-user concurrency, conflict resolution, and project persistence with a VS Code–like interface powered by Monaco Editor. What started as a "glorified Notepad++ online" grew into a fully featured development platform for teams.
+
+**Background**: The idea began with the frustration of juggling local editors and external collaboration tools for quick coding sessions. The vision was to create a browser-based environment that felt as effortless as sharing a Google Doc — open a link, start coding, and see changes sync live. As the project grew, the focus shifted from a lightweight text editor into a scalable IDE-like system with persistent projects, structured file management, secure authentication, and real-time collaboration.
+
+**Architecture**: TypeScript/React frontend with Tailwind CSS, Monaco Editor integration, Firebase Realtime Database for live sync, Firestore/Storage for persistence, Firebase Authentication, and Vercel deployment with GitHub workflows.
+
+### MLOX
+MLOX is a custom interpreted programming language built in C, extending the Lox language from *Crafting Interpreters* with modern runtime features. Designed as both a learning project and a language playground, MLOX introduces ternary operators, object-oriented primitives, native string methods, mathematical operations, and file I/O.
+
+**Background**: The motivation came from studying *Crafting Interpreters* by Bob Nystrom and wanting to go beyond simply replicating Lox. The curiosity was in exploring "what if this language felt more practical and closer to what developers expect today?" This led to experimenting with runtime enhancements and understanding parser design, bytecode execution, and virtual machine architecture.
+
+**Architecture**: Core interpreter written in C, recursive descent parser extended for ternary operators, stack-based virtual machine, extended value system for OOP primitives, native methods for string/file I/O operations, and Doxygen-generated documentation.
+
+### Harmonics
+Project Harmonics is a data sonification tool that transforms particle physics datasets into sound, creating auditory representations of scientific phenomena. Originally developed in 2023 as a scientific outreach initiative, it maps collision data to musical parameters such as pitch, velocity, and timing using MIDI-based outputs.
+
+**Background**: The project began with the goal of making particle physics more accessible, particularly to audiences who benefit from non-visual learning. By mapping data attributes such as particle IDs, momentum, and scattering angles into musical parameters, Harmonics introduced a new medium for engagement. Used in outreach sessions with the Rising Sun Foundation, teaching electron–proton scattering to 30+ differently abled students.
+
+**Architecture**: Python + Pandas for data processing, mapping engine converting physics attributes to musical values, MIDI generation for DAW compatibility, with planned real-time interaction and advanced data processing features.
+
+### ChabaCrunch
+ChabaCrunch is a data science project built during the TouchBistro x UW Hackathon (Feb 2025) that analyzed over 8 million restaurant transactions across Canada and the U.S. The system unified messy bill- and venue-level datasets into an analysis-ready pipeline, enabling insights into tipping culture across cities, venue concepts, and order types.
+
+**Background**: Inspired by shared interest in machine learning and data visualization, the team saw an opportunity to answer fundamental questions about tipping behaviors: Do Canadians and Americans tip differently? How do venue concepts affect tipping? What role does order type play? The messy, large-scale data provided the perfect challenge to explore these ideas while developing expertise in pipeline design and ML-driven imputation.
+
+**Architecture**: Data integration merging bills.csv and venues.csv, comprehensive data cleaning and feature engineering, tuned Random Forest for imputing missing venue concepts (~85% accuracy), exploratory data analysis with visualizations, built iteratively in Google Colab for reproducibility and collaboration.
+
 ## Common Patterns to Follow
 
 1. **Always** use TypeScript with strict typing from `lib/types.ts`

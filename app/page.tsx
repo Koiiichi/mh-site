@@ -18,7 +18,7 @@ export default function HomePage() {
       <section id="connect" className="space-y-8">
         <header className="flex flex-col gap-2">
           <p className="font-mono text-xs uppercase tracking-[0.3em] text-muted">Connect</p>
-          <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">Let&apos;s build resonance</h2>
+          <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">Let&apos;s build resonance</h2>
         </header>
         <div className="grid gap-6 md:grid-cols-[1.2fr_1fr] md:items-start">
           <div className="space-y-4 text-base text-muted">

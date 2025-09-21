@@ -39,7 +39,7 @@ export function ProjectsCarousel() {
           <header className="flex items-center justify-between gap-6 px-2">
             <div>
               <p className="font-mono text-xs uppercase tracking-[0.3em] text-muted">Selected work</p>
-              <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">Scroll through the timeline</h2>
+              <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">Scroll through the timeline</h2>
             </div>
             <div className="flex items-center gap-3">
               {projects.map((project, index) => (

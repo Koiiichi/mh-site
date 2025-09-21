@@ -65,7 +65,7 @@ export function Slide({ project, isActive }: SlideProps) {
               )}
             </div>
           )}
-          <h3 className="text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">{project.title}</h3>
+          <h3 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">{project.title}</h3>
           <p className="max-w-xl text-lg text-muted">{project.summary}</p>
           <div className="flex flex-wrap gap-2 text-xs text-muted">
             {project.tags.map((tag) => (

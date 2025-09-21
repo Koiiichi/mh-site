@@ -42,7 +42,7 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
         ← Back to overview
       </Link>
       <header className="space-y-6">
-        <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">{project.title}</h1>
+        <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">{project.title}</h1>
         <p className="text-lg text-muted">{project.summary}</p>
         <div className="flex flex-wrap gap-2 text-xs text-muted">
           {project.tags.map((tag) => (

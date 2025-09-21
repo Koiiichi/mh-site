@@ -23,7 +23,8 @@ const config: Config = {
       },
       fontFamily: {
         sans: ['var(--font-sans)', 'Inter', 'system-ui', 'sans-serif'],
-        mono: ['var(--font-mono)', 'IBM Plex Mono', 'monospace']
+        mono: ['var(--font-mono)', 'IBM Plex Mono', 'monospace'],
+        newsreader: ['var(--font-newsreader)', 'Newsreader', 'serif']
       },
       boxShadow: {
         floating: '0 20px 45px rgba(0,0,0,0.28)',

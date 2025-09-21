@@ -93,7 +93,7 @@ export function ProjectsCarousel() {
         <div className="space-y-8">
           <header className="text-center">
             <p className="font-mono text-xs uppercase tracking-[0.3em] text-muted">Selected work</p>
-            <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">Projects</h2>
+            <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">Projects</h2>
           </header>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -173,7 +173,7 @@ export function ProjectsCarousel() {
                 return (
                   <div className="space-y-8">
                     <header className="space-y-4">
-                      <h1 className="text-4xl font-semibold tracking-tight">{project.title}</h1>
+                      <h1 className="text-3xl font-semibold tracking-tight">{project.title}</h1>
                       <p className="text-lg text-muted max-w-3xl">{details.overview}</p>
                     </header>
 

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { IBM_Plex_Mono, Inter } from 'next/font/google';
+import { IBM_Plex_Mono, Inter, Newsreader } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from './(components)/theme-provider';
 import { ThemeHotkey } from './(components)/theme-hotkey';
@@ -8,16 +8,17 @@ import { CursorHalo } from './(components)/cursor-halo';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans', display: 'swap' });
 const plex = IBM_Plex_Mono({ subsets: ['latin'], weight: ['300', '400', '500', '600'], variable: '--font-mono', display: 'swap' });
+const newsreader = Newsreader({ subsets: ['latin'], weight: ['400'], style: ['italic'], variable: '--font-newsreader', display: 'swap' });
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://muneeb.design'),
   title: {
-    default: 'Muneeb Hassan — Design Engineer',
+    default: 'Muneeb Hassan',
     template: '%s · Muneeb Hassan'
   },
   description: 'Design engineer crafting tactile software, systems, and developer tooling.',
   openGraph: {
-    title: 'Muneeb Hassan — Design Engineer',
+    title: 'Muneeb Hassan',
     description: 'Design engineer crafting tactile software, systems, and developer tooling.',
     type: 'website',
     url: 'https://muneeb.design',
@@ -32,7 +33,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Muneeb Hassan — Design Engineer',
+    title: 'Muneeb Hassan',
     description: 'Design engineer crafting tactile software, systems, and developer tooling.'
   },
   alternates: {
@@ -42,7 +43,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${inter.variable} ${plex.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${inter.variable} ${plex.variable} ${newsreader.variable}`} suppressHydrationWarning>
       <body className="bg-background text-foreground antialiased">
         <ThemeProvider>
           <ThemeHotkey />

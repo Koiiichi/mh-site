@@ -29,7 +29,7 @@ export function BuildingList() {
       <header className="flex flex-wrap items-center justify-between gap-4">
         <div>
           <p className="font-mono text-xs uppercase tracking-[0.3em] text-muted">Building now</p>
-          <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">Concurrent threads</h2>
+          <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">Concurrent threads</h2>
         </div>
         <div className="flex flex-wrap gap-2">
           {filters.map((option) => (
