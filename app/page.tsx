@@ -1,7 +1,10 @@
+'use client';
+
+import { useEffect } from 'react';
+import { Mail, Linkedin, Twitter, Github, ExternalLink } from 'lucide-react';
 import { Hero } from './(components)/hero';
 import { ProjectsCarousel } from './(components)/projects-carousel/simple-carousel';
 import { FooterClock } from './(components)/footer-clock';
-import { Mail, Github, Linkedin, Twitter, ExternalLink } from 'lucide-react';
 
 const connectLinks = [
   { label: 'EMAIL', href: 'mailto:m57hassa@uwaterloo.ca', icon: Mail },
@@ -32,6 +35,14 @@ const workExperience = [
 ];
 
 export default function HomePage() {
+  useEffect(() => {
+    // Ensure page loads at the top, not at any hash anchor
+    if (window.location.hash && !window.location.search) {
+      window.history.replaceState(null, '', window.location.pathname);
+      window.scrollTo(0, 0);
+    }
+  }, []);
+
   return (
     <main className="flex flex-1 flex-col gap-12">
       <Hero />
