@@ -74,11 +74,11 @@ export default function HomePage() {
           <p className="font-mono text-xs uppercase tracking-[0.3em] text-muted">Connect</p>
           <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">Get in Touch</h2>
         </header>
-        <div className="flex flex-col items-center gap-6">
-          <p className="text-base text-muted text-center">
+        <div className="space-y-6">
+          <p className="text-base text-muted max-w-2xl">
             Reach out on LinkedIn or by email — can&apos;t wait to meet you!
           </p>
-          <div className="flex flex-wrap justify-center gap-3">
+          <div className="flex flex-wrap gap-3">
             {connectLinks.map((link) => {
               const IconComponent = link.icon;
               return (

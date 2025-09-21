@@ -45,7 +45,7 @@ export function CursorHalo() {
     <>
       {/* Halo effect that follows cursor site-wide */}
       <div
-        className="pointer-events-none fixed z-40 transition-all duration-150 ease-out"
+        className="pointer-events-none fixed z-40"
         style={{
           left: mousePosition.x,
           top: mousePosition.y,
@@ -58,6 +58,7 @@ export function CursorHalo() {
           borderRadius: '50%',
           opacity: isHovering ? 0.9 : 0.7,
           mixBlendMode: isDark ? 'screen' : 'multiply',
+          transition: isHovering ? 'width 0.15s ease-out, height 0.15s ease-out, opacity 0.15s ease-out' : 'width 0.15s ease-out, height 0.15s ease-out, opacity 0.15s ease-out',
         }}
       />
     </>

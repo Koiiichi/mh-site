@@ -74,11 +74,18 @@ export function ProjectsCarousel() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
             className="fixed inset-0 z-50 flex items-center justify-center p-4"
             onClick={closeModal}
           >
             {/* Translucent background */}
-            <div className="absolute inset-0 bg-background/80 backdrop-blur-sm" />
+            <motion.div 
+              initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
+              animate={{ opacity: 1, backdropFilter: "blur(8px)" }}
+              exit={{ opacity: 0, backdropFilter: "blur(0px)" }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+              className="absolute inset-0 bg-background/80" 
+            />
             
             {/* Modal content */}
             <motion.div
