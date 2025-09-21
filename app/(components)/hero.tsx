@@ -20,6 +20,12 @@ export function Hero() {
           <span className="text-lg font-medium text-foreground">Muneeb Hassan</span>
           <nav className="hidden sm:flex items-center gap-6">
             <Link 
+              href="#work" 
+              className="text-sm font-medium text-muted hover:text-foreground transition-colors"
+            >
+              Work
+            </Link>
+            <Link 
               href="#projects" 
               className="text-sm font-medium text-muted hover:text-foreground transition-colors"
             >
@@ -65,9 +71,9 @@ export function Hero() {
             className="flex justify-center pt-4"
           >
             <Link
-              href="#projects"
+              href="#work"
               className="group inline-flex flex-col items-center gap-2 text-muted hover:text-accent-1 transition-colors"
-              aria-label="Scroll to projects section"
+              aria-label="Scroll to work section"
             >
               <motion.div
                 animate={{

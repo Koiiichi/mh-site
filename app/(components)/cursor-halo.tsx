@@ -46,25 +46,23 @@ export function CursorHalo() {
 
   return (
     <>
-      {/* Halo effect on hover */}
-      {isHovering && (
-        <div
-          className="pointer-events-none fixed z-40 transition-all duration-300 ease-out"
-          style={{
-            left: mousePosition.x,
-            top: mousePosition.y,
-            width: 80,
-            height: 80,
-            transform: 'translate(-50%, -50%)',
-            background: isDark 
-              ? 'radial-gradient(circle, rgba(107, 193, 255, 0.15) 0%, rgba(107, 193, 255, 0.08) 40%, transparent 70%)'
-              : 'radial-gradient(circle, rgba(15, 18, 22, 0.1) 0%, rgba(15, 18, 22, 0.05) 40%, transparent 70%)',
-            borderRadius: '50%',
-            opacity: 0.8,
-            mixBlendMode: isDark ? 'screen' : 'multiply',
-          }}
-        />
-      )}
+      {/* Subtle halo effect that follows cursor site-wide */}
+      <div
+        className="pointer-events-none fixed z-40 transition-all duration-200 ease-out"
+        style={{
+          left: mousePosition.x,
+          top: mousePosition.y,
+          width: isHovering ? 60 : 40,
+          height: isHovering ? 60 : 40,
+          transform: 'translate(-50%, -50%)',
+          background: isDark 
+            ? `radial-gradient(circle, rgba(107, 193, 255, ${isHovering ? '0.08' : '0.04'}) 0%, rgba(107, 193, 255, ${isHovering ? '0.04' : '0.02'}) 40%, transparent 70%)`
+            : `radial-gradient(circle, rgba(15, 18, 22, ${isHovering ? '0.06' : '0.03'}) 0%, rgba(15, 18, 22, ${isHovering ? '0.03' : '0.015'}) 40%, transparent 70%)`,
+          borderRadius: '50%',
+          opacity: isHovering ? 0.7 : 0.5,
+          mixBlendMode: isDark ? 'screen' : 'multiply',
+        }}
+      />
     </>
   );
 }

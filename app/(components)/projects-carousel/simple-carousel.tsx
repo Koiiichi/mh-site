@@ -51,7 +51,7 @@ export function ProjectsCarousel() {
                   </div>
                   
                   <div className="flex flex-wrap gap-2">
-                    {project.tags.slice(0, 3).map((tag) => (
+                    {project.tags.slice(0, 4).map((tag) => (
                       <span
                         key={tag}
                         className="rounded-full bg-surface-muted px-3 py-1 font-mono text-[11px] uppercase tracking-[0.2em] text-muted"
@@ -59,9 +59,9 @@ export function ProjectsCarousel() {
                         {tag}
                       </span>
                     ))}
-                    {project.tags.length > 3 && (
+                    {project.tags.length > 4 && (
                       <span className="rounded-full bg-surface-muted px-3 py-1 font-mono text-[11px] uppercase tracking-[0.2em] text-muted">
-                        +{project.tags.length - 3}
+                        +{project.tags.length - 4}
                       </span>
                     )}
                   </div>

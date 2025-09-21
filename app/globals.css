@@ -27,6 +27,10 @@
   --acc2: #8affe0;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: var(--font-sans);
   background: radial-gradient(circle at 15% 10%, rgba(121, 214, 195, 0.08), transparent 45%),
@@ -50,9 +54,14 @@ body::before {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  body {
+  html, body {
     scroll-behavior: auto;
   }
+}
+
+/* Enhanced smooth scrolling */
+* {
+  scroll-behavior: smooth;
 }
 
 a {
