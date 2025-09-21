@@ -29,7 +29,7 @@ export function ProjectsCarousel() {
             <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">Projects</h2>
           </header>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {projects.map((project) => (
               <motion.div
                 key={project.slug}
@@ -51,19 +51,14 @@ export function ProjectsCarousel() {
                   </div>
                   
                   <div className="flex flex-wrap gap-2">
-                    {project.tags.slice(0, 4).map((tag) => (
+                    {project.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="rounded-full bg-surface-muted px-3 py-1 font-mono text-[11px] uppercase tracking-[0.2em] text-muted"
+                        className="rounded-full bg-surface-muted px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.15em] text-muted"
                       >
                         {tag}
                       </span>
                     ))}
-                    {project.tags.length > 4 && (
-                      <span className="rounded-full bg-surface-muted px-3 py-1 font-mono text-[11px] uppercase tracking-[0.2em] text-muted">
-                        +{project.tags.length - 4}
-                      </span>
-                    )}
                   </div>
                 </div>
               </motion.div>
@@ -87,9 +82,15 @@ export function ProjectsCarousel() {
             
             {/* Modal content */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              initial={{ opacity: 0, scale: 0.9, y: 40 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              exit={{ opacity: 0, scale: 0.9, y: 40 }}
+              transition={{ 
+                type: "spring", 
+                damping: 25, 
+                stiffness: 300,
+                duration: 0.3
+              }}
               className="relative w-full max-w-5xl max-h-[85vh] overflow-y-auto bg-surface/95 backdrop-blur-xl border border-subtle rounded-[2rem] p-8 shadow-[0_32px_64px_rgb(0,0,0,0.2)]"
               onClick={(e) => e.stopPropagation()}
             >

@@ -12,17 +12,14 @@ export function CursorHalo() {
 
   useEffect(() => {
     const updateMousePosition = (e: MouseEvent) => {
-      if (rafId.current) cancelAnimationFrame(rafId.current);
-      
-      rafId.current = requestAnimationFrame(() => {
-        setMousePosition({ x: e.clientX, y: e.clientY });
-        if (!isVisible) setIsVisible(true);
+      // Update position immediately without RAF for better responsiveness
+      setMousePosition({ x: e.clientX, y: e.clientY });
+      if (!isVisible) setIsVisible(true);
 
-        // Check if hovering over interactive elements
-        const target = e.target as HTMLElement;
-        const interactiveElement = target?.closest('a, button, [role="button"], input, textarea, select');
-        setIsHovering(!!interactiveElement);
-      });
+      // Check if hovering over interactive elements
+      const target = e.target as HTMLElement;
+      const interactiveElement = target?.closest('a, button, [role="button"], input, textarea, select');
+      setIsHovering(!!interactiveElement);
     };
 
     const handleMouseLeave = () => {
@@ -46,20 +43,20 @@ export function CursorHalo() {
 
   return (
     <>
-      {/* Subtle halo effect that follows cursor site-wide */}
+      {/* Halo effect that follows cursor site-wide */}
       <div
-        className="pointer-events-none fixed z-40 transition-all duration-200 ease-out"
+        className="pointer-events-none fixed z-40 transition-all duration-150 ease-out"
         style={{
           left: mousePosition.x,
           top: mousePosition.y,
-          width: isHovering ? 60 : 40,
-          height: isHovering ? 60 : 40,
+          width: isHovering ? 80 : 50,
+          height: isHovering ? 80 : 50,
           transform: 'translate(-50%, -50%)',
           background: isDark 
-            ? `radial-gradient(circle, rgba(107, 193, 255, ${isHovering ? '0.08' : '0.04'}) 0%, rgba(107, 193, 255, ${isHovering ? '0.04' : '0.02'}) 40%, transparent 70%)`
-            : `radial-gradient(circle, rgba(15, 18, 22, ${isHovering ? '0.06' : '0.03'}) 0%, rgba(15, 18, 22, ${isHovering ? '0.03' : '0.015'}) 40%, transparent 70%)`,
+            ? `radial-gradient(circle, rgba(107, 193, 255, ${isHovering ? '0.15' : '0.08'}) 0%, rgba(107, 193, 255, ${isHovering ? '0.08' : '0.04'}) 40%, transparent 70%)`
+            : `radial-gradient(circle, rgba(15, 18, 22, ${isHovering ? '0.12' : '0.06'}) 0%, rgba(15, 18, 22, ${isHovering ? '0.06' : '0.03'}) 40%, transparent 70%)`,
           borderRadius: '50%',
-          opacity: isHovering ? 0.7 : 0.5,
+          opacity: isHovering ? 0.9 : 0.7,
           mixBlendMode: isDark ? 'screen' : 'multiply',
         }}
       />

@@ -62,7 +62,10 @@ export function FooterClock() {
     <footer className="mt-24 flex flex-wrap items-center justify-between gap-4 rounded-3xl border border-subtle bg-surface/70 px-6 py-5 text-sm text-muted">
       <div className="flex items-center gap-3">
         <AnalogClock time={now} />
-        <span className="font-mono text-xs">Last updated {lastUpdated}</span>
+        <div className="flex items-center gap-2">
+          <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse shadow-[0_0_6px_rgba(34,197,94,0.6)]" />
+          <span className="font-mono text-xs">Last updated {lastUpdated}</span>
+        </div>
       </div>
       <div className="flex items-center gap-3">
         <span>{humanDate}</span>
