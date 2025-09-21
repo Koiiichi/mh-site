@@ -1,6 +1,6 @@
 # Muneeb Hassan — Portfolio
 
-My portfolio site built with Next.js 14 (App Router), Tailwind CSS, Framer Motion, and `next-themes` :)
+My portfolio site built with Next.js 14 (App Router), Tailwind CSS, Framer Motion, and `next-themes` :))
 
 ## Tech stack
 
