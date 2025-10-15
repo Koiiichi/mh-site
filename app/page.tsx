@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { Mail, Linkedin, Twitter, Github, ExternalLink } from 'lucide-react';
+import { Mail, Linkedin, Github, ExternalLink } from 'lucide-react';
 import { Hero } from './(components)/hero';
 import { ProjectsCarousel } from './(components)/projects-carousel/simple-carousel';
 import { FooterClock } from './(components)/footer-clock';
@@ -9,7 +9,6 @@ import { FooterClock } from './(components)/footer-clock';
 const connectLinks = [
   { label: 'EMAIL', href: 'mailto:m57hassa@uwaterloo.ca', icon: Mail },
   { label: 'LINKEDIN', href: 'https://linkedin.com/in/muneeb-hassan-mh', icon: Linkedin },
-  { label: 'X', href: 'https://x.com/', icon: Twitter },
   { label: 'GITHUB', href: 'https://github.com/Koiiichi', icon: Github }
 ];
 
