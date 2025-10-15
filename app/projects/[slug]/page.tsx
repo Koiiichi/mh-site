@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { Github, Globe, FileText, ExternalLink, Play, Award, Code2, Database, Palette, Cpu, Zap, Cloud, Blocks } from 'lucide-react';
+import { Github, Globe, FileText, ExternalLink, Play, Award } from 'lucide-react';
 import projectsData from '@/data/projects.json';
 import { Project } from '@/lib/types';
 
@@ -30,46 +30,37 @@ function getLinkIcon(label: string) {
   return ExternalLink;
 }
 
-// Map technology names to appropriate icons
-function getTechIcon(tech: string) {
+// Map technology names to SVG icon paths
+function getTechIconPath(tech: string): string {
   const lowerTech = tech.toLowerCase();
   
-  // Languages
-  if (lowerTech.includes('typescript') || lowerTech.includes('javascript') || lowerTech.includes('python') || lowerTech.includes('c')) {
-    return Code2;
-  }
+  // Exact matches first
+  if (lowerTech === 'react') return '/tech-icons/react.svg';
+  if (lowerTech === 'python') return '/tech-icons/python.svg';
+  if (lowerTech === 'typescript') return '/tech-icons/typescript.svg';
+  if (lowerTech === 'next.js' || lowerTech === 'nextjs') return '/tech-icons/nextjs.svg';
+  if (lowerTech === 'tailwind css' || lowerTech === 'tailwind') return '/tech-icons/tailwind.svg';
+  if (lowerTech === 'firebase') return '/tech-icons/firebase.svg';
+  if (lowerTech === 'vercel') return '/tech-icons/vercel.svg';
+  if (lowerTech === 'c') return '/tech-icons/c.svg';
+  if (lowerTech === 'pandas') return '/tech-icons/pandas.svg';
+  if (lowerTech === 'fastapi') return '/tech-icons/fastapi.svg';
+  if (lowerTech === 'selenium') return '/tech-icons/selenium.svg';
   
-  // Frameworks & Libraries
-  if (lowerTech.includes('react') || lowerTech.includes('next') || lowerTech.includes('tailwind')) {
-    return Blocks;
-  }
+  // Partial matches
+  if (lowerTech.includes('react')) return '/tech-icons/react.svg';
+  if (lowerTech.includes('python')) return '/tech-icons/python.svg';
+  if (lowerTech.includes('typescript')) return '/tech-icons/typescript.svg';
+  if (lowerTech.includes('next')) return '/tech-icons/nextjs.svg';
+  if (lowerTech.includes('tailwind')) return '/tech-icons/tailwind.svg';
+  if (lowerTech.includes('firebase')) return '/tech-icons/firebase.svg';
+  if (lowerTech.includes('vercel')) return '/tech-icons/vercel.svg';
+  if (lowerTech.includes('pandas')) return '/tech-icons/pandas.svg';
+  if (lowerTech.includes('fastapi')) return '/tech-icons/fastapi.svg';
+  if (lowerTech.includes('selenium')) return '/tech-icons/selenium.svg';
   
-  // Databases & Backend
-  if (lowerTech.includes('firebase') || lowerTech.includes('database') || lowerTech.includes('firestore')) {
-    return Database;
-  }
-  
-  // Cloud & Deployment
-  if (lowerTech.includes('vercel') || lowerTech.includes('cloud')) {
-    return Cloud;
-  }
-  
-  // APIs & Integration
-  if (lowerTech.includes('api') || lowerTech.includes('fastapi') || lowerTech.includes('openai')) {
-    return Zap;
-  }
-  
-  // Data Science & ML
-  if (lowerTech.includes('pandas') || lowerTech.includes('scikit') || lowerTech.includes('numpy') || lowerTech.includes('ml')) {
-    return Cpu;
-  }
-  
-  // Design & UI
-  if (lowerTech.includes('css') || lowerTech.includes('design')) {
-    return Palette;
-  }
-  
-  return Code2; // Default
+  // Default icon for everything else
+  return '/tech-icons/default.svg';
 }
 
 const projects = projectsData as unknown as Project[];
@@ -113,10 +104,16 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
         <p className="text-lg text-muted">{project.summary}</p>
         <div className="flex flex-wrap gap-2 text-xs text-muted">
           {project.tags.map((tag) => {
-            const TechIcon = getTechIcon(tag);
+            const iconPath = getTechIconPath(tag);
             return (
               <span key={tag} className="inline-flex items-center gap-1.5 rounded-full bg-surface-muted px-3 py-1 font-mono text-[11px] uppercase tracking-[0.2em]">
-                <TechIcon className="h-3 w-3" />
+                <Image
+                  src={iconPath}
+                  alt={tag}
+                  width={12}
+                  height={12}
+                  className="h-3 w-3 opacity-80"
+                />
                 {tag}
               </span>
             );
