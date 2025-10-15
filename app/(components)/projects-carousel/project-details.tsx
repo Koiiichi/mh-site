@@ -31,8 +31,8 @@ export const projectDetails: Record<string, ProjectDetail> = {
     timeline: "October 2024 – June 2025",
     tools: ["TypeScript", "React", "Tailwind CSS", "Firebase (Realtime DB, Firestore, Storage, Authentication)", "Monaco Editor", "Bash", "GitHub Workflows", "Vercel"],
     links: [
-      { label: "Visit Website →", url: "https://co-c0de.vercel.app/" },
-      { label: "View Source →", url: "https://github.com/Koiiichi/CoCode" }
+      { label: "Visit Website", url: "https://co-c0de.vercel.app/" },
+      { label: "View Source", url: "https://github.com/Koiiichi/CoCode" }
     ]
   },
   mlox: {
@@ -56,8 +56,8 @@ export const projectDetails: Record<string, ProjectDetail> = {
     timeline: "June 2025 – August 2025",
     tools: ["C", "Make", "Doxygen", "Vim", "GCC/Clang"],
     links: [
-      { label: "View Source →", url: "https://github.com/Koiiichi/mlox" },
-      { label: "Documentation →", url: "https://github.com/Koiiichi/mlox#documentation" }
+      { label: "View Source", url: "https://github.com/Koiiichi/mlox" },
+      { label: "Documentation", url: "https://github.com/Koiiichi/mlox#documentation" }
     ]
   },
 
@@ -82,9 +82,9 @@ export const projectDetails: Record<string, ProjectDetail> = {
   timeline: "September 2025",
   tools: ["React", "Next.js", "FastAPI", "DeepSeek API", "OpenSeadragon", "Vercel", "Python", "TypeScript"],
   links: [
-    { label: "View Source →", url: "https://github.com/ketjandr/nasa-spaceapps-project" },
-    { label: "Live Demo →", url: "https://planetaryexplorer.vercel.app/" },
-    { label: "NASA Space Apps Page →", url: "https://www.spaceappschallenge.org/2025/find-a-team/slack-overflow/?tab=project" }
+    { label: "View Source", url: "https://github.com/ketjandr/nasa-spaceapps-project" },
+    { label: "Live Demo", url: "https://planetary-explorer.vercel.app/" },
+    { label: "NASA Space Apps Page", url: "https://www.spaceappschallenge.org/2025/find-a-team/slack-overflow/?tab=project" }
   ]
 },
 
@@ -109,7 +109,7 @@ export const projectDetails: Record<string, ProjectDetail> = {
   timeline: "August – October 2025",
   tools: ["Python", "Typer", "Selenium", "OpenAI API", "JSON Schema", "Bash"],
   links: [
-    { label: "View Source →", url: "https://github.com/Koiiichi/symphony-lite" },
+    { label: "View Source", url: "https://github.com/Koiiichi/symphony-lite" }
   ]
 },
 
@@ -135,8 +135,8 @@ export const projectDetails: Record<string, ProjectDetail> = {
     timeline: "February 2025",
     tools: ["Python", "Pandas", "scikit-learn", "NumPy", "Matplotlib", "Seaborn", "Google Colab"],
     links: [
-      { label: "Devpost →", url: "https://devpost.com/software/chabacrunch" },
-      { label: "View Source →", url: "https://github.com/Koiiichi/ChabaCrunch-CXC2025" }
+      { label: "Devpost", url: "https://devpost.com/software/chabacrunch" },
+      { label: "View Source", url: "https://github.com/Koiiichi/ChabaCrunch-CXC2025" }
     ]
   },
 
@@ -159,9 +159,9 @@ export const projectDetails: Record<string, ProjectDetail> = {
     timeline: "March 2023 – Present (Ongoing Expansion)",
     tools: ["Python", "Pandas", "MIDI Libraries", "Digital Audio Workstation (DAW)"],
     links: [
-      { label: "View Source →", url: "https://github.com/Koiiichi/project-harmonics/tree/main" },
-      { label: "Listen Demo →", url: "https://projectharmonics.wixsite.com/about/method" },
-      { label: "Original Project Page →", url: "https://projectharmonics.wixsite.com/about" }
+      { label: "View Source", url: "https://github.com/Koiiichi/project-harmonics/tree/main" },
+      { label: "Listen Demo", url: "https://projectharmonics.wixsite.com/about/method" },
+      { label: "Original Project Page", url: "https://projectharmonics.wixsite.com/about" }
     ]
   },
 };
