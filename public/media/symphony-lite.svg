@@ -1,0 +1,30 @@
+<svg width="1280" height="720" viewBox="0 0 1280 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1280" height="720" rx="42" fill="#0B0C0E"/>
+  <rect x="120" y="120" width="1040" height="480" rx="32" fill="url(#gradient)" opacity="0.9"/>
+  <g opacity="0.8">
+    <!-- Agent nodes -->
+    <circle cx="400" cy="280" r="60" fill="#8B5CF6" opacity="0.6"/>
+    <circle cx="880" cy="280" r="60" fill="#10B981" opacity="0.6"/>
+    <!-- Central orchestration -->
+    <circle cx="640" cy="400" r="50" fill="#6BC1FF" opacity="0.7"/>
+    <!-- Connection lines -->
+    <path d="M460 280 L820 280" stroke="#6BC1FF" stroke-width="3" opacity="0.5"/>
+    <path d="M430 330 L610 380" stroke="#8B5CF6" stroke-width="3" opacity="0.4"/>
+    <path d="M850 330 L670 380" stroke="#10B981" stroke-width="3" opacity="0.4"/>
+    <!-- Data flow indicators -->
+    <circle cx="540" cy="280" r="8" fill="#6BC1FF"/>
+    <circle cx="640" cy="280" r="8" fill="#6BC1FF"/>
+    <circle cx="740" cy="280" r="8" fill="#6BC1FF"/>
+    <!-- Labels -->
+    <text x="365" y="245" fill="#E7E9EC" font-size="18" font-family="'Inter', sans-serif" font-weight="500">Brain</text>
+    <text x="830" y="245" fill="#E7E9EC" font-size="18" font-family="'Inter', sans-serif" font-weight="500">Sensory</text>
+  </g>
+  <text x="140" y="540" fill="#E7E9EC" font-size="48" font-family="'Inter', sans-serif" font-weight="600">Multi-Agent Orchestration</text>
+  <defs>
+    <linearGradient id="gradient" x1="160" y1="120" x2="1040" y2="600" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7C3AED"/>
+      <stop offset="0.5" stop-color="#2563EB"/>
+      <stop offset="1" stop-color="#1E293B"/>
+    </linearGradient>
+  </defs>
+</svg>

@@ -61,7 +61,7 @@ export const projectDetails: Record<string, ProjectDetail> = {
     ]
   },
 
-  planetaryexplorer: {
+  'planetary-explorer': {
   overview: "Planetary Explorer is an AI-powered planetary visualization platform built for NASA Space Apps 2025. It unifies NASA and USGS imagery datasets of Mars, the Moon, and Mercury into an interactive environment that lets users semantically search, explore, and contextualize planetary features. The goal was to make complex planetary data accessible through intelligent search and fluid, zoomable navigation — bridging the gap between professional researchers and the public.",
   background: "The project began during NASA Space Apps 2025, when the team noticed that planetary data from NASA Trek and the USGS Gazetteer were often siloed, making it hard for users to explore related regions across planets. We envisioned a unified explorer that combined these sources into a smooth, AI-enhanced interface — capable of understanding what users meant, not just what they typed. The system had to handle gigapixel imagery, semantic search, and cross-planet relationships, while staying performant enough to run in a browser.",
   architecture: [
@@ -88,7 +88,7 @@ export const projectDetails: Record<string, ProjectDetail> = {
   ]
 },
 
-symphonylite: {
+'symphony-lite': {
   overview: "Symphony-Lite is a multi-agent orchestration framework designed to autonomously generate, test, and refine web applications using natural language goals. The system coordinates two agents — Brain and Sensory — that collaborate through typed contracts to iteratively improve codebases. By introducing structured feedback loops and quality gates, Symphony-Lite turns subjective UI and code quality assessments into measurable, automatable processes.",
   background: "The idea behind Symphony-Lite emerged from frustration with manual scaffolding and iteration in full-stack development. Developers often rewrite the same setup code, wait for feedback, and tweak layout or accessibility by hand. Symphony-Lite reimagines this process by letting AI agents collaborate through a contract-based system — one that understands both visual and structural code constraints. The project began as a CLI automation tool and evolved into a framework for agentic cooperation, blending symbolic reasoning with sensory feedback.",
   architecture: [
