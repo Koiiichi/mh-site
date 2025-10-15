@@ -46,6 +46,16 @@ function getTechIconPath(tech: string): string {
   if (lowerTech === 'pandas') return '/tech-icons/pandas.svg';
   if (lowerTech === 'fastapi') return '/tech-icons/fastapi.svg';
   if (lowerTech === 'selenium') return '/tech-icons/selenium.svg';
+  if (lowerTech === 'scikit-learn') return '/tech-icons/scikit-learn.svg';
+  if (lowerTech === 'make') return '/tech-icons/make.svg';
+  if (lowerTech === 'compilers' || lowerTech === 'compiler') return '/tech-icons/compiler.svg';
+  if (lowerTech === 'vm') return '/tech-icons/vm.svg';
+  if (lowerTech === 'deepseek api' || lowerTech === 'deepseek') return '/tech-icons/deepseek.svg';
+  if (lowerTech === 'openseadragon') return '/tech-icons/openseadragon.svg';
+  if (lowerTech === 'typer') return '/tech-icons/typer.svg';
+  if (lowerTech === 'openai api' || lowerTech === 'openai') return '/tech-icons/openai.svg';
+  if (lowerTech === 'midi') return '/tech-icons/midi.svg';
+  if (lowerTech === 'data visualization') return '/tech-icons/data-viz.svg';
   
   // Partial matches
   if (lowerTech.includes('react')) return '/tech-icons/react.svg';
@@ -58,6 +68,11 @@ function getTechIconPath(tech: string): string {
   if (lowerTech.includes('pandas')) return '/tech-icons/pandas.svg';
   if (lowerTech.includes('fastapi')) return '/tech-icons/fastapi.svg';
   if (lowerTech.includes('selenium')) return '/tech-icons/selenium.svg';
+  if (lowerTech.includes('scikit')) return '/tech-icons/scikit-learn.svg';
+  if (lowerTech.includes('compiler')) return '/tech-icons/compiler.svg';
+  if (lowerTech.includes('deepseek')) return '/tech-icons/deepseek.svg';
+  if (lowerTech.includes('openai')) return '/tech-icons/openai.svg';
+  if (lowerTech.includes('data viz')) return '/tech-icons/data-viz.svg';
   
   // Default icon for everything else
   return '/tech-icons/default.svg';

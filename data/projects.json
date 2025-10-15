@@ -1,16 +1,29 @@
 [
   {
-    "slug": "mlox",
-    "title": "MLOX — Augmented Lox in C",
-    "summary": "Custom interpreted language built in C with modern runtime features",
-    "tags": ["C", "Compilers", "VM", "Make"],
+    "slug": "symphony-lite",
+    "title": "Symphony-Lite — Agentic Web Orchestration",
+    "summary": "Multi-agent orchestration framework autonomously generating and refining web apps through natural language goals and typed quality gates.",
+    "tags": ["Python", "Typer", "Selenium", "OpenAI API"],
     "links": {
-      "repo": "https://github.com/Koiiichi/mlox"
+      "repo": "https://github.com/Koiiichi/symphony-lite"
     },
-    "media": { "type": "image", "src": "/media/mlox-poster.svg", "alt": "MLOX bytecode preview" },
-    "metrics": ["Virtual machine architecture", "Recursive descent parsing"],
-    "role": "Language Designer & Developer",
-    "timeframe": "June 2025 — August 2025"
+    "media": { "type": "image", "src": "/media/symphony-lite.svg", "alt": "Symphony-Lite workflow diagram" },
+    "metrics": ["20% faster iteration", "Fully automated app generation"],
+    "role": "Lead Developer & Architect",
+    "timeframe": "August – October 2025"
+  },
+  {
+    "slug": "planetary-explorer",
+    "title": "Planetary Explorer — NASA Space Apps",
+    "summary": "AI-powered planetary visualization platform unifying NASA and USGS imagery with semantic search and interactive exploration.",
+    "tags": ["React", "Next.js", "FastAPI", "DeepSeek API", "OpenSeadragon", "Vercel"],
+    "links": {
+      "repo": "https://github.com/ketjandr/nasa-spaceapps-project"
+    },
+    "media": { "type": "image", "src": "/media/planetary-explorer.svg", "alt": "Planetary Explorer interface" },
+    "metrics": ["Sub-second semantic queries", "Cross-planet imagery discovery"],
+    "role": "Full-Stack Developer",
+    "timeframe": "September 2025"
   },
   {
     "slug": "cocode",
@@ -40,36 +53,23 @@
     "timeframe": "February 2025"
   },
   {
-  "slug": "planetary-explorer",
-  "title": "Planetary Explorer — NASA Space Apps",
-  "summary": "AI-powered planetary visualization platform unifying NASA and USGS imagery with semantic search and interactive exploration.",
-  "tags": ["React", "Next.js", "FastAPI", "DeepSeek API", "OpenSeadragon", "Vercel"],
-  "links": {
-    "repo": "https://github.com/ketjandr/nasa-spaceapps-project"
+    "slug": "mlox",
+    "title": "MLOX — Augmented Lox in C",
+    "summary": "Custom interpreted language built in C with modern runtime features",
+    "tags": ["C", "Make"],
+    "links": {
+      "repo": "https://github.com/Koiiichi/mlox"
+    },
+    "media": { "type": "image", "src": "/media/mlox-poster.svg", "alt": "MLOX bytecode preview" },
+    "metrics": ["Virtual machine architecture", "Recursive descent parsing"],
+    "role": "Language Designer & Developer",
+    "timeframe": "June 2025 — August 2025"
   },
-  "media": { "type": "image", "src": "/media/planetary-explorer.svg", "alt": "Planetary Explorer interface" },
-  "metrics": ["Sub-second semantic queries", "Cross-planet imagery discovery"],
-  "role": "Full-Stack Developer",
-  "timeframe": "September 2025"
-},
-{
-  "slug": "symphony-lite",
-  "title": "Symphony-Lite — Agentic Web Orchestration",
-  "summary": "Multi-agent orchestration framework autonomously generating and refining web apps through natural language goals and typed quality gates.",
-  "tags": ["Python", "Typer", "Selenium", "OpenAI API"],
-  "links": {
-    "repo": "https://github.com/Koiiichi/symphony-lite"
-  },
-  "media": { "type": "image", "src": "/media/symphony-lite.svg", "alt": "Symphony-Lite workflow diagram" },
-  "metrics": ["20% faster iteration", "Fully automated app generation"],
-  "role": "Lead Developer & Architect",
-  "timeframe": "August – October 2025"
-},
-{
+  {
     "slug": "harmonics",
     "title": "Project Harmonics — Data Sonification",
     "summary": "Data sonification tool transforming physics datasets into sound",
-    "tags": ["Python", "Pandas", "MIDI", "Data Visualization"],
+    "tags": ["Python", "Pandas", "MIDI"],
     "links": {
       "repo": "https://github.com/Koiiichi/project-harmonics"
     },
