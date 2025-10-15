@@ -50,12 +50,18 @@ export function FooterClock() {
   );
 
   const lastUpdated = useMemo(() => {
+    // Use build timestamp from environment variable (set at build/deploy time)
+    const buildTime = process.env.NEXT_PUBLIC_BUILD_TIME 
+      ? new Date(process.env.NEXT_PUBLIC_BUILD_TIME)
+      : new Date('2024-01-01'); // Fallback date
+    
     return new Intl.DateTimeFormat(undefined, {
       month: 'short',
       day: '2-digit',
+      year: 'numeric',
       hour: '2-digit',
       minute: '2-digit'
-    }).format(new Date());
+    }).format(buildTime);
   }, []);
 
   return (

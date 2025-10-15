@@ -60,30 +60,60 @@ export const projectDetails: Record<string, ProjectDetail> = {
       { label: "Documentation →", url: "https://github.com/Koiiichi/mlox#documentation" }
     ]
   },
-  harmonics: {
-    overview: "Project Harmonics is a data sonification tool that transforms particle physics datasets into sound, creating auditory representations of scientific phenomena. Originally developed in 2023 as a scientific outreach initiative, it maps collision data to musical parameters such as pitch, velocity, and timing using MIDI-based outputs. The result is an alternative way to explore physics data — by listening to patterns rather than only visualizing them.",
-    background: "The project began with the goal of making particle physics more accessible, particularly to audiences who benefit from non-visual learning. Traditional methods rely heavily on mathematical notation and graphs, which can be limiting for differently abled learners. By mapping data attributes such as particle IDs, momentum, and scattering angles into musical parameters, Harmonics introduced a new medium for engagement. Harmonics was used in outreach sessions with the Rising Sun Foundation, teaching electron–proton scattering to 30+ differently abled students. The overwhelmingly positive response validated the idea: sound can be an inclusive gateway into STEM.",
-    architecture: [
-      "Data Processing: Python + Pandas to clean and structure physics datasets",
-      "Mapping Engine: Converts attributes (particle type, momentum, angle) into musical values (pitch, velocity, timing)",
-      "MIDI Generation: Outputs portable MIDI files for use in DAWs (Digital Audio Workstations)",
-      "Pipeline: sonify_dataset.py transforms raw CSV physics data into playable .mid files",
-      "Future Expansion: Planned real-time interaction and advanced data processing for more expressive, accurate sonification"
-    ],
-    challenges: [
-      "Defining meaningful, intuitive mappings between complex data and sound",
-      "Balancing scientific accuracy with musical clarity, so patterns remain recognizable",
-      "Designing the system to be flexible enough for both classroom use and creative experimentation"
-    ],
-    results: "Harmonics achieved its core goal of making particle physics data more accessible through auditory representation. Beyond outreach, it demonstrates the potential of sonification as a scientific tool, complementing traditional visualization techniques. The project's next stage focuses on interactivity and richer mappings, evolving from static MIDI files into dynamic, real-time exploration tools. This positions Harmonics as both an educational platform and a research prototype for auditory data analysis.",
-    timeline: "March 2023 – Present (Ongoing Expansion)",
-    tools: ["Python", "Pandas", "MIDI Libraries", "Digital Audio Workstation (DAW)"],
-    links: [
-      { label: "View Source →", url: "https://github.com/Koiiichi/project-harmonics/tree/main" },
-      { label: "Listen Demo →", url: "https://projectharmonics.wixsite.com/about/method" },
-      { label: "Original Project Page →", url: "https://projectharmonics.wixsite.com/about" }
-    ]
-  },
+
+  planetaryexplorer: {
+  overview: "Planetary Explorer is an AI-powered planetary visualization platform built for NASA Space Apps 2025. It unifies NASA and USGS imagery datasets of Mars, the Moon, and Mercury into an interactive environment that lets users semantically search, explore, and contextualize planetary features. The goal was to make complex planetary data accessible through intelligent search and fluid, zoomable navigation — bridging the gap between professional researchers and the public.",
+  background: "The project began during NASA Space Apps 2025, when the team noticed that planetary data from NASA Trek and the USGS Gazetteer were often siloed, making it hard for users to explore related regions across planets. We envisioned a unified explorer that combined these sources into a smooth, AI-enhanced interface — capable of understanding what users meant, not just what they typed. The system had to handle gigapixel imagery, semantic search, and cross-planet relationships, while staying performant enough to run in a browser.",
+  architecture: [
+    "Frontend: React + Next.js powered interface for planetary browsing and dynamic UI rendering",
+    "Imagery Viewer: OpenSeadragon integration for smooth deep-zoom navigation across gigapixel NASA imagery",
+    "Backend: FastAPI microservice handling search, feature retrieval, and semantic indexing",
+    "AI Layer: DeepSeek embeddings for semantic similarity search with keyword fallback and circuit-breaker caching for fault tolerance",
+    "Data Ingestion: KMZ parser transforming NASA Trek and USGS Gazetteer data into structured, searchable JSON corpora",
+    "Deployment: Hosted on Vercel with serverless API routes and CDN caching for sub-second query performance"
+  ],
+  challenges: [
+    "Integrating heterogeneous datasets (NASA Trek, USGS Gazetteer) into one coherent search index",
+    "Balancing semantic search accuracy with performance, especially under large embedding corpora",
+    "Implementing smooth, lag-free multi-body zoom on high-resolution maps with OpenSeadragon",
+    "Designing a responsive UI that felt both scientific and exploratory for general audiences"
+  ],
+  results: "Planetary Explorer achieved its vision of making planetary data intuitive to explore. The final prototype could perform sub-second semantic searches across gigapixel imagery, visualize related planetary features, and allow users to 'fly' between Mars, the Moon, and Mercury seamlessly. It was recognized by NASA Space Apps judges for accessibility and UX design. The system serves as a proof of concept for AI-augmented planetary exploration tools that democratize access to scientific data.",
+  timeline: "September 2025",
+  tools: ["React", "Next.js", "FastAPI", "DeepSeek API", "OpenSeadragon", "Vercel", "Python", "TypeScript"],
+  links: [
+    { label: "View Source →", url: "https://github.com/ketjandr/nasa-spaceapps-project" },
+    { label: "Live Demo →", url: "https://planetary-explorer.vercel.app/" },
+    { label: "NASA Space Apps Page →", url: "https://www.spaceappschallenge.org/2025/find-a-team/slack-overflow/?tab=project" }
+  ]
+},
+
+symphonylite: {
+  overview: "Symphony-Lite is a multi-agent orchestration framework designed to autonomously generate, test, and refine web applications using natural language goals. The system coordinates two agents — Brain and Sensory — that collaborate through typed contracts to iteratively improve codebases. By introducing structured feedback loops and quality gates, Symphony-Lite turns subjective UI and code quality assessments into measurable, automatable processes.",
+  background: "The idea behind Symphony-Lite emerged from frustration with manual scaffolding and iteration in full-stack development. Developers often rewrite the same setup code, wait for feedback, and tweak layout or accessibility by hand. Symphony-Lite reimagines this process by letting AI agents collaborate through a contract-based system — one that understands both visual and structural code constraints. The project began as a CLI automation tool and evolved into a framework for agentic cooperation, blending symbolic reasoning with sensory feedback.",
+  architecture: [
+    "Core System: Python-based orchestration layer coordinating Brain (LLM) and Sensory (evaluation) agents",
+    "CLI Interface: Built with Typer for command-driven interaction and isolated project runs",
+    "Brain Agent: Handles code generation, refactoring, and adherence to typed interface contracts",
+    "Sensory Agent: Executes generated web apps via Selenium, measuring layout, color contrast, and UI compliance",
+    "Quality Gates: Typed evaluation schema transforming qualitative feedback (e.g., spacing, accessibility) into quantitative metrics",
+    "Persistence Layer: Local JSON-based run history for iterative refinement and reproducibility"
+  ],
+  challenges: [
+    "Designing robust agent communication without manual oversight or prompt leaks between tasks",
+    "Building an interpretable evaluation pipeline capable of scoring subjective design attributes like spacing and contrast",
+    "Coordinating iterative improvements while ensuring reproducibility across runs",
+    "Maintaining consistent output structure and preventing mode collapse in agent loops"
+  ],
+  results: "Symphony-Lite successfully demonstrated autonomous web application creation guided by quantifiable quality metrics. The framework reduced iteration time by 20% in tests compared to manual refinement and provided consistent improvements in UI layout balance and color accessibility. The project laid groundwork for future multi-agent research by showing how structured feedback and typed contracts can create self-improving development loops.",
+  timeline: "August – October 2025",
+  tools: ["Python", "Typer", "Selenium", "OpenAI API", "JSON Schema", "Bash"],
+  links: [
+    { label: "View Source →", url: "https://github.com/Koiiichi/symphony-lite" },
+  ]
+},
+
+
   chabacrunch: {
     overview: "ChabaCrunch is a data science project built during the TouchBistro x UW Hackathon (Feb 2025) that analyzed over 8 million restaurant transactions across Canada and the U.S. The system unified messy bill- and venue-level datasets into an analysis-ready pipeline, enabling insights into tipping culture across cities, venue concepts, and order types. By merging data cleaning, feature engineering, and predictive modeling, ChabaCrunch revealed that tipping behaviors are shaped more by venue type and order style than by country borders — offering restaurants actionable strategies to optimize service, boost tips, and improve operations.",
     background: "The project was inspired by the team's shared interest in machine learning, natural language understanding, and data visualization. Building on outreach experiences like Project Harmonics, the goal was to design something impactful and well-structured for real-world use. We saw an opportunity in the TouchBistro dataset to answer fundamental questions: Do Canadians and Americans tip differently? How do venue concepts (bars, cafés, fine dining) affect tipping? What role does order type (dine-in, takeout, delivery) play? The messy, large-scale data provided the perfect challenge to explore these ideas while also developing technical expertise in pipeline design, memory optimization, and ML-driven imputation.",
@@ -108,5 +138,30 @@ export const projectDetails: Record<string, ProjectDetail> = {
       { label: "Devpost →", url: "https://devpost.com/software/chabacrunch" },
       { label: "View Source →", url: "https://github.com/Koiiichi/ChabaCrunch-CXC2025" }
     ]
-  }
+  },
+
+  harmonics: {
+    overview: "Project Harmonics is a data sonification tool that transforms particle physics datasets into sound, creating auditory representations of scientific phenomena. Originally developed in 2023 as a scientific outreach initiative, it maps collision data to musical parameters such as pitch, velocity, and timing using MIDI-based outputs. The result is an alternative way to explore physics data — by listening to patterns rather than only visualizing them.",
+    background: "The project began with the goal of making particle physics more accessible, particularly to audiences who benefit from non-visual learning. Traditional methods rely heavily on mathematical notation and graphs, which can be limiting for differently abled learners. By mapping data attributes such as particle IDs, momentum, and scattering angles into musical parameters, Harmonics introduced a new medium for engagement. Harmonics was used in outreach sessions with the Rising Sun Foundation, teaching electron–proton scattering to 30+ differently abled students. The overwhelmingly positive response validated the idea: sound can be an inclusive gateway into STEM.",
+    architecture: [
+      "Data Processing: Python + Pandas to clean and structure physics datasets",
+      "Mapping Engine: Converts attributes (particle type, momentum, angle) into musical values (pitch, velocity, timing)",
+      "MIDI Generation: Outputs portable MIDI files for use in DAWs (Digital Audio Workstations)",
+      "Pipeline: sonify_dataset.py transforms raw CSV physics data into playable .mid files",
+      "Future Expansion: Planned real-time interaction and advanced data processing for more expressive, accurate sonification"
+    ],
+    challenges: [
+      "Defining meaningful, intuitive mappings between complex data and sound",
+      "Balancing scientific accuracy with musical clarity, so patterns remain recognizable",
+      "Designing the system to be flexible enough for both classroom use and creative experimentation"
+    ],
+    results: "Harmonics achieved its core goal of making particle physics data more accessible through auditory representation. Beyond outreach, it demonstrates the potential of sonification as a scientific tool, complementing traditional visualization techniques. The project's next stage focuses on interactivity and richer mappings, evolving from static MIDI files into dynamic, real-time exploration tools. This positions Harmonics as both an educational platform and a research prototype for auditory data analysis.",
+    timeline: "March 2023 – Present (Ongoing Expansion)",
+    tools: ["Python", "Pandas", "MIDI Libraries", "Digital Audio Workstation (DAW)"],
+    links: [
+      { label: "View Source →", url: "https://github.com/Koiiichi/project-harmonics/tree/main" },
+      { label: "Listen Demo →", url: "https://projectharmonics.wixsite.com/about/method" },
+      { label: "Original Project Page →", url: "https://projectharmonics.wixsite.com/about" }
+    ]
+  },
 };
