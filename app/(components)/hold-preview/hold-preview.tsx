@@ -13,79 +13,8 @@ import {
   type ReactNode
 } from 'react';
 import { createPortal } from 'react-dom';
-import { X, Github, Globe, FileText, ExternalLink, Play, Award } from 'lucide-react';
-
-// Map link labels to appropriate icons
-function getLinkIcon(label: string) {
-  const lowerLabel = label.toLowerCase();
-  if (lowerLabel.includes('devpost')) {
-    return 'devpost'; // Special case for custom SVG
-  }
-  if (lowerLabel.includes('source') || lowerLabel.includes('github') || lowerLabel.includes('repo')) {
-    return Github;
-  }
-  if (lowerLabel.includes('website') || lowerLabel.includes('site') || lowerLabel.includes('demo')) {
-    return Globe;
-  }
-  if (lowerLabel.includes('documentation') || lowerLabel.includes('docs')) {
-    return FileText;
-  }
-  if (lowerLabel.includes('listen') || lowerLabel.includes('play')) {
-    return Play;
-  }
-  if (lowerLabel.includes('nasa') || lowerLabel.includes('space apps')) {
-    return Award;
-  }
-  return ExternalLink;
-}
-
-// Map technology names to SVG icon paths
-function getTechIconPath(tech: string): string {
-  const lowerTech = tech.toLowerCase();
-  
-  // Exact matches first
-  if (lowerTech === 'react') return '/tech-icons/react.svg';
-  if (lowerTech === 'python') return '/tech-icons/python.svg';
-  if (lowerTech === 'typescript') return '/tech-icons/typescript.svg';
-  if (lowerTech === 'next.js' || lowerTech === 'nextjs') return '/tech-icons/nextjs.svg';
-  if (lowerTech === 'tailwind css' || lowerTech === 'tailwind') return '/tech-icons/tailwind.svg';
-  if (lowerTech === 'firebase') return '/tech-icons/firebase.svg';
-  if (lowerTech === 'vercel') return '/tech-icons/vercel.svg';
-  if (lowerTech === 'c') return '/tech-icons/c.svg';
-  if (lowerTech === 'pandas') return '/tech-icons/pandas.svg';
-  if (lowerTech === 'fastapi') return '/tech-icons/fastapi.svg';
-  if (lowerTech === 'selenium') return '/tech-icons/selenium.svg';
-  if (lowerTech === 'scikit-learn') return '/tech-icons/scikit-learn.svg';
-  if (lowerTech === 'make') return '/tech-icons/make.svg';
-  if (lowerTech === 'compilers' || lowerTech === 'compiler') return '/tech-icons/compiler.svg';
-  if (lowerTech === 'vm') return '/tech-icons/vm.svg';
-  if (lowerTech === 'deepseek api' || lowerTech === 'deepseek') return '/tech-icons/deepseek.svg';
-  if (lowerTech === 'openseadragon') return '/tech-icons/openseadragon.svg';
-  if (lowerTech === 'typer') return '/tech-icons/typer.svg';
-  if (lowerTech === 'openai api' || lowerTech === 'openai') return '/tech-icons/openai.svg';
-  if (lowerTech === 'midi') return '/tech-icons/midi.svg';
-  if (lowerTech === 'data visualization') return '/tech-icons/data-viz.svg';
-  
-  // Partial matches
-  if (lowerTech.includes('react')) return '/tech-icons/react.svg';
-  if (lowerTech.includes('python')) return '/tech-icons/python.svg';
-  if (lowerTech.includes('typescript')) return '/tech-icons/typescript.svg';
-  if (lowerTech.includes('next')) return '/tech-icons/nextjs.svg';
-  if (lowerTech.includes('tailwind')) return '/tech-icons/tailwind.svg';
-  if (lowerTech.includes('firebase')) return '/tech-icons/firebase.svg';
-  if (lowerTech.includes('vercel')) return '/tech-icons/vercel.svg';
-  if (lowerTech.includes('pandas')) return '/tech-icons/pandas.svg';
-  if (lowerTech.includes('fastapi')) return '/tech-icons/fastapi.svg';
-  if (lowerTech.includes('selenium')) return '/tech-icons/selenium.svg';
-  if (lowerTech.includes('scikit')) return '/tech-icons/scikit-learn.svg';
-  if (lowerTech.includes('compiler')) return '/tech-icons/compiler.svg';
-  if (lowerTech.includes('deepseek')) return '/tech-icons/deepseek.svg';
-  if (lowerTech.includes('openai')) return '/tech-icons/openai.svg';
-  if (lowerTech.includes('data viz')) return '/tech-icons/data-viz.svg';
-  
-  // Default icon for everything else
-  return '/tech-icons/default.svg';
-}
+import { X } from 'lucide-react';
+import { getLinkIcon, getTechIconPath } from '@/lib/icon-utils';
 
 type PreviewLink = {
   label: string;
@@ -255,18 +184,20 @@ function PreviewPortal({ state, onClose }: { state: PreviewState | null; onClose
                       const iconPath = getTechIconPath(tag);
                       return (
                         <span key={tag} className="inline-flex items-center gap-1.5 rounded-full bg-surface-muted px-2.5 py-1 font-mono text-[11px] uppercase tracking-wide">
-                          <img
-                            src={iconPath}
-                            alt=""
-                            width={12}
-                            height={12}
-                            className="h-3 w-3 flex-shrink-0 opacity-80"
-                            aria-hidden="true"
-                            onError={(e) => {
-                              console.error(`Failed to load icon for ${tag}: ${iconPath}`);
-                              e.currentTarget.style.display = 'none';
-                            }}
-                          />
+                          {iconPath && (
+                            <Image
+                              src={iconPath}
+                              alt=""
+                              width={12}
+                              height={12}
+                              className="h-3 w-3 flex-shrink-0 opacity-80"
+                              aria-hidden="true"
+                              onError={(event) => {
+                                console.error(`Failed to load icon for ${tag}: ${iconPath}`);
+                                event.currentTarget.style.display = 'none';
+                              }}
+                            />
+                          )}
                           {tag}
                         </span>
                       );
