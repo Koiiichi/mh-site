@@ -41,6 +41,11 @@ body {
   scroll-behavior: smooth;
 }
 
+/* Prevent scroll when modal is open */
+body.modal-open {
+  overflow: hidden;
+}
+
 body::before {
   content: '';
   position: fixed;

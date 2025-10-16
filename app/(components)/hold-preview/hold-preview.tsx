@@ -123,6 +123,23 @@ export function HoldPreviewProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => setMounted(true), []);
 
+  // Lock body scroll when preview is open
+  useEffect(() => {
+    if (state) {
+      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+      document.body.style.overflow = 'hidden';
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
+    } else {
+      document.body.style.overflow = '';
+      document.body.style.paddingRight = '';
+    }
+
+    return () => {
+      document.body.style.overflow = '';
+      document.body.style.paddingRight = '';
+    };
+  }, [state]);
+
   const openPreview = useCallback((payload: PreviewPayload, origin?: { x: number; y: number }) => {
     const defaultPosition = typeof window !== 'undefined'
       ? { x: window.innerWidth / 2, y: window.innerHeight / 2 }
@@ -180,6 +197,9 @@ function PreviewPortal({ state, onClose }: { state: PreviewState | null; onClose
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: prefersReducedMotion ? 0 : 0.2 }}
+          onClick={onClose}
+          onWheel={(e) => e.preventDefault()}
+          onTouchMove={(e) => e.preventDefault()}
           aria-modal="true"
           role="dialog"
         >
@@ -205,6 +225,7 @@ function PreviewPortal({ state, onClose }: { state: PreviewState | null; onClose
             exit={{ opacity: 0, scale: prefersReducedMotion ? 1 : 0.95 }}
             transition={{ duration: prefersReducedMotion ? 0 : 0.3, ease: 'easeOut' }}
             className="relative w-[min(520px,calc(100vw-2rem))] cursor-grab rounded-3xl border border-subtle bg-surface p-6 text-left shadow-floating"
+            onClick={(e) => e.stopPropagation()}
           >
             <button
               type="button"
@@ -234,12 +255,17 @@ function PreviewPortal({ state, onClose }: { state: PreviewState | null; onClose
                       const iconPath = getTechIconPath(tag);
                       return (
                         <span key={tag} className="inline-flex items-center gap-1.5 rounded-full bg-surface-muted px-2.5 py-1 font-mono text-[11px] uppercase tracking-wide">
-                          <Image
+                          <img
                             src={iconPath}
-                            alt={tag}
+                            alt=""
                             width={12}
                             height={12}
-                            className="h-3 w-3 opacity-80"
+                            className="h-3 w-3 flex-shrink-0 opacity-80"
+                            aria-hidden="true"
+                            onError={(e) => {
+                              console.error(`Failed to load icon for ${tag}: ${iconPath}`);
+                              e.currentTarget.style.display = 'none';
+                            }}
                           />
                           {tag}
                         </span>
