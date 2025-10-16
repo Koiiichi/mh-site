@@ -192,14 +192,12 @@ function PreviewPortal({ state, onClose }: { state: PreviewState | null; onClose
     <AnimatePresence>
       {state && (
         <motion.div
-          className="pointer-events-auto fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm"
+          className="pointer-events-auto fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm p-4"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: prefersReducedMotion ? 0 : 0.2 }}
           onClick={onClose}
-          onWheel={(e) => e.preventDefault()}
-          onTouchMove={(e) => e.preventDefault()}
           aria-modal="true"
           role="dialog"
         >
@@ -224,7 +222,7 @@ function PreviewPortal({ state, onClose }: { state: PreviewState | null; onClose
             animate={{ opacity: 1, scale: 1, x: 0, y: 0 }}
             exit={{ opacity: 0, scale: prefersReducedMotion ? 1 : 0.95 }}
             transition={{ duration: prefersReducedMotion ? 0 : 0.3, ease: 'easeOut' }}
-            className="relative w-[min(520px,calc(100vw-2rem))] cursor-grab rounded-3xl border border-subtle bg-surface p-6 text-left shadow-floating"
+            className="relative w-[min(520px,calc(100vw-2rem))] max-h-[calc(100vh-2rem)] overflow-y-auto cursor-grab rounded-3xl border border-subtle bg-surface p-6 text-left shadow-floating"
             onClick={(e) => e.stopPropagation()}
           >
             <button
