@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 import projectsData from '@/data/projects.json';
 import { Project } from '@/lib/types';
 import { getLinkIcon, getTechIconPath } from '@/lib/icon-utils';
+import { TechIcon } from '@/app/(components)/tech-icon';
 
 const projects = projectsData as unknown as Project[];
 
@@ -51,16 +52,10 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
             return (
               <span key={tag} className="inline-flex items-center gap-1.5 rounded-full bg-surface-muted px-3 py-1 font-mono text-[11px] uppercase tracking-[0.2em]">
                 {iconPath && (
-                  <Image
+                  <TechIcon
                     src={iconPath}
-                    alt=""
-                    width={12}
-                    height={12}
+                    size={12}
                     className="h-3 w-3 opacity-80"
-                    aria-hidden="true"
-                    onError={(event) => {
-                      event.currentTarget.style.display = 'none';
-                    }}
                   />
                 )}
                 {tag}

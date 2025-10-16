@@ -2,13 +2,13 @@
 
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowUpRight, X } from 'lucide-react';
 import projectsData from '@/data/projects.json';
 import { Project } from '@/lib/types';
 import { getLinkIcon, getTechIconPath } from '@/lib/icon-utils';
 import { projectDetails } from './project-details';
+import { TechIcon } from '../tech-icon';
 
 export function ProjectsCarousel() {
   const [selectedProject, setSelectedProject] = useState<string | null>(null);
@@ -82,16 +82,10 @@ export function ProjectsCarousel() {
                           className="inline-flex items-center gap-1.5 rounded-full bg-surface-muted px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.15em] text-muted"
                         >
                           {iconPath && (
-                            <Image
+                            <TechIcon
                               src={iconPath}
-                              alt=""
-                              width={12}
-                              height={12}
+                              size={12}
                               className="h-3 w-3 flex-shrink-0 opacity-80"
-                              aria-hidden="true"
-                              onError={(event) => {
-                                event.currentTarget.style.display = 'none';
-                              }}
                             />
                           )}
                           {tag}
@@ -217,16 +211,10 @@ export function ProjectsCarousel() {
                                   className="inline-flex items-center gap-2 rounded-full bg-surface-muted px-3 py-1 text-sm text-muted"
                                 >
                                   {iconPath && (
-                                    <Image
+                                    <TechIcon
                                       src={iconPath}
-                                      alt=""
-                                      width={14}
-                                      height={14}
+                                      size={14}
                                       className="h-3.5 w-3.5 flex-shrink-0 opacity-80"
-                                      aria-hidden="true"
-                                      onError={(event) => {
-                                        event.currentTarget.style.display = 'none';
-                                      }}
                                     />
                                   )}
                                   {tool}

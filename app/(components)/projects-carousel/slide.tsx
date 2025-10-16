@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { useMemo } from 'react';
 import { Project } from '@/lib/types';
 import { getLinkIcon, getTechIconPath } from '@/lib/icon-utils';
+import { TechIcon } from '../tech-icon';
 
 const slideVariants = {
   enter: { opacity: 0, x: 120 },
@@ -74,17 +75,10 @@ export function Slide({ project, isActive }: SlideProps) {
               return (
                 <span key={tag} className="inline-flex items-center gap-1.5 rounded-full bg-surface-muted px-3 py-1 font-mono text-[11px] uppercase tracking-[0.2em]">
                   {iconPath && (
-                    <Image
+                    <TechIcon
                       src={iconPath}
-                      alt=""
-                      width={12}
-                      height={12}
+                      size={12}
                       className="h-3 w-3 flex-shrink-0 opacity-80"
-                      aria-hidden="true"
-                      onError={(event) => {
-                        console.error(`Failed to load icon for ${tag}: ${iconPath}`);
-                        event.currentTarget.style.display = 'none';
-                      }}
                     />
                   )}
                   {tag}
