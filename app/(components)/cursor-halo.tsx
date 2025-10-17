@@ -7,10 +7,18 @@ export function CursorHalo() {
   const [mousePosition, setMousePosition] = useState({ x: -100, y: -100 });
   const [isVisible, setIsVisible] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
+  const [isPointerDevice, setIsPointerDevice] = useState(false);
   const { theme } = useTheme();
   const rafId = useRef<number | undefined>(undefined);
 
   useEffect(() => {
+    // Check if the device has a fine pointer (mouse/trackpad)
+    const hasPointer = window.matchMedia('(pointer: fine)').matches;
+    setIsPointerDevice(hasPointer);
+
+    // Don't add listeners on touch devices
+    if (!hasPointer) return;
+
     const updateMousePosition = (e: MouseEvent) => {
       // Update position immediately without RAF for better responsiveness
       setMousePosition({ x: e.clientX, y: e.clientY });
@@ -37,7 +45,8 @@ export function CursorHalo() {
     };
   }, [isVisible]);
 
-  if (!isVisible) return null;
+  // Don't render on touch devices
+  if (!isPointerDevice || !isVisible) return null;
 
   const isDark = theme === 'dark';
 

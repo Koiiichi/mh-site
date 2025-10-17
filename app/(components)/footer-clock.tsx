@@ -76,8 +76,27 @@ export function FooterClock() {
   }, []);
 
   return (
-    <footer className="mt-24 rounded-3xl border border-subtle bg-surface/70 px-6 py-5 text-sm text-muted">
-      <div className="flex items-center justify-between gap-4">
+    <footer className="mt-24 rounded-3xl border border-subtle bg-surface/70 px-4 py-4 text-sm text-muted sm:px-6 sm:py-5">
+      {/* Mobile: Stacked layout */}
+      <div className="flex flex-col gap-3 sm:hidden">
+        {/* Top row: Clock and date */}
+        <div className="flex items-center justify-between gap-3">
+          <div className="flex items-center gap-2">
+            <AnalogClock time={now} />
+            <span className="font-mono text-xs">{humanDate}</span>
+          </div>
+          <span className="text-xs">© {now.getFullYear()}</span>
+        </div>
+        
+        {/* Bottom row: Last Updated */}
+        <div className="flex items-center justify-center gap-2">
+          <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse shadow-[0_0_6px_rgba(34,197,94,0.6)]" />
+          <span className="font-mono text-xs">Last updated {lastUpdated}</span>
+        </div>
+      </div>
+
+      {/* Desktop: Horizontal layout */}
+      <div className="hidden sm:flex items-center justify-between gap-4">
         {/* Left: Clock with current time */}
         <div className="flex items-center gap-3 flex-shrink-0">
           <AnalogClock time={now} />
