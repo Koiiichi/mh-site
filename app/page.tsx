@@ -82,7 +82,7 @@ export default function HomePage() {
         </header>
         <div className="space-y-6">
           <p className="text-base text-muted max-w-2xl">
-            Reach out on LinkedIn or by email — can&apos;t wait to meet you!
+            Feel free to reach out on LinkedIn or by email.
           </p>
           <div className="flex flex-wrap gap-3">
             {connectLinks.map((link) => {
