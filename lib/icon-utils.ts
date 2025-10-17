@@ -33,7 +33,9 @@ const exactTechIcons: Record<string, string> = {
   'typer': getAssetPath('/tech-icons/typer.svg'),
   'openai api': getAssetPath('/tech-icons/openai.svg'),
   'openai': getAssetPath('/tech-icons/openai.svg'),
-  'midi': getAssetPath('/tech-icons/midi.svg'),
+  'midi': getAssetPath('/tech-icons/music.svg'),
+  'midi libraries': getAssetPath('/tech-icons/music.svg'),
+  'digital audio workstation (daw)': getAssetPath('/tech-icons/music.svg'),
   'data visualization': getAssetPath('/tech-icons/default.svg'),
   // New icons
   'json': getAssetPath('/tech-icons/json.svg'),

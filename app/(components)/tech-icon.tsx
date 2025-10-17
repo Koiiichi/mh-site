@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTheme } from 'next-themes';
 
 type TechIconProps = {
@@ -31,11 +31,17 @@ const ICONS_WITH_WHITE_VERSIONS = [
 
 export function TechIcon({ src, alt = '', size = 12, className = '' }: TechIconProps) {
   const [hasError, setHasError] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const { resolvedTheme } = useTheme();
+  
+  // Wait for theme to be mounted to avoid hydration mismatch
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   
   // Determine if we should use the white version
   let iconSrc = src;
-  if (resolvedTheme === 'dark') {
+  if (mounted && resolvedTheme === 'dark') {
     const needsWhiteVersion = ICONS_WITH_WHITE_VERSIONS.some(icon => 
       src.includes(`/${icon}.svg`) || src.includes(`/${icon}-white.svg`)
     );
