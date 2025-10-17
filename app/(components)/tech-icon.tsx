@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import { useState } from 'react';
 
 type TechIconProps = {
@@ -18,7 +17,8 @@ export function TechIcon({ src, alt = '', size = 12, className = '' }: TechIconP
   }
 
   return (
-    <Image
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
       src={src}
       alt={alt}
       width={size}

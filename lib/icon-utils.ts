@@ -2,53 +2,59 @@ import { Github, Globe, FileText, ExternalLink, Play, Award, type LucideIcon } f
 
 type LinkIcon = LucideIcon | 'devpost';
 
+// Get the base path for assets (respects GitHub Pages deployment)
+function getAssetPath(path: string): string {
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
+  return basePath + path;
+}
+
 const exactTechIcons: Record<string, string> = {
-  'react': '/tech-icons/react.svg',
-  'python': '/tech-icons/python.svg',
-  'typescript': '/tech-icons/typescript.svg',
-  'next.js': '/tech-icons/nextjs.svg',
-  'nextjs': '/tech-icons/nextjs.svg',
-  'tailwind css': '/tech-icons/tailwind.svg',
-  'tailwind': '/tech-icons/tailwind.svg',
-  'firebase': '/tech-icons/firebase.svg',
-  'vercel': '/tech-icons/vercel.svg',
-  'c': '/tech-icons/c.svg',
-  'pandas': '/tech-icons/pandas.svg',
-  'fastapi': '/tech-icons/fastapi.svg',
-  'selenium': '/tech-icons/selenium.svg',
-  'scikit-learn': '/tech-icons/scikit-learn.svg',
-  'make': '/tech-icons/make.svg',
-  'compilers': '/tech-icons/compiler.svg',
-  'compiler': '/tech-icons/compiler.svg',
-  'vm': '/tech-icons/vm.svg',
-  'deepseek api': '/tech-icons/deepseek.svg',
-  'deepseek': '/tech-icons/deepseek.svg',
-  'openseadragon': '/tech-icons/openseadragon.svg',
-  'typer': '/tech-icons/typer.svg',
-  'openai api': '/tech-icons/openai.svg',
-  'openai': '/tech-icons/openai.svg',
-  'midi': '/tech-icons/midi.svg',
-  'data visualization': '/tech-icons/data-viz.svg'
+  'react': getAssetPath('/tech-icons/react.svg'),
+  'python': getAssetPath('/tech-icons/python.svg'),
+  'typescript': getAssetPath('/tech-icons/typescript.svg'),
+  'next.js': getAssetPath('/tech-icons/nextjs.svg'),
+  'nextjs': getAssetPath('/tech-icons/nextjs.svg'),
+  'tailwind css': getAssetPath('/tech-icons/tailwind.svg'),
+  'tailwind': getAssetPath('/tech-icons/tailwind.svg'),
+  'firebase': getAssetPath('/tech-icons/firebase.svg'),
+  'vercel': getAssetPath('/tech-icons/vercel.svg'),
+  'c': getAssetPath('/tech-icons/c.svg'),
+  'pandas': getAssetPath('/tech-icons/pandas.svg'),
+  'fastapi': getAssetPath('/tech-icons/fastapi.svg'),
+  'selenium': getAssetPath('/tech-icons/selenium.svg'),
+  'scikit-learn': getAssetPath('/tech-icons/scikit-learn.svg'),
+  'make': getAssetPath('/tech-icons/make.svg'),
+  'compilers': getAssetPath('/tech-icons/vm.svg'), // using vm.svg as fallback
+  'compiler': getAssetPath('/tech-icons/vm.svg'), // using vm.svg as fallback
+  'vm': getAssetPath('/tech-icons/vm.svg'),
+  'deepseek api': getAssetPath('/tech-icons/deepseek.svg'),
+  'deepseek': getAssetPath('/tech-icons/deepseek.svg'),
+  'openseadragon': getAssetPath('/tech-icons/openseadragon.svg'),
+  'typer': getAssetPath('/tech-icons/typer.svg'),
+  'openai api': getAssetPath('/tech-icons/openai.svg'),
+  'openai': getAssetPath('/tech-icons/openai.svg'),
+  'midi': getAssetPath('/tech-icons/midi.svg'),
+  'data visualization': getAssetPath('/tech-icons/default.svg') // using default.svg as fallback
 };
 
 const partialTechIcons: Array<{ match: string; icon: string }> = [
-  { match: 'react', icon: '/tech-icons/react.svg' },
-  { match: 'python', icon: '/tech-icons/python.svg' },
-  { match: 'typescript', icon: '/tech-icons/typescript.svg' },
-  { match: 'next', icon: '/tech-icons/nextjs.svg' },
-  { match: 'tailwind', icon: '/tech-icons/tailwind.svg' },
-  { match: 'firebase', icon: '/tech-icons/firebase.svg' },
-  { match: 'vercel', icon: '/tech-icons/vercel.svg' },
-  { match: 'pandas', icon: '/tech-icons/pandas.svg' },
-  { match: 'fastapi', icon: '/tech-icons/fastapi.svg' },
-  { match: 'selenium', icon: '/tech-icons/selenium.svg' },
-  { match: 'scikit', icon: '/tech-icons/scikit-learn.svg' },
-  { match: 'compiler', icon: '/tech-icons/compiler.svg' },
-  { match: 'deepseek', icon: '/tech-icons/deepseek.svg' },
-  { match: 'openai', icon: '/tech-icons/openai.svg' },
-  { match: 'data viz', icon: '/tech-icons/data-viz.svg' },
-  { match: 'midi', icon: '/tech-icons/midi.svg' },
-  { match: 'typer', icon: '/tech-icons/typer.svg' }
+  { match: 'react', icon: getAssetPath('/tech-icons/react.svg') },
+  { match: 'python', icon: getAssetPath('/tech-icons/python.svg') },
+  { match: 'typescript', icon: getAssetPath('/tech-icons/typescript.svg') },
+  { match: 'next', icon: getAssetPath('/tech-icons/nextjs.svg') },
+  { match: 'tailwind', icon: getAssetPath('/tech-icons/tailwind.svg') },
+  { match: 'firebase', icon: getAssetPath('/tech-icons/firebase.svg') },
+  { match: 'vercel', icon: getAssetPath('/tech-icons/vercel.svg') },
+  { match: 'pandas', icon: getAssetPath('/tech-icons/pandas.svg') },
+  { match: 'fastapi', icon: getAssetPath('/tech-icons/fastapi.svg') },
+  { match: 'selenium', icon: getAssetPath('/tech-icons/selenium.svg') },
+  { match: 'scikit', icon: getAssetPath('/tech-icons/scikit-learn.svg') },
+  { match: 'compiler', icon: getAssetPath('/tech-icons/vm.svg') },
+  { match: 'deepseek', icon: getAssetPath('/tech-icons/deepseek.svg') },
+  { match: 'openai', icon: getAssetPath('/tech-icons/openai.svg') },
+  { match: 'data viz', icon: getAssetPath('/tech-icons/default.svg') },
+  { match: 'midi', icon: getAssetPath('/tech-icons/midi.svg') },
+  { match: 'typer', icon: getAssetPath('/tech-icons/typer.svg') }
 ];
 
 export function getTechIconPath(tech: string): string | null {
