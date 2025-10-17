@@ -55,6 +55,7 @@ export function Hero() {
             className="max-w-3xl text-balance text-3xl font-semibold leading-[1.1] tracking-tight text-foreground sm:text-4xl md:text-5xl"
           >
             I am a <em className="font-newsreader italic">Generalist Software Engineer</em>, building across the stack.
+          </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
