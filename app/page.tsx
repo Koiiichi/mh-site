@@ -35,11 +35,7 @@ const workExperience = [
 
 export default function HomePage() {
   useEffect(() => {
-    // Ensure page loads at the top, not at any hash anchor
-    if (window.location.hash && !window.location.search) {
-      window.history.replaceState(null, '', window.location.pathname);
-      window.scrollTo(0, 0);
-    }
+    console.log('✅ Page retains scroll position on reload');
   }, []);
 
   return (

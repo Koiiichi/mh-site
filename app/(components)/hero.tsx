@@ -1,7 +1,6 @@
 'use client';
 
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
-import Link from 'next/link';
 import { useRef } from 'react';
 import { ThemeToggle } from './theme-toggle';
 import { HeroBackground } from './hero-background';
@@ -13,30 +12,38 @@ export function Hero() {
   const prefersReducedMotion = useReducedMotion();
   const translateY = useTransform(scrollYProgress, [0, 1], prefersReducedMotion ? [0, 0] : [0, -60]);
 
+  const handleScrollToSection = (sectionId: string) => {
+    const element = document.querySelector(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      console.log(`🎬 Scroll animation triggered for ${sectionId} section`);
+    }
+  };
+
   return (
     <section ref={containerRef} className="relative mb-8 flex flex-col gap-16">
       <header className="flex items-center justify-between gap-6">
         <div className="flex items-center gap-8">
           <span className="text-lg font-medium text-foreground">Muneeb Hassan</span>
           <nav className="hidden sm:flex items-center gap-6">
-            <Link 
-              href="#work" 
-              className="text-sm font-medium text-muted hover:text-foreground transition-colors"
+            <button
+              onClick={() => handleScrollToSection('#work')}
+              className="text-sm font-medium text-muted hover:text-foreground transition-colors cursor-pointer"
             >
               Work
-            </Link>
-            <Link 
-              href="#projects" 
-              className="text-sm font-medium text-muted hover:text-foreground transition-colors"
+            </button>
+            <button
+              onClick={() => handleScrollToSection('#projects')}
+              className="text-sm font-medium text-muted hover:text-foreground transition-colors cursor-pointer"
             >
               Projects
-            </Link>
-            <Link 
-              href="#connect" 
-              className="text-sm font-medium text-muted hover:text-foreground transition-colors"
+            </button>
+            <button
+              onClick={() => handleScrollToSection('#connect')}
+              className="text-sm font-medium text-muted hover:text-foreground transition-colors cursor-pointer"
             >
               Contact Me
-            </Link>
+            </button>
           </nav>
         </div>
         <ThemeToggle />
@@ -70,9 +77,9 @@ export function Hero() {
             transition={{ delay: prefersReducedMotion ? 0 : 0.3, duration: prefersReducedMotion ? 0 : 0.5, ease: 'easeOut' }}
             className="flex justify-center pt-4"
           >
-            <Link
-              href="#work"
-              className="group inline-flex flex-col items-center gap-2 text-muted hover:text-accent-1 transition-colors"
+            <button
+              onClick={() => handleScrollToSection('#work')}
+              className="group inline-flex flex-col items-center gap-2 text-muted hover:text-accent-1 transition-colors bg-transparent border-none cursor-pointer"
               aria-label="Scroll to work section"
             >
               <motion.div
@@ -88,7 +95,7 @@ export function Hero() {
               >
                 <ChevronDown className="h-6 w-6" />
               </motion.div>
-            </Link>
+            </button>
           </motion.div>
         </div>
       </div>

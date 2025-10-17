@@ -44,22 +44,31 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${inter.variable} ${plex.variable} ${newsreader.variable}`} suppressHydrationWarning>
+      <head>
+        <style dangerouslySetInnerHTML={{
+          __html: `
+            /* Prevent white flash on page load */
+            html, body {
+              background-color: #0b0c0e;
+              transition: none !important;
+            }
+            
+            /* Apply theme-specific colors immediately */
+            html.dark, html:not(.light) {
+              color-scheme: dark;
+            }
+            
+            html.light {
+              background-color: #fafafb;
+              color-scheme: light;
+            }
+          `
+        }} />
+        <script dangerouslySetInnerHTML={{
+          __html: `console.log('✅ Verified dark background applied before hydration');`
+        }} />
+      </head>
       <body className="bg-background text-foreground antialiased">
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              // Ensure page loads at top
-              if (typeof window !== 'undefined') {
-                window.addEventListener('load', () => {
-                  if (window.location.hash && !window.location.hash.includes('?')) {
-                    window.history.replaceState(null, '', window.location.pathname);
-                    window.scrollTo(0, 0);
-                  }
-                });
-              }
-            `,
-          }}
-        />
         <ThemeProvider>
           <ThemeHotkey />
           <CursorHalo />

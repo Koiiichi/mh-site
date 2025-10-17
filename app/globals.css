@@ -28,7 +28,7 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto; /* Disable native smooth scroll to allow programmatic control */
 }
 
 body {
@@ -38,7 +38,7 @@ body {
   color: var(--text);
   min-height: 100vh;
   text-rendering: optimizeLegibility;
-  scroll-behavior: smooth;
+  /* Remove smooth scroll from body - controlled at html level */
 }
 
 /* Prevent scroll when modal is open */
@@ -62,11 +62,6 @@ body::before {
   html, body {
     scroll-behavior: auto;
   }
-}
-
-/* Enhanced smooth scrolling */
-* {
-  scroll-behavior: smooth;
 }
 
 a {
