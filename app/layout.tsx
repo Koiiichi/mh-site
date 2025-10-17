@@ -17,6 +17,11 @@ export const metadata: Metadata = {
     template: '%s · Muneeb Hassan'
   },
   description: 'Design engineer crafting tactile software, systems, and developer tooling.',
+  icons: {
+    icon: '/mh-favicon.svg',
+    shortcut: '/mh-favicon.svg',
+    apple: '/mh-favicon.svg',
+  },
   openGraph: {
     title: 'Muneeb Hassan',
     description: 'Design engineer crafting tactile software, systems, and developer tooling.',
@@ -38,6 +43,9 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: 'https://muneeb.design'
+  },
+  other: {
+    'theme-color': '#0b0c0e',
   }
 };
 
@@ -45,6 +53,29 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${inter.variable} ${plex.variable} ${newsreader.variable}`} suppressHydrationWarning>
       <head>
+        {/* Blocking script to prevent flash - runs before any rendering */}
+        <script dangerouslySetInnerHTML={{
+          __html: `
+            (function() {
+              const theme = localStorage.getItem('muneeb-theme') || 'dark';
+              const root = document.documentElement;
+              
+              // Apply theme class immediately
+              if (theme === 'dark') {
+                root.classList.add('dark');
+                root.classList.remove('light');
+              } else {
+                root.classList.add('light');
+                root.classList.remove('dark');
+              }
+              
+              // Set color scheme
+              root.style.colorScheme = theme;
+              
+              console.log('✅ Verified dark background applied before hydration');
+            })();
+          `
+        }} />
         <style dangerouslySetInnerHTML={{
           __html: `
             /* Prevent white flash on page load */
@@ -56,6 +87,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             /* Apply theme-specific colors immediately */
             html.dark, html:not(.light) {
               color-scheme: dark;
+              background-color: #0b0c0e;
             }
             
             html.light {
@@ -63,9 +95,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               color-scheme: light;
             }
           `
-        }} />
-        <script dangerouslySetInnerHTML={{
-          __html: `console.log('✅ Verified dark background applied before hydration');`
         }} />
       </head>
       <body className="bg-background text-foreground antialiased">
