@@ -17,11 +17,6 @@ export const metadata: Metadata = {
     template: '%s · Muneeb Hassan'
   },
   description: 'Design engineer crafting tactile software, systems, and developer tooling.',
-  icons: {
-    icon: '/mh-favicon.svg',
-    shortcut: '/mh-favicon.svg',
-    apple: '/mh-favicon.svg',
-  },
   openGraph: {
     title: 'Muneeb Hassan',
     description: 'Design engineer crafting tactile software, systems, and developer tooling.',
@@ -53,47 +48,62 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${inter.variable} ${plex.variable} ${newsreader.variable}`} suppressHydrationWarning>
       <head>
+        {/* Critical inline styles - must be first */}
+        <style dangerouslySetInnerHTML={{
+          __html: `
+            /* Prevent white flash - applied immediately */
+            :root {
+              background-color: #0b0c0e !important;
+            }
+            
+            html {
+              background-color: #0b0c0e !important;
+            }
+            
+            body {
+              background-color: #0b0c0e !important;
+              transition: none !important;
+            }
+            
+            /* Theme-specific overrides */
+            html.light {
+              background-color: #fafafb !important;
+            }
+            
+            html.light body {
+              background-color: #fafafb !important;
+            }
+          `
+        }} />
+        
         {/* Blocking script to prevent flash - runs before any rendering */}
         <script dangerouslySetInnerHTML={{
           __html: `
             (function() {
-              const theme = localStorage.getItem('muneeb-theme') || 'dark';
-              const root = document.documentElement;
-              
-              // Apply theme class immediately
-              if (theme === 'dark') {
-                root.classList.add('dark');
-                root.classList.remove('light');
-              } else {
-                root.classList.add('light');
-                root.classList.remove('dark');
+              try {
+                const theme = localStorage.getItem('muneeb-theme') || 'dark';
+                const root = document.documentElement;
+                
+                // Set background immediately
+                document.documentElement.style.backgroundColor = theme === 'dark' ? '#0b0c0e' : '#fafafb';
+                document.documentElement.style.colorScheme = theme;
+                
+                // Apply theme class
+                if (theme === 'dark') {
+                  root.classList.add('dark');
+                  root.classList.remove('light');
+                } else {
+                  root.classList.add('light');
+                  root.classList.remove('dark');
+                }
+                
+                console.log('✅ Theme applied before hydration:', theme);
+              } catch (e) {
+                // Fallback to dark mode if localStorage fails
+                document.documentElement.style.backgroundColor = '#0b0c0e';
+                document.documentElement.classList.add('dark');
               }
-              
-              // Set color scheme
-              root.style.colorScheme = theme;
-              
-              console.log('✅ Verified dark background applied before hydration');
             })();
-          `
-        }} />
-        <style dangerouslySetInnerHTML={{
-          __html: `
-            /* Prevent white flash on page load */
-            html, body {
-              background-color: #0b0c0e;
-              transition: none !important;
-            }
-            
-            /* Apply theme-specific colors immediately */
-            html.dark, html:not(.light) {
-              color-scheme: dark;
-              background-color: #0b0c0e;
-            }
-            
-            html.light {
-              background-color: #fafafb;
-              color-scheme: light;
-            }
           `
         }} />
       </head>

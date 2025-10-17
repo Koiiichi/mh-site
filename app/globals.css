@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Prevent flash of unstyled content */
+@layer base {
+  html {
+    background-color: #0b0c0e;
+    transition: none !important;
+  }
+  
+  html.light {
+    background-color: #fafafb;
+  }
+}
+
 :root {
   --font-sans: 'Inter', system-ui, sans-serif;
   --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular;
@@ -38,6 +50,7 @@ body {
   color: var(--text);
   min-height: 100vh;
   text-rendering: optimizeLegibility;
+  transition: none !important; /* Prevent background transitions on theme change */
   /* Remove smooth scroll from body - controlled at html level */
 }
 
