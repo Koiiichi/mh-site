@@ -12,7 +12,7 @@ This document provides specific instructions for implementing comprehensive upda
 **New**: 
 - Title: I am a "Software Engineer" (italicized with quotes, theme-consistent font)
 - Subtitle: with experience building across web, backend, ML, and embedded systems.
-- Description: I've worked on projects spanning scalable platforms, data pipelines, and real-time firmware — while also exploring new areas like frontend engineering and AI-driven agents. Currently a Computational Math & CS student at the University of Waterloo and a Firmware Developer with the Midnight Sun Solar Car Team.
+- Description: I've worked on projects spanning scalable platforms, data pipelines, and real-time firmware — while also exploring new areas like frontend engineering and AI-driven agents. Currently a  CS & Stats student at the University of Waterloo and a Firmware Developer with the Midnight Sun Solar Car Team. 
 
 ### 2. Projects Carousel Overhaul
 **Location**: `app/(components)/projects-carousel/`

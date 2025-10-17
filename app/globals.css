@@ -158,3 +158,29 @@ a:focus-visible::after {
     border-color: var(--border);
   }
 }
+
+/* Tech icon dark mode visibility */
+.dark .tech-icon {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+/* Prevent double inversion for already light icons (vercel, nextjs, etc) */
+.dark .tech-icon[src*="vercel"],
+.dark .tech-icon[src*="nextjs"],
+.dark .tech-icon[src*="deepseek"],
+.dark .tech-icon[src*="openai"],
+.dark .tech-icon[src*="react"],
+.dark .tech-icon[src*="firebase"],
+.dark .tech-icon[src*="tailwind"],
+.dark .tech-icon[src*="typescript"],
+.dark .tech-icon[src*="python"],
+.dark .tech-icon[src*="fastapi"],
+.dark .tech-icon[src*="selenium"],
+.dark .tech-icon[src*="typer"],
+.dark .tech-icon[src*="openseadragon"],
+.dark .tech-icon[src*="midi"],
+.dark .tech-icon[src*="music"],
+.dark .tech-icon[src*="vm"],
+.dark .tech-icon[src*="default"] {
+  filter: none;
+}

@@ -62,7 +62,7 @@ export function Hero() {
             transition={{ delay: prefersReducedMotion ? 0 : 0.15, duration: prefersReducedMotion ? 0 : 0.6, ease: 'easeOut' }}
             className="max-w-3xl text-base text-muted sm:text-lg"
           >
-            I&apos;ve worked on projects spanning scalable platforms, data pipelines, and real-time firmware — while also exploring new areas like frontend engineering and AI-driven agents. Currently a Computational Math & CS student at the University of Waterloo and a Firmware Developer with the Midnight Sun Solar Car Team.
+            I enjoy building across different domains — from scalable systems and data workflows to real-time firmware. Lately, I&apos;ve been exploring frontend development and AI-driven agents. I&apos;m studying CS & Stats at the University of Waterloo and looking for a Winter 2025 co-op.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 16 }}

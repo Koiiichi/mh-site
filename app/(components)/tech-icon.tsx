@@ -23,7 +23,7 @@ export function TechIcon({ src, alt = '', size = 12, className = '' }: TechIconP
       alt={alt}
       width={size}
       height={size}
-      className={className}
+      className={`tech-icon ${className}`}
       aria-hidden="true"
       onError={() => setHasError(true)}
     />
