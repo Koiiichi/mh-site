@@ -54,8 +54,7 @@ export function Hero() {
             transition={{ duration: prefersReducedMotion ? 0 : 0.7, ease: 'easeOut' }}
             className="max-w-3xl text-balance text-3xl font-semibold leading-[1.1] tracking-tight text-foreground sm:text-4xl md:text-5xl"
           >
-            I am a <em className="font-newsreader italic">Software Engineer</em> with experience building across web, backend, ML, and embedded systems.
-          </motion.h1>
+            I am a <em className="font-newsreader italic">Generalist Software Engineer</em>, building across the stack.
           <motion.p
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
