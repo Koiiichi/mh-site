@@ -29,7 +29,7 @@ export const projectDetails: Record<string, ProjectDetail> = {
     ],
     results: "CoCode successfully delivers a real-time collaborative editor that bridges the gap between Google Docs–style simplicity and IDE-level power. Demoed at the University of Waterloo CS Club, it received strong feedback for its approachable design and seamless collaboration features. The project shows how browser-first applications can evolve from simple tools into professional-grade platforms, with future directions including AI-powered code assistance and one-click deployment.",
     timeline: "October 2024 – June 2025",
-    tools: ["TypeScript", "React", "Tailwind CSS", "Firebase (Realtime DB, Firestore, Storage, Authentication)", "Monaco Editor", "Bash", "GitHub Workflows", "Vercel"],
+    tools: ["TypeScript", "React", "Tailwind CSS", "Firebase", "Monaco Editor", "Bash", "GitHub Workflows", "Vercel"],
     links: [
       { label: "Visit Website", url: "https://co-c0de.vercel.app/" },
       { label: "View Source", url: "https://github.com/Koiiichi/CoCode" }
