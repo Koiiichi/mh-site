@@ -38,6 +38,12 @@ export function Hero() {
               Projects
             </button>
             <button
+              onClick={() => handleScrollToSection('#now')}
+              className="font-newsreader italic text-sm font-medium text-muted hover:text-foreground transition-colors cursor-pointer"
+            >
+              Now
+            </button>
+            <button
               onClick={() => handleScrollToSection('#connect')}
               className="text-sm font-medium text-muted hover:text-foreground transition-colors cursor-pointer"
             >
