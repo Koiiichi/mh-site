@@ -67,6 +67,7 @@ export function Now() {
                   viewBox="0 0 24 24"
                   fill="none"
                   className="drop-shadow-sm"
+                  style={{ shapeRendering: 'geometricPrecision' }}
                 >
                   {/* Outer disc */}
                   <circle
@@ -74,27 +75,36 @@ export function Now() {
                     cy="12"
                     r="11"
                     fill="currentColor"
-                    className="text-muted/40"
+                    className="text-foreground/90"
                   />
                   
-                  {/* Vinyl grooves */}
+                  {/* Vinyl grooves - more prominent */}
                   <circle
                     cx="12"
                     cy="12"
-                    r="9"
+                    r="9.5"
                     fill="none"
                     stroke="currentColor"
-                    strokeWidth="0.5"
-                    className="text-muted/20"
+                    strokeWidth="1"
+                    className="text-background/40"
                   />
                   <circle
                     cx="12"
                     cy="12"
-                    r="7"
+                    r="8"
                     fill="none"
                     stroke="currentColor"
-                    strokeWidth="0.5"
-                    className="text-muted/20"
+                    strokeWidth="1"
+                    className="text-background/40"
+                  />
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="6.5"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1"
+                    className="text-background/40"
                   />
                   <circle
                     cx="12"
@@ -102,8 +112,8 @@ export function Now() {
                     r="5"
                     fill="none"
                     stroke="currentColor"
-                    strokeWidth="0.5"
-                    className="text-muted/20"
+                    strokeWidth="1"
+                    className="text-background/40"
                   />
                   
                   {/* Label area */}
@@ -112,7 +122,7 @@ export function Now() {
                     cy="12"
                     r="4"
                     fill="currentColor"
-                    className="text-muted/60"
+                    className="text-foreground/70"
                   />
                   
                   {/* Center hole */}
@@ -122,19 +132,20 @@ export function Now() {
                     r="1.5"
                     fill="currentColor"
                     className="text-background"
+                    stroke="currentColor"
+                    strokeWidth="0.5"
                   />
                   
-                  {/* Shimmer effect - small highlight */}
-                  <motion.circle
-                    cx="12"
-                    cy="12"
-                    r="10"
+                  {/* Shimmer highlight */}
+                  <motion.path
+                    d="M 12 1 A 11 11 0 0 1 23 12"
                     fill="none"
-                    stroke="url(#vinyl-gradient)"
-                    strokeWidth="1"
-                    opacity="0.3"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    className="text-foreground/20"
                     animate={prefersReducedMotion ? {} : {
-                      opacity: [0.2, 0.4, 0.2],
+                      opacity: [0.15, 0.35, 0.15],
                     }}
                     transition={{
                       duration: 2,
@@ -142,14 +153,6 @@ export function Now() {
                       ease: 'easeInOut',
                     }}
                   />
-                  
-                  <defs>
-                    <linearGradient id="vinyl-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="currentColor" className="text-foreground" stopOpacity="0.1" />
-                      <stop offset="50%" stopColor="currentColor" className="text-foreground" stopOpacity="0.3" />
-                      <stop offset="100%" stopColor="currentColor" className="text-foreground" stopOpacity="0.1" />
-                    </linearGradient>
-                  </defs>
                 </svg>
               </motion.div>
               <span className="group-hover:text-foreground transition-colors">
