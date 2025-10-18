@@ -1,6 +1,7 @@
 'use client';
 
 import { Mail, Linkedin, Github, ExternalLink } from 'lucide-react';
+import { motion, useReducedMotion } from 'framer-motion';
 import { Hero } from './(components)/hero';
 import { ProjectsCarousel } from './(components)/projects-carousel/simple-carousel';
 import { Now } from './(components)/now';
@@ -34,6 +35,8 @@ const workExperience = [
 ];
 
 export default function HomePage() {
+  const prefersReducedMotion = useReducedMotion();
+
   return (
     <main className="flex flex-1 flex-col gap-12">
       <Hero />
@@ -44,7 +47,12 @@ export default function HomePage() {
           <p className="font-mono text-xs uppercase tracking-[0.3em] text-muted">Experience</p>
           <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">Work</h2>
         </header>
-        <div className="space-y-6">
+        <motion.div
+          initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+          className="space-y-6"
+        >
           {workExperience.map((work, index) => (
             <div key={index} className="flex items-start gap-4">
               <div className="flex-shrink-0 w-24">
@@ -66,7 +74,7 @@ export default function HomePage() {
               </div>
             </div>
           ))}
-        </div>
+        </motion.div>
       </section>
 
       <ProjectsCarousel />
@@ -78,7 +86,12 @@ export default function HomePage() {
           <p className="font-mono text-xs uppercase tracking-[0.3em] text-muted">Connect</p>
           <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">Get in Touch</h2>
         </header>
-        <div className="space-y-6">
+        <motion.div
+          initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+          className="space-y-6"
+        >
           <p className="text-base text-muted max-w-2xl">
             Feel free to reach out on LinkedIn or by email.
           </p>
@@ -99,7 +112,7 @@ export default function HomePage() {
               );
             })}
           </div>
-        </div>
+        </motion.div>
       </section>
       <FooterClock />
     </main>
