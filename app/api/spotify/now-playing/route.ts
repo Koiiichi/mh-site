@@ -1,7 +1,8 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 
 const TOKEN_ENDPOINT = 'https://accounts.spotify.com/api/token';
 const NOW_PLAYING_ENDPOINT = 'https://api.spotify.com/v1/me/player/currently-playing';
+const RECENTLY_PLAYED_ENDPOINT = 'https://api.spotify.com/v1/me/player/recently-played?limit=1';
 
 const basic = Buffer.from(
   `${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_SECRET}`
@@ -25,21 +26,45 @@ async function getAccessToken() {
 export async function GET() {
   try {
     const { access_token } = await getAccessToken();
-    const response = await fetch(NOW_PLAYING_ENDPOINT, {
+    
+    // Try to get currently playing track
+    let response = await fetch(NOW_PLAYING_ENDPOINT, {
       headers: { Authorization: `Bearer ${access_token}` },
     });
 
     if (response.status === 204 || response.status > 400) {
+      // Fall back to recently played
+      response = await fetch(RECENTLY_PLAYED_ENDPOINT, {
+        headers: { Authorization: `Bearer ${access_token}` },
+      });
+      
+      if (response.ok) {
+        const recent = await response.json();
+        const item = recent.items?.[0]?.track;
+
+        if (item) {
+          return NextResponse.json({
+            isPlaying: false,
+            lastPlayed: item.name,
+            artist: item.artists?.map((a: { name: string }) => a.name).join(', '),
+            url: item.external_urls?.spotify,
+            context: item.album?.name || null,
+          });
+        }
+      }
+      
       return NextResponse.json({ isPlaying: false });
     }
 
     const song = await response.json();
+    const context = song.item?.album?.name || null;
     
     return NextResponse.json({
       isPlaying: song.is_playing,
       title: song.item.name,
       artist: song.item.artists.map((a: { name: string }) => a.name).join(', '),
       url: song.item.external_urls.spotify,
+      context,
     });
   } catch (error) {
     console.error('Spotify API error:', error);

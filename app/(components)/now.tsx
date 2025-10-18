@@ -7,7 +7,7 @@ const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
 export function Now() {
   const prefersReducedMotion = useReducedMotion();
-  const { data } = useSWR('/api/spotify/now-playing', fetcher, { refreshInterval: 60000 });
+  const { data } = useSWR('/api/spotify/now-playing', fetcher, { refreshInterval: 30000 });
 
   return (
     <section id="now" className="space-y-8">
@@ -22,7 +22,7 @@ export function Now() {
         className="space-y-6"
       >
         <div className="text-base leading-relaxed text-muted/80 space-y-4 max-w-3xl">
-          <p className="italic">
+          <p>
             Learning by building — chasing the satisfaction of solving a problem cleanly and
             understanding how the pieces fit together. I&apos;m drawn to systems that balance logic
             with feel — constantly thinking about how to connect abstract, ambitious ideas into
@@ -31,18 +31,20 @@ export function Now() {
             refinement, something that time and experience will carve naturally as a niche forms.
           </p>
 
-          <p className="italic">
+          <p>
             I&apos;m exploring how agentic systems can make creation more collaborative — how small
             automations can expand what one person can build. The more I learn, the more I realize
             engineering is less about syntax and more about empathy.
           </p>
 
-          <p className="italic">
+          <p>
             Lately, I&apos;ve been enjoying more contemporary sounds — textured R&B and its many
-            syncopated subgenres. Ambient soundscapes otherwise drone in my ear: think{' '}
-            <em>obscure Aphex Twin B-sides</em>, anything that <em>hums with intention</em> — my
-            sole replacement for the <em>white noise of my ceiling fan</em>, which has become a
-            limited offering.
+            syncopated subgenres.{' '}
+            <em>
+              Ambient soundscapes otherwise drone in my ear: think obscure Aphex Twin B-sides,
+              anything that hums with intention — my sole replacement for the white noise of my
+              ceiling fan, which has become a limited offering.
+            </em>
           </p>
         </div>
 
@@ -58,6 +60,30 @@ export function Now() {
               >
                 &quot;{data.title}&quot; — {data.artist}
               </a>
+              {data.context && (
+                <>
+                  {' '}
+                  from <span className="font-medium">{data.context}</span>
+                </>
+              )}
+            </>
+          ) : data?.lastPlayed ? (
+            <>
+              Last played:{' '}
+              <a
+                href={data.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline decoration-muted/40 hover:decoration-muted hover:text-foreground transition-colors"
+              >
+                &quot;{data.lastPlayed}&quot; — {data.artist}
+              </a>
+              {data.context && (
+                <>
+                  {' '}
+                  from <span className="font-medium">{data.context}</span>
+                </>
+              )}
             </>
           ) : (
             <>Not listening to anything right now.</>
