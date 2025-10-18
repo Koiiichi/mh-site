@@ -83,8 +83,8 @@ export default function HomePage() {
 
       <section id="connect" className="space-y-8">
         <header className="flex flex-col gap-2">
-          <p className="font-mono text-xs uppercase tracking-[0.3em] text-muted">Connect</p>
-          <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">Get in Touch</h2>
+          <p className="font-mono text-xs uppercase tracking-[0.3em] text-muted">Get in Touch</p>
+          <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">Connect</h2>
         </header>
         <motion.div
           initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
