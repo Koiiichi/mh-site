@@ -85,7 +85,7 @@ export function Now() {
                     r="9.5"
                     fill="none"
                     stroke="currentColor"
-                    strokeWidth="1"
+                    strokeWidth="2"
                     className="text-background/40"
                   />
                   <circle
@@ -94,7 +94,7 @@ export function Now() {
                     r="8"
                     fill="none"
                     stroke="currentColor"
-                    strokeWidth="1"
+                    strokeWidth="2"
                     className="text-background/40"
                   />
                   <circle
@@ -103,7 +103,7 @@ export function Now() {
                     r="6.5"
                     fill="none"
                     stroke="currentColor"
-                    strokeWidth="1"
+                    strokeWidth="2"
                     className="text-background/40"
                   />
                   <circle
@@ -112,7 +112,7 @@ export function Now() {
                     r="5"
                     fill="none"
                     stroke="currentColor"
-                    strokeWidth="1"
+                    strokeWidth="2"
                     className="text-background/40"
                   />
                   
@@ -141,7 +141,7 @@ export function Now() {
                     d="M 12 1 A 11 11 0 0 1 23 12"
                     fill="none"
                     stroke="currentColor"
-                    strokeWidth="1.5"
+                    strokeWidth="3"
                     strokeLinecap="round"
                     className="text-foreground/20"
                     animate={prefersReducedMotion ? {} : {
