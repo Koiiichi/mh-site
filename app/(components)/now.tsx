@@ -47,6 +47,12 @@ export function Now() {
 
         </div>
 
+        <div className="flex items-center gap-3 text-muted/30">
+          <div className="h-px flex-1 bg-muted/20"></div>
+          <span className="text-xs">—</span>
+          <div className="h-px flex-1 bg-muted/20"></div>
+        </div>
+
         <div className="italic text-muted/70 text-base">
           {data?.isPlaying ? (
             <>
