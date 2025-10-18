@@ -7,7 +7,7 @@ const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
 export function Now() {
   const prefersReducedMotion = useReducedMotion();
-  const { data } = useSWR('/api/spotify/now-playing', fetcher, { refreshInterval: 30000 });
+  const { data } = useSWR('/api/spotify/now-playing', fetcher, { refreshInterval: 5000 });
 
   return (
     <section id="now" className="space-y-8">
@@ -23,29 +23,25 @@ export function Now() {
       >
         <div className="text-base leading-relaxed text-muted/80 space-y-4 max-w-3xl">
           <p>
-            Learning by building — chasing the satisfaction of solving a problem cleanly and
-            understanding how the pieces fit together. I&apos;m drawn to systems that balance logic
-            with feel — constantly thinking about how to connect abstract, ambitious ideas into
-            tangible products without overwhelming the mind with the sheer complexity of building
-            them using the toolset I currently have. That toolset still needs expansion and
-            refinement, something that time and experience will carve naturally as a niche forms.
-          </p>
+  <em>Learning by building</em> — chasing the satisfaction of solving a problem cleanly and understanding how the pieces fit together.
+  I&apos;m drawn to systems that balance logic with feel — constantly thinking about how to connect abstract, ambitious ideas into tangible products
+  without overwhelming the mind with the sheer complexity of building them using the toolset I currently have.
+  That toolset still needs expansion and refinement, something that <em>time and experience will carve naturally as a niche forms.</em>
+</p>
 
-          <p>
-            I&apos;m exploring how agentic systems can make creation more collaborative — how small
-            automations can expand what one person can build. The more I learn, the more I realize
-            engineering is less about syntax and more about empathy.
-          </p>
+<p>
+  I&apos;m exploring how agentic systems can make creation more collaborative — how small automations can expand what one person can build.
+  The more I learn, the more I realize <em>engineering is less about syntax and more about empathy.</em>
+</p>
 
-          <p>
-            Lately, I&apos;ve been enjoying more contemporary sounds — textured R&B and its many
-            syncopated subgenres.{' '}
-            <em>
-              Ambient soundscapes otherwise drone in my ear: think obscure Aphex Twin B-sides,
-              anything that hums with intention — my sole replacement for the white noise of my
-              ceiling fan, which has become a limited offering.
-            </em>
-          </p>
+<p>
+  Lately, I&apos;ve been enjoying more contemporary sounds — textured R&amp;B and its many syncopated subgenres.{' '}
+  <em>
+    Ambient soundscapes otherwise drone in my ear: think obscure Aphex Twin B-sides, anything that hums with intention —
+    my sole replacement for the white noise of my ceiling fan, which has become a limited offering.
+  </em>
+</p>
+
         </div>
 
         <div className="italic text-muted/70 text-base">
