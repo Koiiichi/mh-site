@@ -63,14 +63,22 @@ export function Hero() {
           >
             I am a <em className="font-newsreader italic">Generalist Software Engineer</em>, building across the stack.
           </motion.h1>
-          <motion.p
+          
+          <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: prefersReducedMotion ? 0 : 0.15, duration: prefersReducedMotion ? 0 : 0.6, ease: 'easeOut' }}
-            className="max-w-3xl text-base text-muted sm:text-lg"
+            className="max-w-3xl space-y-4"
           >
-            I enjoy building across different domains — from scalable systems and data workflows to real-time firmware. Lately, I&apos;ve been exploring frontend development and AI-driven agents. I&apos;m studying CS & Stats at the University of Waterloo and looking for a Winter 2025 co-op.
-          </motion.p>
+            <p className="text-base text-muted sm:text-lg">
+              I love working across the stack — from backend systems and data workflows to real-time firmware and the evolving intersection of AI and UX (everything&apos;s a GPT wrapper anyway). My projects often revolve around turning my very abstract, interdisciplinary ideas into something tangible and useful.
+            </p>
+            
+            <p className="text-sm text-muted/85 italic leading-relaxed transition-opacity duration-300 hover:opacity-100 sm:text-base">
+              Outside of that, I&apos;m probably exploring new R&B releases (or listening to droning Aphex Twin tracks), playing badminton, or watching dystopian films that make me overthink reality a little too much.
+            </p>
+          </motion.div>
+          
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
