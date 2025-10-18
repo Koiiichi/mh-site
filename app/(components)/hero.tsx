@@ -39,7 +39,7 @@ export function Hero() {
             </button>
             <button
               onClick={() => handleScrollToSection('#now')}
-              className="font-newsreader italic text-sm font-medium text-muted hover:text-foreground transition-colors cursor-pointer inline-flex items-center translate-y-[1.9px]"
+              className="font-newsreader italic text-sm font-medium text-muted hover:text-foreground transition-colors cursor-pointer inline-flex items-center translate-y-[2.1px]"
             >
               Now
             </button>
