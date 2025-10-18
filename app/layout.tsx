@@ -16,10 +16,10 @@ export const metadata: Metadata = {
     default: 'Muneeb Hassan',
     template: '%s · Muneeb Hassan'
   },
-  description: 'Design engineer crafting tactile software, systems, and developer tooling.',
+  description: 'Working on backend systems, data workflows, and occasionally embedded projects. CS + Stats @UWaterloo.',
   openGraph: {
     title: 'Muneeb Hassan',
-    description: 'Design engineer crafting tactile software, systems, and developer tooling.',
+    description: 'Working on backend systems, data workflows, and occasionally embedded projects. CS + Stats @UWaterloo.',
     type: 'website',
     url: 'https://muneeb.design',
     images: [
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Muneeb Hassan',
-    description: 'Design engineer crafting tactile software, systems, and developer tooling.'
+    description: 'Working on backend systems, data workflows, and occasionally embedded projects. CS + Stats @UWaterloo.'
   },
   alternates: {
     canonical: 'https://muneeb.design'
