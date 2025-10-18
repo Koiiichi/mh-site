@@ -51,39 +51,114 @@ export function Now() {
 
         <div className="italic text-muted/70 text-base">
           {data?.isPlaying ? (
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2.5 group">
               <motion.div
                 animate={prefersReducedMotion ? {} : { rotate: 360 }}
                 transition={{
-                  duration: 3,
+                  duration: 4,
                   repeat: Infinity,
                   ease: 'linear',
                 }}
-                className="flex-shrink-0"
+                className="flex-shrink-0 relative"
               >
                 <svg
-                  width="16"
-                  height="16"
+                  width="20"
+                  height="20"
                   viewBox="0 0 24 24"
                   fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="text-muted/50"
+                  className="drop-shadow-sm"
                 >
-                  <circle cx="12" cy="12" r="10" />
-                  <circle cx="12" cy="12" r="3" />
-                  <line x1="12" y1="2" x2="12" y2="6" />
+                  {/* Outer disc */}
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="11"
+                    fill="currentColor"
+                    className="text-muted/40"
+                  />
+                  
+                  {/* Vinyl grooves */}
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="9"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="0.5"
+                    className="text-muted/20"
+                  />
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="7"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="0.5"
+                    className="text-muted/20"
+                  />
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="5"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="0.5"
+                    className="text-muted/20"
+                  />
+                  
+                  {/* Label area */}
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="4"
+                    fill="currentColor"
+                    className="text-muted/60"
+                  />
+                  
+                  {/* Center hole */}
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="1.5"
+                    fill="currentColor"
+                    className="text-background"
+                  />
+                  
+                  {/* Shimmer effect - small highlight */}
+                  <motion.circle
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    fill="none"
+                    stroke="url(#vinyl-gradient)"
+                    strokeWidth="1"
+                    opacity="0.3"
+                    animate={prefersReducedMotion ? {} : {
+                      opacity: [0.2, 0.4, 0.2],
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: 'easeInOut',
+                    }}
+                  />
+                  
+                  <defs>
+                    <linearGradient id="vinyl-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="currentColor" className="text-foreground" stopOpacity="0.1" />
+                      <stop offset="50%" stopColor="currentColor" className="text-foreground" stopOpacity="0.3" />
+                      <stop offset="100%" stopColor="currentColor" className="text-foreground" stopOpacity="0.1" />
+                    </linearGradient>
+                  </defs>
                 </svg>
               </motion.div>
-              <span>
+              <span className="group-hover:text-foreground transition-colors">
                 Currently playing:{' '}
                 <a
                   href={data.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="underline decoration-muted/40 hover:decoration-muted hover:text-foreground transition-colors"
+                  className="underline decoration-muted/40 hover:decoration-muted hover:text-foreground transition-all hover:scale-[1.01] inline-block"
                 >
                   &quot;{data.title}&quot; — {data.artist}
                 </a>
