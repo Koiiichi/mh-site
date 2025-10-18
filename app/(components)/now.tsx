@@ -39,7 +39,7 @@ export function Now() {
 
           <p>
             Lately, I&apos;ve been enjoying more contemporary sounds — textured R&amp;B and its many syncopated subgenres.{' '}
-            <em>Ambient soundscapes otherwise drone in my ear: think obscure Aphex Twin B-sides, anything that hums with intention — my sole replacement for the white noise of my ceiling fan, which has become a limited offering.</em>
+            Ambient soundscapes otherwise drone in my ear: think obscure Aphex Twin B-sides, anything that hums with intention — my sole replacement for the white noise of my ceiling fan, which has become a limited offering.
           </p>
         </div>
 
