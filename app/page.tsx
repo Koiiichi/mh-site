@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect } from 'react';
 import { Mail, Linkedin, Github, ExternalLink } from 'lucide-react';
 import { Hero } from './(components)/hero';
 import { ProjectsCarousel } from './(components)/projects-carousel/simple-carousel';
+import { Now } from './(components)/now';
 import { FooterClock } from './(components)/footer-clock';
 
 const connectLinks = [
@@ -34,10 +34,6 @@ const workExperience = [
 ];
 
 export default function HomePage() {
-  useEffect(() => {
-    console.log('✅ Page retains scroll position on reload');
-  }, []);
-
   return (
     <main className="flex flex-1 flex-col gap-12">
       <Hero />
@@ -74,6 +70,8 @@ export default function HomePage() {
       </section>
 
       <ProjectsCarousel />
+
+      <Now />
 
       <section id="connect" className="space-y-8">
         <header className="flex flex-col gap-2">

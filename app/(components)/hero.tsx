@@ -16,7 +16,6 @@ export function Hero() {
     const element = document.querySelector(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      console.log(`🎬 Scroll animation triggered for ${sectionId} section`);
     }
   };
 
@@ -61,7 +60,7 @@ export function Hero() {
             transition={{ duration: prefersReducedMotion ? 0 : 0.7, ease: 'easeOut' }}
             className="max-w-3xl text-balance text-3xl font-semibold leading-[1.1] tracking-tight text-foreground sm:text-4xl md:text-5xl"
           >
-            I am a <em className="font-newsreader italic">Generalist Software Engineer</em>, building across the stack.
+           <em className="font-newsreader italic">Building across the stack.</em>
           </motion.h1>
           
           <motion.div
@@ -71,11 +70,7 @@ export function Hero() {
             className="max-w-3xl space-y-4"
           >
             <p className="text-base text-muted sm:text-lg">
-              I love working across the stack — from backend systems and data workflows to real-time firmware and the evolving intersection of AI and UX (everything&apos;s a GPT wrapper anyway). My projects often revolve around turning my very abstract, interdisciplinary ideas into something tangible and useful.
-            </p>
-            
-            <p className="text-sm text-muted/85 italic leading-relaxed transition-opacity duration-300 hover:opacity-100 sm:text-base">
-              Outside of that, I&apos;m probably exploring new R&B releases (or listening to droning Aphex Twin tracks), playing badminton, or watching dystopian films that make me overthink reality a little too much.
+              Working on backend systems, data workflows, and occasionally embedded projects. CS + Stats @UWaterloo.
             </p>
           </motion.div>
           

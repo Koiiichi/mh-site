@@ -119,5 +119,3 @@ export function FooterClock() {
     </footer>
   );
 }
-
-console.log('🕒 Clock updated with seconds and proper alignment');

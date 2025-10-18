@@ -96,8 +96,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   root.classList.add('light');
                   root.classList.remove('dark');
                 }
-                
-                console.log('✅ Theme applied before hydration:', theme);
               } catch (e) {
                 // Fallback to dark mode if localStorage fails
                 document.documentElement.style.backgroundColor = '#0b0c0e';
