@@ -1,5 +1,3 @@
-# AI Coding Assistant Instructions for Muneeb Hassan Portfolio
-
 ## Project Overview
 This is a Next.js 14 portfolio site using the App Router with TypeScript, Tailwind CSS, Framer Motion, and next-themes. It showcases projects through an interactive scroll-based carousel and maintains a design engineering aesthetic with precise animations and typography.
 
