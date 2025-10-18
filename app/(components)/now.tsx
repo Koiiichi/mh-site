@@ -20,38 +20,35 @@ export function Now() {
         <p className="font-mono text-xs uppercase tracking-[0.3em] text-muted">Present</p>
         <h2 className="font-newsreader italic text-2xl font-semibold tracking-tight sm:text-3xl">Now</h2>
       </header>
+
       <motion.div
         initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: 'easeOut' }}
         className="space-y-6"
       >
+        {/* Text Section */}
         <div className="text-base leading-relaxed text-muted/80 space-y-4 max-w-3xl">
           <p>
-  <em>Learning by building</em> — chasing the satisfaction of solving a problem cleanly and understanding how the pieces fit together.
-  I&apos;m drawn to systems that balance logic with feel — constantly thinking about how to connect abstract, ambitious ideas into tangible products
-  without overwhelming the mind with the sheer complexity of building them using the toolset I currently have.
-  That toolset still needs expansion and refinement, something that <em>time and experience will carve naturally as a niche forms.</em>
-</p>
+            <em>Learning by building</em> — chasing the satisfaction of solving a problem cleanly and understanding how the pieces fit together. I&apos;m drawn to systems that balance logic with feel — constantly thinking about how to connect abstract, ambitious ideas into tangible products without overwhelming the mind with the sheer complexity of building them using the toolset I currently have. That toolset still needs expansion and refinement, something that <em>time and experience will carve naturally as a niche forms.</em>
+          </p>
 
-<p>
-  I&apos;m exploring how agentic systems can make creation more collaborative — how small automations can expand what one person can build.
-  The more I learn, the more I realize <em>engineering is less about syntax and more about empathy.</em>
-</p>
+          <p>
+            I&apos;m exploring how agentic systems can make creation more collaborative — how small automations can expand what one person can build. The more I learn, the more I realize <em>engineering is less about syntax and more about empathy.</em>
+          </p>
 
-<p>
-  Lately, I&apos;ve been enjoying more contemporary sounds — textured R&amp;B and its many syncopated subgenres.{' '}
-    Ambient soundscapes otherwise drone in my ear: think obscure Aphex Twin B-sides, anything that hums with intention —
-    my sole replacement for the white noise of my ceiling fan, which has become a limited offering.
-</p>
-
+          <p>
+            Lately, I&apos;ve been enjoying more contemporary sounds — textured R&amp;B and its many syncopated subgenres.{' '}
+            <em>Ambient soundscapes otherwise drone in my ear: think obscure Aphex Twin B-sides, anything that hums with intention — my sole replacement for the white noise of my ceiling fan, which has become a limited offering.</em>
+          </p>
         </div>
 
         <div className="text-muted/30 text-sm">—</div>
 
+        {/* Spotify Now Playing */}
         <div className="italic text-muted/70 text-base">
           {data?.isPlaying ? (
-            <div className="flex items-center gap-2.5 group">
+            <div className="flex items-center gap-3 group">
               <motion.div
                 animate={prefersReducedMotion ? {} : { rotate: 360 }}
                 transition={{
@@ -59,102 +56,51 @@ export function Now() {
                   repeat: Infinity,
                   ease: 'linear',
                 }}
-                className="flex-shrink-0 relative"
+                className="relative flex-shrink-0"
+                style={{
+                  opacity: data?.isPlaying ? 1 : 0.5,
+                }}
               >
                 <svg
-                  width="20"
-                  height="20"
+                  width="26"
+                  height="26"
                   viewBox="0 0 24 24"
-                  fill="none"
-                  className="drop-shadow-sm"
-                  style={{ shapeRendering: 'geometricPrecision' }}
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="text-muted/60"
                 >
-                  {/* Outer disc */}
-                  <circle
-                    cx="12"
-                    cy="12"
-                    r="11"
-                    fill="currentColor"
-                    className="text-foreground/90"
-                  />
-                  
-                  {/* Vinyl grooves - more prominent */}
-                  <circle
-                    cx="12"
-                    cy="12"
-                    r="9.5"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    className="text-background/40"
-                  />
-                  <circle
-                    cx="12"
-                    cy="12"
-                    r="8"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    className="text-background/40"
-                  />
-                  <circle
-                    cx="12"
-                    cy="12"
-                    r="6.5"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    className="text-background/40"
-                  />
-                  <circle
-                    cx="12"
-                    cy="12"
-                    r="5"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    className="text-background/40"
-                  />
-                  
-                  {/* Label area */}
-                  <circle
-                    cx="12"
-                    cy="12"
-                    r="4"
-                    fill="currentColor"
-                    className="text-foreground/70"
-                  />
-                  
-                  {/* Center hole */}
-                  <circle
-                    cx="12"
-                    cy="12"
-                    r="1.5"
-                    fill="currentColor"
-                    className="text-background"
-                    stroke="currentColor"
-                    strokeWidth="0.5"
-                  />
-                  
-                  {/* Shimmer highlight */}
+                  {/* Vinyl Base */}
+                  <defs>
+                    <radialGradient id="vinylLight" cx="30%" cy="30%" r="80%">
+                      <stop offset="0%" stopColor="rgba(255,255,255,0.25)" />
+                      <stop offset="100%" stopColor="rgba(0,0,0,0.4)" />
+                    </radialGradient>
+                  </defs>
+
+                  <circle cx="12" cy="12" r="10.5" fill="url(#vinylLight)" stroke="none" />
+
+                  {/* Grooves */}
+                  <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" strokeWidth="0.5" opacity="0.25" />
+                  <circle cx="12" cy="12" r="7" fill="none" stroke="currentColor" strokeWidth="0.5" opacity="0.25" />
+                  <circle cx="12" cy="12" r="5" fill="none" stroke="currentColor" strokeWidth="0.5" opacity="0.25" />
+
+                  {/* Label */}
+                  <circle cx="12" cy="12" r="3" fill="currentColor" opacity="0.6" />
+                  <circle cx="12" cy="12" r="0.9" fill="rgba(0,0,0,0.9)" />
+
+                  {/* Highlight reflection */}
                   <motion.path
-                    d="M 12 1 A 11 11 0 0 1 23 12"
+                    d="M 5 5 A 10 10 0 0 1 19 5"
                     fill="none"
-                    stroke="currentColor"
-                    strokeWidth="3"
+                    stroke="white"
+                    strokeWidth="1"
                     strokeLinecap="round"
-                    className="text-foreground/20"
-                    animate={prefersReducedMotion ? {} : {
-                      opacity: [0.15, 0.35, 0.15],
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: 'easeInOut',
-                    }}
+                    opacity="0.2"
+                    animate={prefersReducedMotion ? {} : { opacity: [0.15, 0.35, 0.15] }}
+                    transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
                   />
                 </svg>
               </motion.div>
+
               <span className="group-hover:text-foreground transition-colors">
                 Currently playing:{' '}
                 <a
