@@ -76,7 +76,8 @@ export function Hero() {
             className="max-w-3xl space-y-4"
           >
             <p className="text-base text-muted sm:text-lg">
-              Working on backend systems, data workflows, and occasionally embedded projects. CS + Stats @UWaterloo.
+              Working on backend systems, data workflows, and occasionally embedded projects. 
+              CS + Stats @UWaterloo.
             </p>
           </motion.div>
           
