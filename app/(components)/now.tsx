@@ -74,6 +74,7 @@ export function Now() {
                 >
                   <circle cx="12" cy="12" r="10" />
                   <circle cx="12" cy="12" r="3" />
+                  <line x1="12" y1="2" x2="12" y2="6" />
                 </svg>
               </motion.div>
               <span>
