@@ -7,7 +7,12 @@ const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
 export function Now() {
   const prefersReducedMotion = useReducedMotion();
-  const { data } = useSWR('/api/spotify/now-playing', fetcher, { refreshInterval: 5000 });
+  const { data } = useSWR('/api/spotify/now-playing', fetcher, {
+    refreshInterval: 5000,
+    revalidateOnFocus: true,
+    revalidateOnReconnect: true,
+    dedupingInterval: 0,
+  });
 
   return (
     <section id="now" className="space-y-8">
@@ -36,10 +41,8 @@ export function Now() {
 
 <p>
   Lately, I&apos;ve been enjoying more contemporary sounds — textured R&amp;B and its many syncopated subgenres.{' '}
-  <em>
     Ambient soundscapes otherwise drone in my ear: think obscure Aphex Twin B-sides, anything that hums with intention —
     my sole replacement for the white noise of my ceiling fan, which has become a limited offering.
-  </em>
 </p>
 
         </div>
