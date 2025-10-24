@@ -45,7 +45,7 @@ SPOTIFY_REFRESH_TOKEN=your_refresh_token
 
 ### Getting Spotify Credentials
 
-1. Create a Spotify app at https://developer.spotify.com/dashboard
+1. Create a Spotify app at <https://developer.spotify.com/dashboard>
 2. Get your Client ID and Client Secret
 3. Use the authorization flow to get a refresh token
 4. Add these to your `.env.local` file
