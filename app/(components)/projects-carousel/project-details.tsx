@@ -83,7 +83,7 @@ export const projectDetails: Record<string, ProjectDetail> = {
   tools: ["React", "Next.js", "FastAPI", "DeepSeek API", "OpenSeadragon", "Vercel", "Python", "TypeScript"],
   links: [
     { label: "View Source", url: "https://github.com/ketjandr/nasa-spaceapps-project" },
-    { label: "Live Demo", url: "https://planetary-explorer.vercel.app/" },
+    { label: "Live Demo", url: "https://planetaryexplorer.vercel.app/" },
     { label: "NASA Space Apps Page", url: "https://www.spaceappschallenge.org/2025/find-a-team/slack-overflow/?tab=project" }
   ]
 },
