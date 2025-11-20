@@ -151,6 +151,18 @@ export function ProjectsCarousel() {
                     {/* Header */}
                     <header className="space-y-4">
                       <h1 className="text-3xl font-semibold tracking-tight">{project.title}</h1>
+                      {details.video && (
+                        <div className="w-full overflow-hidden rounded-xl border border-subtle bg-black/5">
+                          <video
+                            src={details.video}
+                            autoPlay
+                            loop
+                            muted
+                            playsInline
+                            className="w-full h-auto"
+                          />
+                        </div>
+                      )}
                       <p className="text-lg text-muted max-w-3xl">{details.overview}</p>
                     </header>
 
