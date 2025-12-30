@@ -77,7 +77,7 @@ export function Hero() {
           >
             <p className="text-base text-muted sm:text-lg">
               Working on backend systems, data workflows, and occasionally embedded projects.<br />
-              CS + Stats @UWaterloo.
+              CS + Stats @UWaterloo. AI R&D Engineer at Latii.  
             </p>
           </motion.div>
           

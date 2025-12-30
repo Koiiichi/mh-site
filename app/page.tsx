@@ -16,12 +16,18 @@ const connectLinks = [
 const workExperience = [
   {
     time: 'Now',
+    company: 'Latii',
+    url: 'https://latii.com/',
+    role: 'AI R&D Engineer'
+  },
+  {
+    time: 'Previously',
     company: 'Midnight Sun Solar Car Team',
     url: 'https://www.uwmidsun.com/',
     role: 'Firmware Developer'
   },
   {
-    time: 'Previously',
+    time: '',
     company: 'Sapphire Fibres Limited',
     url: 'http://www.sapphire.com.pk/sfl/',
     role: 'Oracle ADF Developer Intern'
