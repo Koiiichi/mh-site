@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, useReducedMotion, AnimatePresence, useInView } from 'framer-motion';
 import { useTheme } from 'next-themes';
 import useSWR from 'swr';
+import { RadioStatic } from './radio-static';
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
@@ -51,16 +52,12 @@ export function Now() {
   // Theme inversion effect when section is in view
   useEffect(() => {
     if (isInView && resolvedTheme) {
-      // Store original theme and invert when entering section
+      // Invert theme when entering section (permanent switch)
       if (!originalTheme) {
         setOriginalTheme(resolvedTheme);
         const invertedTheme = resolvedTheme === 'dark' ? 'light' : 'dark';
         setTheme(invertedTheme);
       }
-    } else if (!isInView && originalTheme) {
-      // Restore original theme when leaving section (scrolling away in any direction)
-      setTheme(originalTheme);
-      setOriginalTheme(null);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isInView]);
@@ -96,7 +93,8 @@ export function Now() {
   );
 
   return (
-    <section ref={sectionRef} id="now" className="space-y-8">
+    <section ref={sectionRef} id="now" className="space-y-8 relative">
+      <RadioStatic />
       <header 
         className="flex flex-col gap-2"
         onMouseEnter={() => setIsHoveringHeader(true)}
