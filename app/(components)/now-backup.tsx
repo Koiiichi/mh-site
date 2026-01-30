@@ -122,48 +122,20 @@ export function Now() {
         className="space-y-6"
       >
         {/* Text Section */}
-        <AnimatePresence mode="wait" custom={direction}>
-          <motion.div
-            key={mode === 'now' ? 'now-content' : `then-content-${archiveIndex}`}
-            custom={direction}
-            initial={prefersReducedMotion ? {} : { 
-              opacity: 0, 
-              x: direction * 20 
-            }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={prefersReducedMotion ? {} : { 
-              opacity: 0, 
-              x: direction * -20 
-            }}
-            transition={{ duration: 0.4, ease: 'easeInOut' }}
-            className="text-base leading-relaxed text-muted/80 space-y-4 max-w-3xl"
-          >
-            {currentContent}
-          </motion.div>
-        </AnimatePresence>
+        <div className="text-base leading-relaxed text-muted/80 space-y-4 max-w-3xl">
+          <p>
+          Lately, I’ve been lingering on the interdisciplinary nature of things, wondering whether everything I do is quietly linked beneath the surface. A web of ideas, habits, and abstractions stitched together by a human mind that can’t help but search for continuity. As I work, I keep circling the same question: how does the mind comprehend at all, and how does this bit-based machine manage to approximate something so profoundly human? It mimics us convincingly, yet operates from a foundation that is entirely foreign.
+          </p>
 
-        {/* Archive Navigation Dots */}
-        {mode === 'then' && archiveEntries.length > 1 && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="flex items-center gap-2 py-2"
-          >
-            {archiveEntries.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => handleArchiveNavigation(index)}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  index === archiveIndex
-                    ? 'bg-muted/60 scale-110'
-                    : 'bg-muted/20 hover:bg-muted/40 hover:scale-110'
-                }`}
-                aria-label={`View archive entry ${index + 1}`}
-              />
-            ))}
-          </motion.div>
-        )}
+          <p>
+          Translating human intuition into computational form has become the most challenging part of my process. Building agentic workflows forces me to confront that gap directly, aligning human approaches with systems that do not think, feel, or hesitate. The difficulty isn’t technical so much as conceptual, shaping intent into something a machine can execute without stripping away the nuance that made it meaningful in the first place.
+</p>
+
+<p>
+  Sonically or musically if you may, my habits have shifted alongside my routines. I’ve moved away from droning soundscapes toward something more immediate and energetic as my days grow more active. Lately, I’ve been drawn to dense, 808-heavy, almost sinister production, the kind that arrives without warning, Metro Boomin occupying much of that space. Still, I can feel myself drifting back toward more somber R&amp;B as the weather dulls and isolation creeps in, like <em>Sampha</em waiting patiently in rotation.
+</p>
+
+        </div>
 
         <div className="text-muted/30 text-sm">—</div>
 
