@@ -4,7 +4,6 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, useReducedMotion, AnimatePresence, useInView } from 'framer-motion';
 import { useTheme } from 'next-themes';
 import useSWR from 'swr';
-import { RadioStatic } from './radio-static';
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
@@ -40,7 +39,7 @@ export function Now() {
   const [archiveIndex, setArchiveIndex] = useState(0);
   const [isHoveringHeader, setIsHoveringHeader] = useState(false);
   const [direction, setDirection] = useState(0);
-  const [originalTheme, setOriginalTheme] = useState<string | null>(null);
+  const [hasInverted, setHasInverted] = useState(false);
   
   const { data } = useSWR('/api/spotify/now-playing', fetcher, {
     refreshInterval: 5000,
@@ -51,16 +50,14 @@ export function Now() {
 
   // Theme inversion effect when section is in view
   useEffect(() => {
-    if (isInView && resolvedTheme) {
-      // Invert theme when entering section (permanent switch)
-      if (!originalTheme) {
-        setOriginalTheme(resolvedTheme);
-        const invertedTheme = resolvedTheme === 'dark' ? 'light' : 'dark';
-        setTheme(invertedTheme);
-      }
+    if (isInView && resolvedTheme && !hasInverted) {
+      // Invert theme when entering section for the first time
+      const invertedTheme = resolvedTheme === 'dark' ? 'light' : 'dark';
+      setTheme(invertedTheme);
+      setHasInverted(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isInView]);
+  }, [isInView, resolvedTheme]);
 
   const handleModeToggle = (newMode: 'now' | 'then') => {
     setMode(newMode);
@@ -93,8 +90,7 @@ export function Now() {
   );
 
   return (
-    <section ref={sectionRef} id="now" className="space-y-8 relative">
-      <RadioStatic />
+    <section ref={sectionRef} id="now" className="space-y-8">
       <header 
         className="flex flex-col gap-2"
         onMouseEnter={() => setIsHoveringHeader(true)}
