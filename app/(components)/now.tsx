@@ -1,8 +1,7 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
-import { motion, useReducedMotion, AnimatePresence, useInView } from 'framer-motion';
-import { useTheme } from 'next-themes';
+import { useState } from 'react';
+import { motion, useReducedMotion, AnimatePresence } from 'framer-motion';
 import useSWR from 'swr';
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
@@ -31,15 +30,11 @@ const archiveEntries = [
 
 export function Now() {
   const prefersReducedMotion = useReducedMotion();
-  const sectionRef = useRef<HTMLElement>(null);
-  const isInView = useInView(sectionRef, { margin: '-50% 0px -50% 0px' });
-  const { resolvedTheme, setTheme } = useTheme();
   
   const [mode, setMode] = useState<'now' | 'then'>('now');
   const [archiveIndex, setArchiveIndex] = useState(0);
   const [isHoveringHeader, setIsHoveringHeader] = useState(false);
   const [direction, setDirection] = useState(0);
-  const [hasInverted, setHasInverted] = useState(false);
   
   const { data } = useSWR('/api/spotify/now-playing', fetcher, {
     refreshInterval: 5000,
@@ -47,17 +42,6 @@ export function Now() {
     revalidateOnReconnect: true,
     dedupingInterval: 0,
   });
-
-  // Theme inversion effect when section is in view
-  useEffect(() => {
-    if (isInView && resolvedTheme && !hasInverted) {
-      // Invert theme when entering section for the first time
-      const invertedTheme = resolvedTheme === 'dark' ? 'light' : 'dark';
-      setTheme(invertedTheme);
-      setHasInverted(true);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isInView, resolvedTheme]);
 
   const handleModeToggle = (newMode: 'now' | 'then') => {
     setMode(newMode);
@@ -90,7 +74,7 @@ export function Now() {
   );
 
   return (
-    <section ref={sectionRef} id="now" className="space-y-8">
+    <section id="now" className="space-y-8">
       <header 
         className="flex flex-col gap-2"
         onMouseEnter={() => setIsHoveringHeader(true)}
