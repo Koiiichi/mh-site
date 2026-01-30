@@ -50,20 +50,20 @@ export function Now() {
 
   // Theme inversion effect when section is in view
   useEffect(() => {
-    if (isInView && resolvedTheme) {
-      // Store original theme when entering section
-      if (!originalTheme) {
+    if (isInView) {
+      // Store original theme and invert when entering section
+      if (!originalTheme && resolvedTheme) {
         setOriginalTheme(resolvedTheme);
+        const invertedTheme = resolvedTheme === 'dark' ? 'light' : 'dark';
+        setTheme(invertedTheme);
       }
-      // Invert theme
-      const invertedTheme = resolvedTheme === 'dark' ? 'light' : 'dark';
-      setTheme(invertedTheme);
     } else if (!isInView && originalTheme) {
       // Restore original theme when leaving section
       setTheme(originalTheme);
       setOriginalTheme(null);
     }
-  }, [isInView, resolvedTheme, originalTheme, setTheme]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isInView]);
 
   const handleModeToggle = (newMode: 'now' | 'then') => {
     setMode(newMode);
@@ -113,37 +113,63 @@ export function Now() {
           )}
         </div>
         <div className="flex items-center gap-3">
-          {/* Now Title */}
-          <motion.h2
-            initial={{ opacity: 1, x: 0 }}
-            animate={{ 
-              opacity: mode === 'now' ? 1 : (isHoveringHeader ? 0.6 : 0),
-              x: mode === 'now' ? 0 : (isHoveringHeader ? 0 : -10)
-            }}
-            transition={{ duration: 0.3, ease: 'easeOut' }}
-            className={`font-newsreader italic text-2xl font-semibold tracking-tight sm:text-3xl ${
-              mode === 'now' ? 'text-foreground' : 'text-muted/30 hover:text-muted/60 cursor-pointer'
-            }`}
-            onClick={() => handleModeToggle('now')}
-          >
-            Now
-          </motion.h2>
-          
-          {/* Then Title */}
-          <motion.h2
-            initial={{ opacity: 0, x: -10 }}
-            animate={{ 
-              opacity: mode === 'then' ? 1 : (isHoveringHeader ? 0.6 : 0),
-              x: mode === 'then' ? 0 : (isHoveringHeader ? 0 : -10)
-            }}
-            transition={{ duration: 0.3, ease: 'easeOut' }}
-            className={`font-newsreader italic text-2xl font-semibold tracking-tight sm:text-3xl ${
-              mode === 'then' ? 'text-foreground' : 'text-muted/30 hover:text-muted/60 cursor-pointer'
-            }`}
-            onClick={() => handleModeToggle('then')}
-          >
-            Then
-          </motion.h2>
+          {mode === 'now' ? (
+            <>
+              {/* Now Title - Primary */}
+              <motion.h2
+                key="now-primary"
+                initial={{ opacity: 1, x: 0 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.3, ease: 'easeOut' }}
+                className="font-newsreader italic text-2xl font-semibold tracking-tight sm:text-3xl text-foreground"
+              >
+                Now
+              </motion.h2>
+              
+              {/* Then Title - Ghost */}
+              <motion.h2
+                key="then-ghost"
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ 
+                  opacity: isHoveringHeader ? 0.6 : 0,
+                  x: isHoveringHeader ? 0 : -10
+                }}
+                transition={{ duration: 0.3, ease: 'easeOut' }}
+                className="font-newsreader italic text-2xl font-semibold tracking-tight sm:text-3xl text-muted/30 hover:text-muted/60 cursor-pointer"
+                onClick={() => handleModeToggle('then')}
+              >
+                Then
+              </motion.h2>
+            </>
+          ) : (
+            <>
+              {/* Then Title - Primary (in Now's position) */}
+              <motion.h2
+                key="then-primary"
+                initial={{ opacity: 1, x: 0 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.3, ease: 'easeOut' }}
+                className="font-newsreader italic text-2xl font-semibold tracking-tight sm:text-3xl text-foreground"
+              >
+                Then
+              </motion.h2>
+              
+              {/* Now Title - Ghost (in Then's position) */}
+              <motion.h2
+                key="now-ghost"
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ 
+                  opacity: isHoveringHeader ? 0.6 : 0,
+                  x: isHoveringHeader ? 0 : -10
+                }}
+                transition={{ duration: 0.3, ease: 'easeOut' }}
+                className="font-newsreader italic text-2xl font-semibold tracking-tight sm:text-3xl text-muted/30 hover:text-muted/60 cursor-pointer"
+                onClick={() => handleModeToggle('now')}
+              >
+                Now
+              </motion.h2>
+            </>
+          )}
         </div>
       </header>
 
