@@ -50,15 +50,15 @@ export function Now() {
 
   // Theme inversion effect when section is in view
   useEffect(() => {
-    if (isInView) {
+    if (isInView && resolvedTheme) {
       // Store original theme and invert when entering section
-      if (!originalTheme && resolvedTheme) {
+      if (!originalTheme) {
         setOriginalTheme(resolvedTheme);
         const invertedTheme = resolvedTheme === 'dark' ? 'light' : 'dark';
         setTheme(invertedTheme);
       }
     } else if (!isInView && originalTheme) {
-      // Restore original theme when leaving section
+      // Restore original theme when leaving section (scrolling away in any direction)
       setTheme(originalTheme);
       setOriginalTheme(null);
     }
