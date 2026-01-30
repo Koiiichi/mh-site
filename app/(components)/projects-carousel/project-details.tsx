@@ -64,7 +64,7 @@ export const projectDetails: Record<string, ProjectDetail> = {
 
   'planetary-explorer': {
   overview: "Planetary Explorer is an AI-powered planetary visualization platform built for NASA Space Apps 2025. It unifies NASA and USGS imagery datasets of Mars, the Moon, and Mercury into an interactive environment that lets users semantically search, explore, and contextualize planetary features. The goal was to make complex planetary data accessible through intelligent search and fluid, zoomable navigation — bridging the gap between professional researchers and the public.",
-  video: "/media/planetary-explorer-demo.mp4",
+  video: "https://t1wn0tszxgdwtn1i.public.blob.vercel-storage.com/planetary-explorer-demo.mp4",
   background: "The project began during NASA Space Apps 2025, when the team noticed that planetary data from NASA Trek and the USGS Gazetteer were often siloed, making it hard for users to explore related regions across planets. We envisioned a unified explorer that combined these sources into a smooth, AI-enhanced interface — capable of understanding what users meant, not just what they typed. The system had to handle gigapixel imagery, semantic search, and cross-planet relationships, while staying performant enough to run in a browser.",
   architecture: [
     "Frontend: React + Next.js powered interface for planetary browsing and dynamic UI rendering",
