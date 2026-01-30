@@ -5,3 +5,5 @@ out
 .env*
 *.log
 pnpm-debug.log
+.vercel
+.env*.local

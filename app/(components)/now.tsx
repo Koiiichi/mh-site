@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
-import { motion, useReducedMotion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect, useRef } from 'react';
+import { motion, useReducedMotion, AnimatePresence, useInView } from 'framer-motion';
+import { useTheme } from 'next-themes';
 import useSWR from 'swr';
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
@@ -30,10 +31,15 @@ const archiveEntries = [
 
 export function Now() {
   const prefersReducedMotion = useReducedMotion();
+  const sectionRef = useRef<HTMLElement>(null);
+  const isInView = useInView(sectionRef, { margin: '-50% 0px -50% 0px' });
+  const { resolvedTheme, setTheme } = useTheme();
+  
   const [mode, setMode] = useState<'now' | 'then'>('now');
   const [archiveIndex, setArchiveIndex] = useState(0);
   const [isHoveringHeader, setIsHoveringHeader] = useState(false);
   const [direction, setDirection] = useState(0);
+  const [originalTheme, setOriginalTheme] = useState<string | null>(null);
   
   const { data } = useSWR('/api/spotify/now-playing', fetcher, {
     refreshInterval: 5000,
@@ -41,6 +47,23 @@ export function Now() {
     revalidateOnReconnect: true,
     dedupingInterval: 0,
   });
+
+  // Theme inversion effect when section is in view
+  useEffect(() => {
+    if (isInView && resolvedTheme) {
+      // Store original theme when entering section
+      if (!originalTheme) {
+        setOriginalTheme(resolvedTheme);
+      }
+      // Invert theme
+      const invertedTheme = resolvedTheme === 'dark' ? 'light' : 'dark';
+      setTheme(invertedTheme);
+    } else if (!isInView && originalTheme) {
+      // Restore original theme when leaving section
+      setTheme(originalTheme);
+      setOriginalTheme(null);
+    }
+  }, [isInView, resolvedTheme, originalTheme, setTheme]);
 
   const handleModeToggle = (newMode: 'now' | 'then') => {
     setMode(newMode);
@@ -73,7 +96,7 @@ export function Now() {
   );
 
   return (
-    <section id="now" className="space-y-8">
+    <section ref={sectionRef} id="now" className="space-y-8">
       <header 
         className="flex flex-col gap-2"
         onMouseEnter={() => setIsHoveringHeader(true)}
@@ -90,14 +113,23 @@ export function Now() {
           )}
         </div>
         <div className="flex items-center gap-3">
-          <h2 
-            className={`font-newsreader italic text-2xl font-semibold tracking-tight sm:text-3xl transition-opacity duration-300 ${
+          {/* Now Title */}
+          <motion.h2
+            initial={{ opacity: 1, x: 0 }}
+            animate={{ 
+              opacity: mode === 'now' ? 1 : (isHoveringHeader ? 0.6 : 0),
+              x: mode === 'now' ? 0 : (isHoveringHeader ? 0 : -10)
+            }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
+            className={`font-newsreader italic text-2xl font-semibold tracking-tight sm:text-3xl ${
               mode === 'now' ? 'text-foreground' : 'text-muted/30 hover:text-muted/60 cursor-pointer'
             }`}
             onClick={() => handleModeToggle('now')}
           >
             Now
-          </h2>
+          </motion.h2>
+          
+          {/* Then Title */}
           <motion.h2
             initial={{ opacity: 0, x: -10 }}
             animate={{ 
