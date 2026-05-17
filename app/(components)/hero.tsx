@@ -66,7 +66,7 @@ export function Hero() {
             transition={{ duration: prefersReducedMotion ? 0 : 0.7, ease: 'easeOut' }}
             className="max-w-3xl text-balance text-3xl font-semibold leading-[1.1] tracking-tight text-foreground sm:text-4xl md:text-5xl"
           >
-           <em className="font-newsreader italic">Building across the stack.</em>
+           <em className="font-newsreader italic">Build what outlasts.</em>
           </motion.h1>
           
           <motion.div
@@ -75,9 +75,11 @@ export function Hero() {
             transition={{ delay: prefersReducedMotion ? 0 : 0.15, duration: prefersReducedMotion ? 0 : 0.6, ease: 'easeOut' }}
             className="max-w-3xl space-y-4"
           >
-            <p className="text-base text-muted sm:text-lg">
-              Working on backend systems, data workflows, and occasionally embedded projects.<br />
-              CS + Stats @UWaterloo. AI R&D Engineer at <a href="https://latii.com/" target="_blank" rel="noopener noreferrer" className="text-muted hover:text-accent-1 transition-colors">Latii</a>.  
+              <p className="text-base text-muted sm:text-lg">
+              Thinking about evaluation, inference infrastructure, and production ML.<br />
+              CS + Stats @ UWaterloo. Currently open for work.
+              
+              {/* AI R&D Engineer at <a href="https://latii.com/" target="_blank" rel="noopener noreferrer" className="text-muted hover:text-accent-1 transition-colors">Latii</a>. */}
             </p>
           </motion.div>
           

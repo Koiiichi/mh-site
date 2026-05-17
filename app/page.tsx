@@ -14,30 +14,27 @@ const connectLinks = [
 ];
 
 const workExperience = [
+  //{
+    //time: 'Now',
+    // NOTE: Update when the co-op for spring term is confirmed. 
+  //},
   {
-    time: 'Now',
+    time: 'Previously',
     company: 'Latii',
     url: 'https://latii.com/',
     role: 'AI R&D Engineer'
   },
   {
-    time: 'Previously',
-    company: 'Midnight Sun Solar Car Team',
-    url: 'https://www.uwmidsun.com/',
-    role: 'Firmware Developer'
+    company: 'WATonomous',
+    url: 'https://www.watonomous.ca',
+    role: 'Autonomous Systems Engineer'
   },
   {
     time: '',
     company: 'Sapphire Fibres Limited',
     url: 'http://www.sapphire.com.pk/sfl/',
-    role: 'Oracle ADF Developer Intern'
+    role: 'Data Engineering Intern'
   },
-  {
-    time: '',
-    company: 'Chirp Tech',
-    url: 'https://chirptech.net/',
-    role: 'Game Development Intern'
-  }
 ];
 
 export default function HomePage() {
