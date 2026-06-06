@@ -152,19 +152,20 @@ export function ParticleSphere() {
           window.innerHeight,
         );
         curX = dampToward(curX, t.x, PLACEMENT_LAMBDA, dt);
-        // Lock at Connect: anchor to the connect section so the orb scrolls up
-        // WITH the page. While locked it tracks scroll 1:1 (like position:sticky)
-        // — no easing lag, so it can't bounce-then-fall — and the anchor is
-        // continuous (no on/off gate), inert until connect nears the top.
+        // Orb stays at its placement (centered with the content) through Connect,
+        // then is pushed up to sit just above the footer ONLY when the footer is
+        // about to touch it. While pushing, it tracks the footer 1:1 (sticky, no
+        // easing lag) so it can't bounce-then-fall.
         let ty = t.y;
         let locked = false;
         if (isDesktop) {
-          const connectEl = document.getElementById('connect');
-          if (connectEl) {
+          const footerEl = document.getElementById('footer');
+          if (footerEl) {
             const vh = window.innerHeight;
-            const anchored = connectEl.getBoundingClientRect().top + vh * 0.3;
-            if (anchored < t.y) {
-              ty = Math.max(vh * 0.12, anchored);
+            const orbHalf = stageBaseSize(window.innerWidth, vh) * t.scale * 0.5;
+            const maxY = footerEl.getBoundingClientRect().top - orbHalf - 16;
+            if (maxY < t.y) {
+              ty = Math.max(vh * 0.1, maxY);
               locked = true;
             }
           }
