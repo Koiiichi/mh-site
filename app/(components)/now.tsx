@@ -86,7 +86,11 @@ export function Now() {
           <p className="font-mono text-xs uppercase tracking-[0.3em] text-muted">
             {mode === 'now' ? 'Present' : 'Past'}
           </p>
-          <Kanji char="今" romaji="ima" meaning="now" className="text-base text-muted/30" />
+          {mode === 'now' ? (
+            <Kanji char="今" romaji="ima" meaning="now" className="text-base text-muted/30" />
+          ) : (
+            <Kanji char="昔" romaji="mukashi" meaning="the past" className="text-base text-muted/30" />
+          )}
           {mode === 'then' && (
             <p className="font-mono text-xs text-muted/40">
               {archiveEntries[archiveIndex].date}

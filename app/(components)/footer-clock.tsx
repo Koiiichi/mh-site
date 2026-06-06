@@ -66,24 +66,12 @@ export function FooterClock() {
       id="footer"
       className="mt-24 overflow-hidden rounded-3xl bg-foreground px-6 py-16 text-background sm:px-12 sm:py-24"
     >
-      <div className="mx-auto flex max-w-3xl flex-col gap-12">
-        {/* Closing wall of text — kanji reveal their romaji on hover. */}
-        <div className="space-y-5 text-base leading-relaxed text-background/75 sm:text-lg">
-          <p>
-            I keep circling one question: how a machine built from bits comes to
-            approximate something so human. The tools, the experiments, and the
-            writing here are all ways of working at that seam.
-          </p>
-          <p>
-            I build slowly and prune often — keeping what{' '}
-            <Kanji char="命" romaji="inochi" meaning="life" className="text-background" />{' '}
-            insists on keeping, and tending the rest while it is still{' '}
-            <Kanji char="今" romaji="ima" meaning="now" className="text-background" />.
-          </p>
-        </div>
+      <div className="mx-auto flex max-w-3xl flex-col items-center gap-12">
+        {/* A single closing kanji — the end. (The Now section carries the prose.) */}
+        <Kanji char="終" romaji="owari" meaning="the end" className="text-5xl text-background/80" />
 
         {/* Hairline + clock / copyright */}
-        <div className="flex items-center justify-between gap-4 border-t border-background/20 pt-6">
+        <div className="flex w-full items-center justify-between gap-4 border-t border-background/20 pt-6">
           <div className="flex items-center gap-3">
             <AnalogClock time={now} />
             <span className="font-mono text-xs text-background/70">{humanDate}</span>

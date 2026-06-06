@@ -5,7 +5,7 @@ import { Hero } from './hero';
 describe('Hero (cleanup)', () => {
   it('renders the availability chip with demoted copy', () => {
     const { getByText } = render(<Hero />);
-    expect(getByText(/available — summer/i)).toBeInTheDocument();
+    expect(getByText(/available — fall/i)).toBeInTheDocument();
   });
 
   it('keeps the Newsreader italic headline accent', () => {

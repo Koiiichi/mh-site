@@ -45,7 +45,7 @@
     "slug": "planetary-explorer",
     "title": "Planetary Explorer — NASA Space Apps",
     "summary": "AI-powered planetary visualization unifying NASA and USGS imagery with semantic search and zoomable exploration.",
-    "icon": null,
+    "icon": "/project-icons/explorer-lightmode.svg",
     "tags": ["React", "Next.js", "FastAPI", "DeepSeek API"],
     "links": {
       "repo": "https://github.com/ketjandr/nasa-spaceapps-project"
@@ -59,7 +59,7 @@
     "slug": "mlox",
     "title": "MLOX — Augmented Lox in C",
     "summary": "A bytecode-interpreted language in C, extending Lox with OOP primitives, native methods, and file I/O.",
-    "icon": null,
+    "icon": "/project-icons/mlox-lightmode.svg",
     "tags": ["C", "Make"],
     "links": {
       "repo": "https://github.com/Koiiichi/mlox"

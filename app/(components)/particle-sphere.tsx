@@ -92,6 +92,7 @@ export function ParticleSphere() {
     let curY = init.y;
     let curScale = init.scale;
     let curOpacity = init.opacity;
+    let baseSize = stageBaseSize(window.innerWidth, window.innerHeight);
 
     // Skip DOM writes once the orb has settled (no per-frame layout/paint).
     let lastX = NaN;
@@ -118,7 +119,8 @@ export function ParticleSphere() {
     };
 
     const sizeStage = () => {
-      const size = stageBaseSize(window.innerWidth, window.innerHeight);
+      baseSize = stageBaseSize(window.innerWidth, window.innerHeight);
+      const size = baseSize;
       stage.style.width = `${size}px`;
       stage.style.height = `${size}px`;
       scrim.style.width = `${size}px`;
@@ -152,7 +154,19 @@ export function ParticleSphere() {
           window.innerHeight,
         );
         curX = dampToward(curX, t.x, PLACEMENT_LAMBDA, dt);
-        curY = dampToward(curY, t.y, PLACEMENT_LAMBDA, dt);
+        // Lock the orb above the footer: as the footer scrolls up into view, ride
+        // the orb up so its circle never overlaps it (it's viewport-fixed, so a
+        // placement value alone can't prevent the footer rising underneath it).
+        let ty = t.y;
+        if (isDesktop && (activeRef.current === 'connect' || activeRef.current === 'footer')) {
+          const footerEl = document.getElementById('footer');
+          if (footerEl) {
+            const footerTop = footerEl.getBoundingClientRect().top;
+            const maxY = footerTop - baseSize * t.scale * 0.5 - 8;
+            ty = Math.max(window.innerHeight * 0.12, Math.min(ty, maxY));
+          }
+        }
+        curY = dampToward(curY, ty, PLACEMENT_LAMBDA, dt);
         curScale = dampToward(curScale, t.scale, PLACEMENT_LAMBDA, dt);
         curOpacity = dampToward(curOpacity, t.opacity, PLACEMENT_LAMBDA, dt);
         writeStage();

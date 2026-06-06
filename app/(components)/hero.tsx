@@ -54,7 +54,7 @@ export function Hero() {
         {/* Availability chip */}
         <div>
           <span className="inline-block rounded-sm border border-current px-2 py-0.5 font-mono text-xs tracking-wide text-muted opacity-60">
-            available — summer &rsquo;26
+            available — fall &rsquo;26
           </span>
         </div>
 

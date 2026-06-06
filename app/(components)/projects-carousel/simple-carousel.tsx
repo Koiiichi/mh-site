@@ -143,7 +143,12 @@ export function ProjectsCarousel() {
                   <div className="space-y-8">
                     {/* Header */}
                     <header className="space-y-4">
-                      <h1 className="text-3xl font-semibold tracking-tight">{project.title}</h1>
+                      <div className="flex items-center gap-3">
+                        {project.icon && (
+                          <BrandIcon src={project.icon} size={32} className="text-foreground" />
+                        )}
+                        <h1 className="text-3xl font-semibold tracking-tight">{project.title}</h1>
+                      </div>
                       {details.video && (
                         <div className="w-full overflow-hidden rounded-xl border border-subtle bg-black/5">
                           <video
