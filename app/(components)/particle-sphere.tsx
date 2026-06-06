@@ -92,7 +92,6 @@ export function ParticleSphere() {
     let curY = init.y;
     let curScale = init.scale;
     let curOpacity = init.opacity;
-    let baseSize = stageBaseSize(window.innerWidth, window.innerHeight);
 
     // Skip DOM writes once the orb has settled (no per-frame layout/paint).
     let lastX = NaN;
@@ -119,8 +118,7 @@ export function ParticleSphere() {
     };
 
     const sizeStage = () => {
-      baseSize = stageBaseSize(window.innerWidth, window.innerHeight);
-      const size = baseSize;
+      const size = stageBaseSize(window.innerWidth, window.innerHeight);
       stage.style.width = `${size}px`;
       stage.style.height = `${size}px`;
       scrim.style.width = `${size}px`;
@@ -154,16 +152,17 @@ export function ParticleSphere() {
           window.innerHeight,
         );
         curX = dampToward(curX, t.x, PLACEMENT_LAMBDA, dt);
-        // Lock the orb above the footer: as the footer scrolls up into view, ride
-        // the orb up so its circle never overlaps it (it's viewport-fixed, so a
-        // placement value alone can't prevent the footer rising underneath it).
+        // Lock at Connect: anchor the orb to the connect section's top edge so it
+        // scrolls WITH the page from there on (riding up and pinning near the top)
+        // instead of chasing the viewport down into the footer. Clamp so it never
+        // descends past its placement nor flies off the top.
         let ty = t.y;
         if (isDesktop && (activeRef.current === 'connect' || activeRef.current === 'footer')) {
-          const footerEl = document.getElementById('footer');
-          if (footerEl) {
-            const footerTop = footerEl.getBoundingClientRect().top;
-            const maxY = footerTop - baseSize * t.scale * 0.5 - 8;
-            ty = Math.max(window.innerHeight * 0.12, Math.min(ty, maxY));
+          const connectEl = document.getElementById('connect');
+          if (connectEl) {
+            const vh = window.innerHeight;
+            const anchored = connectEl.getBoundingClientRect().top + vh * 0.3;
+            ty = Math.max(vh * 0.12, Math.min(t.y, anchored));
           }
         }
         curY = dampToward(curY, ty, PLACEMENT_LAMBDA, dt);
