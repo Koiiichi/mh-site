@@ -2,6 +2,7 @@
 
 import { useClock } from '@/lib/hooks/useClock';
 import { useMemo } from 'react';
+import { Kanji } from './kanji';
 
 function AnalogClock({ time }: { time: Date }) {
   const hours = time.getHours() % 12;
@@ -13,10 +14,10 @@ function AnalogClock({ time }: { time: Date }) {
   const secondAngle = seconds * 6;
 
   return (
-    <div className="relative w-8 h-8 rounded-full border border-muted/30">
+    <div className="relative w-8 h-8 rounded-full border border-current/30">
       {/* Hour hand */}
       <div
-        className="absolute top-1/2 left-1/2 w-[2px] bg-foreground origin-bottom rounded-full"
+        className="absolute top-1/2 left-1/2 w-[2px] bg-current origin-bottom rounded-full"
         style={{
           height: '8px',
           transform: `translate(-50%, -100%) rotate(${hourAngle}deg)`,
@@ -25,7 +26,7 @@ function AnalogClock({ time }: { time: Date }) {
       />
       {/* Minute hand */}
       <div
-        className="absolute top-1/2 left-1/2 w-[1px] bg-foreground origin-bottom rounded-full"
+        className="absolute top-1/2 left-1/2 w-[1px] bg-current origin-bottom rounded-full"
         style={{
           height: '12px',
           transform: `translate(-50%, -100%) rotate(${minuteAngle}deg)`,
@@ -42,7 +43,7 @@ function AnalogClock({ time }: { time: Date }) {
         }}
       />
       {/* Center dot */}
-      <div className="absolute top-1/2 left-1/2 w-1 h-1 bg-foreground rounded-full transform -translate-x-1/2 -translate-y-1/2" />
+      <div className="absolute top-1/2 left-1/2 w-1 h-1 bg-current rounded-full transform -translate-x-1/2 -translate-y-1/2" />
     </div>
   );
 }
@@ -60,77 +61,36 @@ export function FooterClock() {
     [now]
   );
 
-  const lastUpdated = useMemo(() => {
-    // Use build timestamp from environment variable (set at build/deploy time)
-    const buildTime = process.env.NEXT_PUBLIC_BUILD_TIME 
-      ? new Date(process.env.NEXT_PUBLIC_BUILD_TIME)
-      : new Date('2024-01-01'); // Fallback date
-    
-    return new Intl.DateTimeFormat(undefined, {
-      month: 'short',
-      day: '2-digit',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
-    }).format(buildTime);
-  }, []);
-
   return (
     <footer
       id="footer"
-      className="mt-24 rounded-3xl border border-subtle bg-surface/70 px-4 py-4 text-sm text-muted sm:px-6 sm:py-5"
+      className="mt-24 overflow-hidden rounded-3xl bg-foreground px-6 py-16 text-background sm:px-12 sm:py-24"
     >
-      {/* Zen close — the brass bonsai rests above; the page ends where it began. */}
-      <div className="mb-6 flex flex-col items-center gap-2 border-b border-subtle pb-6 text-center">
-        <span
-          role="img"
-          aria-label="命 — life (inochi)"
-          lang="ja"
-          className="font-mincho select-none text-3xl leading-none text-muted/40"
-        >
-          命
-        </span>
-        <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted/60">
-          Build what outlasts
-        </p>
-      </div>
-      {/* Mobile: Stacked layout */}
-      <div className="flex flex-col gap-3 sm:hidden">
-        {/* Top row: Clock and date */}
-        <div className="flex items-center justify-between gap-3">
-          <div className="flex items-center gap-2">
-            <AnalogClock time={now} />
-            <span className="font-mono text-xs">{humanDate}</span>
-          </div>
-          <span className="text-xs">© {now.getFullYear()}</span>
+      <div className="mx-auto flex max-w-3xl flex-col gap-12">
+        {/* Closing wall of text — kanji reveal their romaji on hover. */}
+        <div className="space-y-5 text-base leading-relaxed text-background/75 sm:text-lg">
+          <p>
+            I keep circling one question: how a machine built from bits comes to
+            approximate something so human. The tools, the experiments, and the
+            writing here are all ways of working at that seam.
+          </p>
+          <p>
+            I build slowly and prune often — keeping what{' '}
+            <Kanji char="命" romaji="inochi" meaning="life" className="text-background" />{' '}
+            insists on keeping, and tending the rest while it is still{' '}
+            <Kanji char="今" romaji="ima" meaning="now" className="text-background" />.
+          </p>
         </div>
-        
-        {/* Bottom row: Last Updated */}
-        <div className="flex items-center justify-center gap-2">
-          <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse shadow-[0_0_6px_rgba(34,197,94,0.6)]" />
-          <span className="font-mono text-xs">Last updated {lastUpdated}</span>
-        </div>
-      </div>
 
-      {/* Desktop: Horizontal layout */}
-      <div className="hidden sm:flex items-center justify-between gap-4">
-        {/* Left: Clock with current time */}
-        <div className="flex items-center gap-3 flex-shrink-0">
-          <AnalogClock time={now} />
-          <span className="font-mono text-xs">{humanDate}</span>
-        </div>
-        
-        {/* Center: Last Updated */}
-        <div className="flex-1 flex justify-center">
-          <div className="flex items-center gap-2">
-            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse shadow-[0_0_6px_rgba(34,197,94,0.6)]" />
-            <span className="font-mono text-xs">Last updated {lastUpdated}</span>
+        {/* Hairline + clock / copyright */}
+        <div className="flex items-center justify-between gap-4 border-t border-background/20 pt-6">
+          <div className="flex items-center gap-3">
+            <AnalogClock time={now} />
+            <span className="font-mono text-xs text-background/70">{humanDate}</span>
           </div>
-        </div>
-        
-        {/* Right: Copyright */}
-        <div className="flex-shrink-0">
-          <span>© {now.getFullYear()} Muneeb Hassan</span>
+          <span className="font-mono text-xs text-background/70">
+            © {now.getFullYear()} Muneeb Hassan
+          </span>
         </div>
       </div>
     </footer>

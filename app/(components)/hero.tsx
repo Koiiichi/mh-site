@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion } from 'framer-motion';
 import { ThemeToggle } from './theme-toggle';
+import { Kanji } from './kanji';
 
 export function Hero() {
   const prefersReducedMotion = useReducedMotion();
@@ -57,14 +58,7 @@ export function Hero() {
           </span>
         </div>
 
-        <span
-          role="img"
-          aria-label="命 — life (inochi)"
-          lang="ja"
-          className="font-mincho select-none text-2xl leading-none text-muted/30"
-        >
-          命
-        </span>
+        <Kanji char="命" romaji="inochi" meaning="life" className="text-2xl text-muted/30" />
 
         <motion.h1
           initial={prefersReducedMotion ? false : { opacity: 0, y: 40 }}

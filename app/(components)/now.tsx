@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { motion, useReducedMotion, AnimatePresence } from 'framer-motion';
 import useSWR from 'swr';
+import { Kanji } from './kanji';
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
@@ -85,14 +86,7 @@ export function Now() {
           <p className="font-mono text-xs uppercase tracking-[0.3em] text-muted">
             {mode === 'now' ? 'Present' : 'Past'}
           </p>
-          <span
-            role="img"
-            aria-label="今 — now (ima)"
-            lang="ja"
-            className="font-mincho select-none text-base leading-none text-muted/30"
-          >
-            今
-          </span>
+          <Kanji char="今" romaji="ima" meaning="now" className="text-base text-muted/30" />
           {mode === 'then' && (
             <p className="font-mono text-xs text-muted/40">
               {archiveEntries[archiveIndex].date}

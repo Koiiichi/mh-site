@@ -268,6 +268,7 @@ export function ParticleSphere() {
 
   // Drive the morph state machine from the active scroll section.
   useEffect(() => {
+    const prev = activeRef.current;
     activeRef.current = activeId;
     const system = systemRef.current;
     if (!system || !system.supported || reducedMotion) return;
@@ -277,8 +278,13 @@ export function ParticleSphere() {
       return;
     }
     system.showShape(buffersRef.current.get(activeId) ?? null);
-    // Projects: the computer spins in on entry, then settles to idle.
-    if (activeId === 'projects') system.spinImpulse();
+    // Spin into the new section — direction follows the orb's horizontal travel
+    // (moving right spins one way, moving left the other). Same feel as Projects.
+    if (prev !== activeId) {
+      const dx = placementFor(activeId).cx - placementFor(prev).cx;
+      const dir = dx > 0.001 ? -1 : dx < -0.001 ? 1 : 1;
+      system.spinImpulse(10 * dir);
+    }
     // Calmer drift in the contemplative sections (zen feel).
     const zen = activeId === 'now' || activeId === 'connect' || activeId === 'footer';
     system.setIdleSpin(zen ? 0.05 : 0.12);
