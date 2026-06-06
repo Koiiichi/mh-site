@@ -46,7 +46,16 @@ export function useScrollSection(
         rects.push({ id, top: r.top, bottom: r.bottom });
       }
       if (rects.length === 0) return;
-      const next = selectActiveSection(rects, window.innerHeight, triggerRatio);
+
+      // End-of-page wins: the finale (last section) should trigger once the
+      // user bottoms out, even if that section is short.
+      const doc = document.documentElement;
+      const atBottom =
+        window.innerHeight + window.scrollY >= doc.scrollHeight - 4;
+      const next =
+        atBottom && ids.includes('footer')
+          ? 'footer'
+          : selectActiveSection(rects, window.innerHeight, triggerRatio);
       if (next) setActiveId((prev) => (prev === next ? prev : next));
     };
 

@@ -41,6 +41,19 @@ export function lerp(a: number, b: number, t: number): number {
 }
 
 /**
+ * Frame-rate-independent exponential damping toward a target. Higher `lambda`
+ * settles faster. dt in seconds. dt=0 returns current; large dt → target.
+ */
+export function dampToward(
+  current: number,
+  target: number,
+  lambda: number,
+  dt: number,
+): number {
+  return target + (current - target) * Math.exp(-lambda * Math.max(dt, 0));
+}
+
+/**
  * Eased morph value for the master progress scalar. `rawT` is the linear
  * timeline 0..1 (elapsed/duration); the result eases between `from` and `to`
  * with cubic-in-out. Used to drive the single uProgress uniform in the loop.

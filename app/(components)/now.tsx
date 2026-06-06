@@ -74,7 +74,8 @@ export function Now() {
   );
 
   return (
-    <section id="now" className="space-y-8">
+    <section id="now" className="flex min-h-[80vh] flex-col justify-center md:pr-[44%]">
+      <div className="space-y-8 md:border-r md:border-subtle md:pr-12">
       <header 
         className="flex flex-col gap-2"
         onMouseEnter={() => setIsHoveringHeader(true)}
@@ -84,6 +85,14 @@ export function Now() {
           <p className="font-mono text-xs uppercase tracking-[0.3em] text-muted">
             {mode === 'now' ? 'Present' : 'Past'}
           </p>
+          <span
+            role="img"
+            aria-label="今 — now (ima)"
+            lang="ja"
+            className="font-mincho select-none text-base leading-none text-muted/30"
+          >
+            今
+          </span>
           {mode === 'then' && (
             <p className="font-mono text-xs text-muted/40">
               {archiveEntries[archiveIndex].date}
@@ -300,6 +309,7 @@ export function Now() {
           )}
         </div>
       </motion.div>
+      </div>
     </section>
   );
 }

@@ -18,10 +18,11 @@ describe('Hero (cleanup)', () => {
     expect(h1?.textContent).toMatch(/Build what outlasts\./i);
   });
 
-  it('applies the NGE/Mincho family to the headline', () => {
+  it('uses Newsreader as the headline family (king)', () => {
     const { container } = render(<Hero />);
     const h1 = container.querySelector('h1');
-    expect(h1?.className).toContain('font-mincho');
+    expect(h1?.className).toContain('font-newsreader');
+    expect(h1?.className).not.toContain('font-mincho');
   });
 
   it('uses a non-bold (font-normal) headline', () => {

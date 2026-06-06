@@ -13,10 +13,24 @@
 
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 import { MeshSurfaceSampler } from 'three/examples/jsm/math/MeshSurfaceSampler.js';
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 import { normalizeToUnitSphere } from './math';
 import { proceduralTarget, type ProceduralShape } from './targets';
+
+// Shared Draco decoder (models are Draco-compressed). Decoder wasm/js is
+// loaded on demand from the pinned gstatic CDN.
+let dracoLoader: DRACOLoader | null = null;
+function getDracoLoader(): DRACOLoader {
+  if (!dracoLoader) {
+    dracoLoader = new DRACOLoader();
+    dracoLoader.setDecoderPath(
+      'https://www.gstatic.com/draco/versioned/decoders/1.5.7/',
+    );
+  }
+  return dracoLoader;
+}
 
 /**
  * Merge every mesh under `root` into one position-only BufferGeometry, baked
@@ -76,6 +90,7 @@ export function sampleGeometry(
 export function loadGLB(url: string, count: number): Promise<Float32Array> {
   return new Promise<Float32Array>((resolve, reject) => {
     const loader = new GLTFLoader();
+    loader.setDRACOLoader(getDracoLoader());
     loader.load(
       url,
       (gltf) => {

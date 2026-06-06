@@ -8,7 +8,7 @@
  * section ids.
  */
 
-export const SECTION_IDS = ['hero', 'work', 'projects', 'now', 'connect'] as const;
+export const SECTION_IDS = ['hero', 'work', 'projects', 'now', 'connect', 'footer'] as const;
 export type SectionId = (typeof SECTION_IDS)[number];
 
 export interface SectionRect {

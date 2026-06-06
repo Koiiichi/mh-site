@@ -9,6 +9,7 @@ import {
   screenToNdc,
   morphValue,
   accentMask,
+  dampToward,
 } from './math';
 
 function distFromOrigin(buf: Float32Array, i: number): number {
@@ -215,6 +216,22 @@ describe('accentMask', () => {
 
   it('is deterministic for the same seed', () => {
     expect(accentMask(200, 0.05, 9)).toEqual(accentMask(200, 0.05, 9));
+  });
+});
+
+describe('dampToward', () => {
+  it('returns current when dt is 0', () => {
+    expect(dampToward(5, 0, 2, 0)).toBe(5);
+  });
+
+  it('approaches the target for large dt', () => {
+    expect(dampToward(5, 0, 2, 100)).toBeCloseTo(0, 6);
+  });
+
+  it('moves toward (not past) the target', () => {
+    const next = dampToward(0, 1, 2, 0.1);
+    expect(next).toBeGreaterThan(0);
+    expect(next).toBeLessThan(1);
   });
 });
 

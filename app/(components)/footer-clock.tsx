@@ -76,7 +76,24 @@ export function FooterClock() {
   }, []);
 
   return (
-    <footer className="mt-24 rounded-3xl border border-subtle bg-surface/70 px-4 py-4 text-sm text-muted sm:px-6 sm:py-5">
+    <footer
+      id="footer"
+      className="mt-24 rounded-3xl border border-subtle bg-surface/70 px-4 py-4 text-sm text-muted sm:px-6 sm:py-5"
+    >
+      {/* Zen close — the brass bonsai rests above; the page ends where it began. */}
+      <div className="mb-6 flex flex-col items-center gap-2 border-b border-subtle pb-6 text-center">
+        <span
+          role="img"
+          aria-label="命 — life (inochi)"
+          lang="ja"
+          className="font-mincho select-none text-3xl leading-none text-muted/40"
+        >
+          命
+        </span>
+        <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted/60">
+          Build what outlasts
+        </p>
+      </div>
       {/* Mobile: Stacked layout */}
       <div className="flex flex-col gap-3 sm:hidden">
         {/* Top row: Clock and date */}

@@ -12,7 +12,7 @@
  */
 
 import * as THREE from 'three';
-import { fibonacciSphere, mulberry32, lerp, morphValue, accentMask } from './math';
+import { fibonacciSphere, mulberry32, lerp, morphValue, accentMask, dampToward } from './math';
 import { cappedDelta } from './perf';
 import { particleVertexShader, particleFragmentShader } from './shaders';
 
@@ -52,7 +52,7 @@ const CURSOR_STRENGTH = 0.55; // peak pull fraction toward cursor
 const CURSOR_DAMPING = 0.12; // smoothing per frame (matches spec's 0.12)
 
 const MORPH_STAGGER = 0.4; // per-particle delay spread; must match shader
-const MORPH_DURATION = 1.8; // seconds
+const MORPH_DURATION = 1.0; // seconds (each leg of object→ball→object)
 const MORPH_BULGE = 0.18; // mid-transition noise displacement amplitude
 const MORPH_NOISE_SCALE = 1.5;
 
@@ -63,6 +63,13 @@ const STRAY_DISTANCE = 0//0.05; // how far strays can float outward
 
 const CHROMATIC_RATIO = 0.05; // ~5% of particles get the cyan accent
 const ACCENT_COLOR = '#b0d4d4'; // faint desaturated cyan
+
+// Spin: drag-to-rotate with inertia decaying into a gentle idle auto-rotate.
+const IDLE_SPIN = 0.12; // idle Y angular velocity (rad/s)
+const DRAG_SENSITIVITY = 0.006; // radians of rotation per pixel dragged
+const SPIN_DECAY = 1.8; // how fast release-inertia settles to idle (lambda)
+const SPIN_MAX = 3.0; // clamp angular velocity (rad/s)
+const BALL_THRESHOLD = 0.15; // attraction only active when progress < this
 
 export class ParticleSystem {
   supported: boolean = false;
@@ -88,6 +95,13 @@ export class ParticleSystem {
   private cursorTarget = new THREE.Vector3();
   private cursorStrengthTarget = 0;
   private viewportHeight = 1;
+
+  // Spin state: angular velocity (rad/s) with drag + inertia + idle decay.
+  private spinVelX = 0;
+  private spinVelY = IDLE_SPIN;
+  private idleSpin = IDLE_SPIN; // target idle drift (tunable per section)
+  private dragging = false;
+  private lastSpinTime = 0;
 
   // Morph progress animation state.
   private progressFrom = 0;
@@ -246,6 +260,60 @@ export class ParticleSystem {
     this.cursorStrengthTarget = active ? CURSOR_STRENGTH : 0;
   }
 
+  /** Begin a drag-to-spin gesture. */
+  spinStart() {
+    if (this.opts.reducedMotion) return;
+    this.dragging = true;
+    this.spinVelX = 0;
+    this.spinVelY = 0;
+    this.lastSpinTime = (typeof performance !== 'undefined' ? performance.now() : 0);
+  }
+
+  /** Apply a drag delta (px) to the rotation and track velocity for inertia. */
+  spinBy(dx: number, dy: number) {
+    if (!this.dragging || !this.points || this.opts.reducedMotion) return;
+    const ry = dx * DRAG_SENSITIVITY; // horizontal drag → spin around Y
+    const rx = dy * DRAG_SENSITIVITY; // vertical drag → spin around X
+    this.points.rotation.y += ry;
+    this.points.rotation.x += rx;
+    const now = typeof performance !== 'undefined' ? performance.now() : 0;
+    const dt = Math.max((now - this.lastSpinTime) / 1000, 1 / 120);
+    this.spinVelY = THREE.MathUtils.clamp(ry / dt, -SPIN_MAX, SPIN_MAX);
+    this.spinVelX = THREE.MathUtils.clamp(rx / dt, -SPIN_MAX, SPIN_MAX);
+    this.lastSpinTime = now;
+  }
+
+  /** End the drag; current velocity carries over as inertia. */
+  spinEnd() {
+    this.dragging = false;
+  }
+
+  /**
+   * Kick a one-shot spin (rad/s around Y) that decays back to the idle drift.
+   * Used for section entrances (e.g. the computer spinning in on Projects).
+   */
+  spinImpulse(velY = 10) {
+    if (this.opts.reducedMotion) return;
+    this.dragging = false;
+    this.spinVelX = 0;
+    this.spinVelY = velY;
+  }
+
+  /** Advance rotation from spin velocity and decay back toward idle. */
+  private updateSpin(delta: number) {
+    if (!this.points || this.dragging) return;
+    this.points.rotation.y += this.spinVelY * delta;
+    this.points.rotation.x += this.spinVelX * delta;
+    // Inertia settles: Y eases to the idle drift, X eases to rest.
+    this.spinVelY = dampToward(this.spinVelY, this.idleSpin, SPIN_DECAY, delta);
+    this.spinVelX = dampToward(this.spinVelX, 0, SPIN_DECAY, delta);
+  }
+
+  /** Set the idle drift speed (rad/s) — lower is calmer (e.g. the Now section). */
+  setIdleSpin(speed: number) {
+    this.idleSpin = speed;
+  }
+
   /**
    * Replace the morph destination buffer. Must contain count*3 floats (object
    * space). Does not animate; call morphTo() to play the transition.
@@ -380,8 +448,7 @@ export class ParticleSystem {
     this.updateCursor();
     this.updateMorph(this.elapsed);
     this.updateColor(delta);
-    // Frame-rate-independent rotation (rotationSpeed is tuned per 60fps frame).
-    if (this.points) this.points.rotation.y += this.opts.rotationSpeed * delta * 60;
+    this.updateSpin(delta);
     this.renderer.render(this.scene, this.camera);
     this.rafId = requestAnimationFrame(this.loop);
   };
@@ -391,8 +458,15 @@ export class ParticleSystem {
     if (!this.material) return;
     const cursor = this.material.uniforms.uCursor.value as THREE.Vector3;
     cursor.lerp(this.cursorTarget, CURSOR_DAMPING);
+    // Attraction is reserved for the ball: fade it out as we morph to a shape.
+    const progress = this.material.uniforms.uProgress.value as number;
+    const ballFactor = Math.max(0, 1 - progress / BALL_THRESHOLD);
     const u = this.material.uniforms.uCursorStrength;
-    u.value = lerp(u.value as number, this.cursorStrengthTarget, CURSOR_DAMPING);
+    u.value = lerp(
+      u.value as number,
+      this.cursorStrengthTarget * ballFactor,
+      CURSOR_DAMPING,
+    );
   }
 
   /** Start the animation loop, or render a single frame if motion is reduced. */

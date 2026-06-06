@@ -14,7 +14,7 @@ export function Hero() {
   };
 
   return (
-    <section id="hero" className="relative mb-8 flex flex-col gap-12">
+    <section id="hero" className="relative flex min-h-[92vh] flex-col gap-12">
       <header className="flex items-center justify-between gap-6">
         <div className="flex items-center gap-8">
           <span className="text-lg font-medium text-foreground">Muneeb Hassan</span>
@@ -48,39 +48,32 @@ export function Hero() {
         <ThemeToggle />
       </header>
 
-      {/* Availability chip — demoted out of the headline column. */}
-      <div>
-        <span className="inline-block rounded-sm border border-current px-2 py-0.5 font-mono text-xs tracking-wide text-muted opacity-60">
-          available — summer &rsquo;26
-        </span>
-      </div>
+      {/* Headline sits low — below the orb, which occupies the upper-center. */}
+      <div className="flex flex-1 flex-col items-center justify-end gap-6 pb-[12vh] text-center">
+        {/* Availability chip */}
+        <div>
+          <span className="inline-block rounded-sm border border-current px-2 py-0.5 font-mono text-xs tracking-wide text-muted opacity-60">
+            available — summer &rsquo;26
+          </span>
+        </div>
 
-      <div className="flex flex-col gap-8 pt-2">
+        <span
+          role="img"
+          aria-label="命 — life (inochi)"
+          lang="ja"
+          className="font-mincho select-none text-2xl leading-none text-muted/30"
+        >
+          命
+        </span>
+
         <motion.h1
           initial={prefersReducedMotion ? false : { opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: prefersReducedMotion ? 0 : 0.7, ease: 'easeOut' }}
-          className="max-w-3xl text-balance font-mincho text-3xl font-normal leading-[1.1] tracking-tight text-foreground sm:text-4xl md:text-5xl"
+          className="max-w-3xl text-balance font-newsreader text-4xl font-normal leading-[1.1] tracking-tight text-foreground sm:text-5xl md:text-6xl"
         >
           Build what <em className="font-newsreader italic">outlasts.</em>
         </motion.h1>
-
-        <motion.div
-          initial={prefersReducedMotion ? false : { opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            delay: prefersReducedMotion ? 0 : 0.15,
-            duration: prefersReducedMotion ? 0 : 0.6,
-            ease: 'easeOut',
-          }}
-          className="max-w-3xl"
-        >
-          <p className="text-base text-muted sm:text-lg">
-            Thinking about evaluation, inference infrastructure, and production ML.
-            <br />
-            CS + Stats @ UWaterloo.
-          </p>
-        </motion.div>
       </div>
     </section>
   );

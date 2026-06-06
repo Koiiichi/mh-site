@@ -9,10 +9,12 @@ import { Project } from '@/lib/types';
 import { getLinkIcon, getTechIconPath } from '@/lib/icon-utils';
 import { projectDetails } from './project-details';
 import { TechIcon } from '../tech-icon';
+import { useFocusLine } from '@/lib/hooks/useFocusLine';
 
 export function ProjectsCarousel() {
   const [selectedProject, setSelectedProject] = useState<string | null>(null);
   const projects = projectsData as unknown as Project[];
+  const listRef = useFocusLine<HTMLDivElement>();
 
   const openModal = (slug: string) => {
     setSelectedProject(slug);
@@ -45,17 +47,21 @@ export function ProjectsCarousel() {
 
   return (
     <>
-      <section id="projects" className="relative">
-        <div className="space-y-8">
-          <header className="text-center">
+      <section
+        id="projects"
+        className="relative flex min-h-[90vh] flex-col justify-center md:pl-[42%]"
+      >
+        <div ref={listRef} className="space-y-8 md:border-l md:border-subtle md:pl-12">
+          <header>
             <p className="font-mono text-xs uppercase tracking-[0.3em] text-muted">Selected work</p>
             <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">Projects</h2>
           </header>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+          <div className="flex flex-col gap-6">
             {projects.map((project) => (
               <motion.div
                 key={project.slug}
+                data-focus-item
                 className="group relative overflow-hidden rounded-[1.5rem] border border-subtle bg-surface/80 p-6 shadow-[0_8px_30px_rgb(0,0,0,0.12)] transition-all duration-300 hover:shadow-[0_16px_40px_rgb(0,0,0,0.16)] hover:border-accent-1/20 cursor-pointer"
                 whileHover={{ y: -4, scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
