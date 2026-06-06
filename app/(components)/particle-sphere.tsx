@@ -152,20 +152,24 @@ export function ParticleSphere() {
           window.innerHeight,
         );
         curX = dampToward(curX, t.x, PLACEMENT_LAMBDA, dt);
-        // Lock at Connect: anchor the orb to the connect section's top edge so it
-        // scrolls WITH the page from there on (riding up and pinning near the top)
-        // instead of chasing the viewport down into the footer. Clamp so it never
-        // descends past its placement nor flies off the top.
+        // Lock at Connect: anchor to the connect section so the orb scrolls up
+        // WITH the page. While locked it tracks scroll 1:1 (like position:sticky)
+        // — no easing lag, so it can't bounce-then-fall — and the anchor is
+        // continuous (no on/off gate), inert until connect nears the top.
         let ty = t.y;
-        if (isDesktop && (activeRef.current === 'connect' || activeRef.current === 'footer')) {
+        let locked = false;
+        if (isDesktop) {
           const connectEl = document.getElementById('connect');
           if (connectEl) {
             const vh = window.innerHeight;
             const anchored = connectEl.getBoundingClientRect().top + vh * 0.3;
-            ty = Math.max(vh * 0.12, Math.min(t.y, anchored));
+            if (anchored < t.y) {
+              ty = Math.max(vh * 0.12, anchored);
+              locked = true;
+            }
           }
         }
-        curY = dampToward(curY, ty, PLACEMENT_LAMBDA, dt);
+        curY = locked ? ty : dampToward(curY, ty, PLACEMENT_LAMBDA, dt);
         curScale = dampToward(curScale, t.scale, PLACEMENT_LAMBDA, dt);
         curOpacity = dampToward(curOpacity, t.opacity, PLACEMENT_LAMBDA, dt);
         writeStage();

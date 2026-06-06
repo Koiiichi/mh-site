@@ -19,10 +19,6 @@ export function Hero() {
       <header className="flex items-center justify-between gap-6">
         <div className="flex items-center gap-6">
           <span className="text-lg font-medium text-foreground">Muneeb Hassan</span>
-          <span className="hidden items-center gap-1.5 rounded-full border border-subtle bg-surface px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-muted sm:inline-flex">
-            <span className="h-1.5 w-1.5 rounded-full bg-accent-2" aria-hidden="true" />
-            available — fall &rsquo;26
-          </span>
           <nav className="hidden sm:flex items-center gap-6">
             <button
               onClick={() => handleScrollToSection('#work')}
@@ -49,6 +45,9 @@ export function Hero() {
               Connect
             </button>
           </nav>
+          <span className="hidden rounded-full bg-surface-muted px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-muted/60 sm:inline-block">
+            available — fall &rsquo;26
+          </span>
         </div>
         <ThemeToggle />
       </header>
