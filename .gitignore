@@ -8,3 +8,9 @@ pnpm-debug.log
 .vercel
 .env*.local
 /.misc
+
+# Large source binaries — derived artifacts are committed instead:
+#   fonts/*.ttc  -> app/fonts/*.woff2 (subset, self-hosted)
+#   assets/*.glb -> public/models/*.glb (served copy)
+/fonts/
+/assets/

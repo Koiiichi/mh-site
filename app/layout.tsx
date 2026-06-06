@@ -1,14 +1,26 @@
 import type { Metadata } from 'next';
 import { IBM_Plex_Mono, Inter, Newsreader } from 'next/font/google';
+import localFont from 'next/font/local';
 import './globals.css';
 import { ThemeProvider } from './(components)/theme-provider';
 import { ThemeHotkey } from './(components)/theme-hotkey';
 import { HoldPreviewProvider } from './(components)/hold-preview/hold-preview';
-import { CursorHalo } from './(components)/cursor-halo';
+import { ParticleSphereLazy } from './(components)/particle-sphere-lazy';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans', display: 'swap' });
 const plex = IBM_Plex_Mono({ subsets: ['latin'], weight: ['300', '400', '500', '600'], variable: '--font-mono', display: 'swap' });
 const newsreader = Newsreader({ subsets: ['latin'], weight: ['400'], style: ['italic'], variable: '--font-newsreader', display: 'swap' });
+
+// Self-hosted Hiragino Mincho ProN (NGE serif), subset to Latin and converted
+// to woff2 from the licensed .ttc. Personal-use licensed.
+const hiragino = localFont({
+  src: [
+    { path: './fonts/HiraginoMinchoProN-W3.woff2', weight: '400', style: 'normal' },
+    { path: './fonts/HiraginoMinchoProN-W6.woff2', weight: '600', style: 'normal' },
+  ],
+  variable: '--font-mincho',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://muneeb.design'),
@@ -46,7 +58,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${inter.variable} ${plex.variable} ${newsreader.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${inter.variable} ${plex.variable} ${newsreader.variable} ${hiragino.variable}`} suppressHydrationWarning>
       <head>
         {/* Critical inline styles - must be first */}
         <style dangerouslySetInnerHTML={{
@@ -108,9 +120,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="bg-background text-foreground antialiased">
         <ThemeProvider>
           <ThemeHotkey />
-          <CursorHalo />
+          <ParticleSphereLazy />
           <HoldPreviewProvider>
-            <div className="mx-auto flex min-h-screen max-w-6xl flex-col px-6 pb-8 pt-10 sm:px-12">
+            <div className="relative z-10 mx-auto flex min-h-screen max-w-6xl flex-col px-6 pb-8 pt-10 sm:px-12">
               {children}
             </div>
           </HoldPreviewProvider>

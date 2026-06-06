@@ -24,7 +24,18 @@ const config: Config = {
       fontFamily: {
         sans: ['var(--font-sans)', 'Inter', 'system-ui', 'sans-serif'],
         mono: ['var(--font-mono)', 'IBM Plex Mono', 'monospace'],
-        newsreader: ['var(--font-newsreader)', 'Newsreader', 'serif']
+        newsreader: ['var(--font-newsreader)', 'Newsreader', 'serif'],
+        // NGE-style Japanese serif. Self-hosted Hiragino Mincho ProN (subset)
+        // via --font-mincho, then locally-installed copies, then a serif stack.
+        mincho: [
+          'var(--font-mincho)',
+          '"Hiragino Mincho ProN"',
+          '"Hiragino Mincho Pro"',
+          '"YuMincho"',
+          '"MS Mincho"',
+          'Newsreader',
+          'serif',
+        ]
       },
       boxShadow: {
         floating: '0 20px 45px rgba(0,0,0,0.28)',
