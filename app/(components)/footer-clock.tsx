@@ -1,6 +1,7 @@
 'use client';
 
 import { useClock } from '@/lib/hooks/useClock';
+import Link from 'next/link';
 import { useMemo } from 'react';
 import { Kanji } from './kanji';
 
@@ -64,21 +65,27 @@ export function FooterClock() {
   return (
     <footer
       id="footer"
-      className="mt-24 overflow-hidden rounded-3xl bg-foreground px-6 py-16 text-background sm:px-12 sm:py-24"
+      className="overflow-hidden rounded-3xl bg-foreground px-6 py-16 text-background sm:px-12 sm:py-24"
     >
       <div className="mx-auto flex max-w-3xl flex-col items-center gap-12">
-        {/* A single closing kanji — the end. (The Now section carries the prose.) */}
+        {/* A single closing kanji, the end. The Now section carries the prose. */}
         <Kanji char="終" romaji="owari" meaning="the end" className="text-5xl text-background/80" />
 
         {/* Hairline + clock / copyright */}
-        <div className="flex w-full items-center justify-between gap-4 border-t border-background/20 pt-6">
+        <div className="flex w-full flex-col gap-4 border-t border-background/20 pt-6 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-3">
             <AnalogClock time={now} />
             <span className="font-mono text-xs text-background/70">{humanDate}</span>
           </div>
-          <span className="font-mono text-xs text-background/70">
-            © {now.getFullYear()} Muneeb Hassan
-          </span>
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-xs text-background/70">
+            <Link
+              href="/design-philosophy"
+              className="text-background/45 transition hover:text-background/70"
+            >
+              design philosophy
+            </Link>
+            <span>© {now.getFullYear()} Muneeb Hassan</span>
+          </div>
         </div>
       </div>
     </footer>

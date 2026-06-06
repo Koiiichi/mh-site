@@ -3,9 +3,10 @@ import { render } from '@testing-library/react';
 import { Hero } from './hero';
 
 describe('Hero (cleanup)', () => {
-  it('renders the availability chip with demoted copy', () => {
-    const { getByText } = render(<Hero />);
-    expect(getByText(/available — fall/i)).toBeInTheDocument();
+  it('renders availability beside the work nav item', () => {
+    const { getByRole } = render(<Hero />);
+    const work = getByRole('button', { name: /work/i });
+    expect(work.textContent).toMatch(/Work\s*\[available F26\]/i);
   });
 
   it('keeps the Newsreader italic headline accent', () => {

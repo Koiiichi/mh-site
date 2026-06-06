@@ -97,7 +97,7 @@ export default function HomePage() {
       {/* Connect — content left, cherry-bonsai orb on the right rail. */}
       <section
         id="connect"
-        className="flex min-h-[80vh] flex-col justify-center md:pr-[44%]"
+        className="flex min-h-[58vh] flex-col justify-center md:pr-[44%]"
       >
         <div ref={connectRef} className="space-y-8 md:border-r md:border-subtle md:pr-12">
           <header className="flex flex-col gap-2">

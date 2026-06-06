@@ -47,8 +47,9 @@ export const PLACEMENTS: Record<string, Placement> = {
   // Connect + Footer: a locked side-rail companion (not centered — it would
   // overlap the closing content). Identical placement → the orb stays put and
   // only morphs (cherry → brass).
-  connect: { cx: 0.78, cy: 0.5, scale: 0.46, opacity: 0.9 },
-  footer: { cx: 0.78, cy: 0.5, scale: 0.46, opacity: 0.9 },
+  connect: { cx: 0.78, cy: 0.47, scale: 0.46, opacity: 0.9 },
+  footer: { cx: 0.78, cy: 0.47, scale: 0.46, opacity: 0.9 },
+  lore: { cx: 0.78, cy: 0.48, scale: 0.42, opacity: 0.82 },
 };
 
 export const DEFAULT_PLACEMENT: Placement = PLACEMENTS.hero;
@@ -72,4 +73,65 @@ export function placementPixels(
   vh: number,
 ): PlacementPixels {
   return { x: p.cx * vw, y: p.cy * vh, scale: p.scale, opacity: p.opacity };
+}
+
+export interface BoundaryClampOptions {
+  /** Desired stage center Y in viewport pixels. */
+  targetY: number;
+  /** Top edge of the boundary element in viewport pixels. */
+  boundaryTop: number;
+  /** Current viewport height in pixels. */
+  viewportHeight: number;
+  /** Unscaled square stage size in pixels. */
+  stageSize: number;
+  /** Current stage scale. */
+  scale: number;
+  /** Extra visual footprint beyond the stage, e.g. the scrim halo scale. */
+  footprintScale?: number;
+  /** Minimum gap between the visual footprint and the boundary. */
+  margin?: number;
+  /** Lowest allowed center as a viewport fraction when the boundary is tight. */
+  minCenterRatio?: number;
+}
+
+/**
+ * Keep the particle stage's full visual footprint above a boundary such as the
+ * footer. This clamps the scrim/halo too, not just the canvas ring.
+ */
+export function clampYAboveBoundary({
+  targetY,
+  boundaryTop,
+  viewportHeight,
+  stageSize,
+  scale,
+  footprintScale = 1,
+  margin = 128,
+  minCenterRatio = 0.1,
+}: BoundaryClampOptions): number {
+  const visualHalf = stageSize * scale * footprintScale * 0.5;
+  const maxY = boundaryTop - visualHalf - margin;
+  if (maxY >= targetY) return targetY;
+  return Math.max(viewportHeight * minCenterRatio, maxY);
+}
+
+export interface SectionLockOptions {
+  /** Desired stage center Y in viewport pixels while the section is arriving. */
+  targetY: number;
+  /** Section top from getBoundingClientRect().top. */
+  sectionTop: number;
+  /** Viewport Y where the section starts carrying the orb with it. */
+  lockTop?: number;
+}
+
+/**
+ * Once a short ending section has crossed its ideal frame, carry the orb with
+ * that section instead of letting the fixed stage drift into the next region.
+ */
+export function lockYToSectionTop({
+  targetY,
+  sectionTop,
+  lockTop = 0,
+}: SectionLockOptions): number {
+  if (sectionTop >= lockTop) return targetY;
+  return targetY + sectionTop - lockTop;
 }

@@ -22,9 +22,12 @@ export function Hero() {
           <nav className="hidden sm:flex items-center gap-6">
             <button
               onClick={() => handleScrollToSection('#work')}
-              className="text-sm font-medium text-muted hover:text-foreground transition-colors cursor-pointer"
+              className="inline-flex items-center gap-2 text-sm font-medium text-muted transition-colors hover:text-foreground cursor-pointer"
             >
-              Work
+              <span>Work</span>
+              <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted/60">
+                {' [available F26]'}
+              </span>
             </button>
             <button
               onClick={() => handleScrollToSection('#projects')}
@@ -45,9 +48,6 @@ export function Hero() {
               Connect
             </button>
           </nav>
-          <span className="hidden rounded-full bg-surface-muted px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-muted/60 sm:inline-block">
-            available — fall &rsquo;26
-          </span>
         </div>
         <ThemeToggle />
       </header>

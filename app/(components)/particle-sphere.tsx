@@ -2,12 +2,15 @@
 
 import { useEffect, useRef } from 'react';
 import { useTheme } from 'next-themes';
+import { usePathname } from 'next/navigation';
 import { useReducedMotion } from 'framer-motion';
 import { ParticleSystem } from '@/lib/particles/ParticleSystem';
 import { screenToNdc, dampToward } from '@/lib/particles/math';
 import { particleCountForWidth, cappedDelta } from '@/lib/particles/perf';
 import { stageBaseSize } from '@/lib/particles/dock';
 import {
+  clampYAboveBoundary,
+  lockYToSectionTop,
   placementFor,
   placementPixels,
   PLACEMENT_LAMBDA,
@@ -21,6 +24,10 @@ const COLORS = { light: '#1a1a1a', dark: '#e8e8e8' } as const;
 const DESKTOP_MIN = 768;
 const SCRIM_SCALE = 1.35; // dimming halo extends a bit past the orb
 const HIT_RADIUS = 0.44; // central fraction of the orb that captures drag
+const PARTICLE_SECTION_IDS = ['hero', 'work', 'projects', 'now', 'connect'] as const;
+const LORE_PATH = '/design-philosophy';
+const LORE_SEQUENCE: Array<string | null> = [null, 'hero', 'connect', 'footer'];
+const LORE_STEP_MS = 2600;
 
 function colorFor(theme: string | undefined): string {
   return theme === 'light' ? COLORS.light : COLORS.dark;
@@ -56,7 +63,9 @@ export function ParticleSphere() {
 
   const { resolvedTheme } = useTheme();
   const reducedMotion = useReducedMotion();
-  const { activeId } = useScrollSection();
+  const pathname = usePathname();
+  const isLorePage = pathname === LORE_PATH;
+  const { activeId } = useScrollSection({ sectionIds: PARTICLE_SECTION_IDS });
 
   useEffect(() => {
     const stage = stageRef.current;
@@ -152,20 +161,45 @@ export function ParticleSphere() {
           window.innerHeight,
         );
         curX = dampToward(curX, t.x, PLACEMENT_LAMBDA, dt);
-        // Orb stays at its placement (centered with the content) through Connect,
-        // then is pushed up to sit just above the footer ONLY when the footer is
-        // about to touch it. While pushing, it tracks the footer 1:1 (sticky, no
-        // easing lag) so it can't bounce-then-fall.
+        // Connect is the final narrative frame. Once that section starts
+        // scrolling away, carry the orb with it instead of letting the fixed
+        // stage drift into the footer approach.
         let ty = t.y;
         let locked = false;
         if (isDesktop) {
+          if (activeRef.current === 'connect') {
+            const connectEl = document.getElementById('connect');
+            if (connectEl) {
+              const nextY = lockYToSectionTop({
+                targetY: ty,
+                sectionTop: connectEl.getBoundingClientRect().top,
+              });
+              if (nextY !== ty) {
+                ty = nextY;
+                locked = true;
+              }
+            }
+          }
+
+          // Reserve room for the full visual footprint, including the scrim
+          // halo, so no part of the orb system bleeds into the footer.
           const footerEl = document.getElementById('footer');
           if (footerEl) {
             const vh = window.innerHeight;
-            const orbHalf = stageBaseSize(window.innerWidth, vh) * t.scale * 0.5;
-            const maxY = footerEl.getBoundingClientRect().top - orbHalf - 16;
-            if (maxY < t.y) {
-              ty = Math.max(vh * 0.1, maxY);
+            const footerTop = footerEl.getBoundingClientRect().top;
+            if (activeRef.current === 'connect' && footerTop < vh) {
+              locked = true;
+            }
+            const nextY = clampYAboveBoundary({
+              targetY: ty,
+              boundaryTop: footerTop,
+              viewportHeight: vh,
+              stageSize: stageBaseSize(window.innerWidth, vh),
+              scale: t.scale,
+              footprintScale: SCRIM_SCALE,
+            });
+            if (nextY !== ty) {
+              ty = nextY;
               locked = true;
             }
           }
@@ -286,6 +320,7 @@ export function ParticleSphere() {
 
   // Drive the morph state machine from the active scroll section.
   useEffect(() => {
+    if (isLorePage) return;
     const prev = activeRef.current;
     activeRef.current = activeId;
     const system = systemRef.current;
@@ -306,7 +341,26 @@ export function ParticleSphere() {
     // Calmer drift in the contemplative sections (zen feel).
     const zen = activeId === 'now' || activeId === 'connect' || activeId === 'footer';
     system.setIdleSpin(zen ? 0.05 : 0.12);
-  }, [activeId, reducedMotion]);
+  }, [activeId, isLorePage, reducedMotion]);
+
+  // Lore page: Ōbu loops through its small lineage as a quiet exhibit.
+  useEffect(() => {
+    activeRef.current = isLorePage ? 'lore' : activeRef.current;
+    const system = systemRef.current;
+    if (!isLorePage || !system || !system.supported || reducedMotion) return;
+
+    let index = 0;
+    const showLoreState = () => {
+      const id = LORE_SEQUENCE[index % LORE_SEQUENCE.length];
+      system.showShape(id ? buffersRef.current.get(id) ?? null : null);
+      system.setIdleSpin(0.045);
+      index += 1;
+    };
+
+    showLoreState();
+    const timer = window.setInterval(showLoreState, LORE_STEP_MS);
+    return () => window.clearInterval(timer);
+  }, [isLorePage, reducedMotion]);
 
   // Update color on theme change without rebuilding the scene.
   useEffect(() => {
@@ -315,7 +369,7 @@ export function ParticleSphere() {
 
   // AFK: after ~20s of no interaction, ease to the living bonsai; restore on activity.
   useEffect(() => {
-    if (reducedMotion || typeof window === 'undefined') return;
+    if (reducedMotion || isLorePage || typeof window === 'undefined') return;
     const IDLE_MS = 20000;
     let timer: ReturnType<typeof setTimeout> | undefined;
     let idle = false;
@@ -360,7 +414,7 @@ export function ParticleSphere() {
       window.removeEventListener('touchstart', wake);
       window.removeEventListener('keydown', wake);
     };
-  }, [reducedMotion]);
+  }, [isLorePage, reducedMotion]);
 
   return (
     <>
