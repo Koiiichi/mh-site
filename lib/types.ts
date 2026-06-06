@@ -16,6 +16,8 @@ export type Project = {
   metrics?: string[];
   role?: string;
   timeframe?: string;
+  /** Optional brand-mark SVG (monochrome, recolored to currentColor). */
+  icon?: string | null;
 };
 
 export type BuildingItem = {

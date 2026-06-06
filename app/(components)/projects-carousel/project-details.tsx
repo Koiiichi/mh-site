@@ -11,6 +11,55 @@ interface ProjectDetail {
 }
 
 export const projectDetails: Record<string, ProjectDetail> = {
+  symphony: {
+    overview:
+      "Symphony is an LLM-first web reliability orchestrator. It runs goal-driven browser flows against a web application, evaluates the results against a first-class reliability gate, and drives an evidence-based patch cycle until the app passes or the pass limit is reached — replacing brittle keyword heuristics with a structured plan emitted by an LLM and executed by a deterministic browser layer.",
+    background:
+      "Symphony is a runtime reliability tool, not a coding assistant. Where assistants operate on source code (read → suggest → you test), Symphony operates on a running application (run → drive a real browser → observe → patch → retest). Code edits are a side effect, not the primary action. It grew out of wanting an actual pass/fail signal for whether an app works in a browser — not just whether the code looks right.",
+    architecture: [
+      "Plan: an LLM reads minimal project context and emits a typed TaskGraph — an ordered DAG of nodes with explicit dependency edges; a heuristic graph (detect → start → test → finalize) is the fallback when LLM output is invalid",
+      "Execute: nodes run in topological order — stack detection, service startup, browser flows via a validated Flow DSL (no arbitrary scripts, only structured actions), API checks, and search-replace code patches; screenshots are captured at every step",
+      "Evaluate: a Reliability Evaluator checks every flow assertion, HTTP expectation, and accessibility requirement, emitting a machine-readable report with typed failure reasons and exit code 0/1",
+      "Patch: on failure, the evidence is fed back to the LLM, which proposes a targeted source patch; the graph reruns until pass or pass-limit",
+      "Providers: OpenAI or Gemini, auto-detected; deterministic browser execution via Chrome + ChromeDriver",
+    ],
+    challenges: [
+      "Keeping LLM-driven execution strictly deterministic — the model emits validated structured actions, never arbitrary scripts",
+      "Designing a typed TaskGraph with dependency edges plus a heuristic fallback for invalid model output",
+      "Producing a machine-readable pass/fail report suitable for CI (exit 0/1)",
+      "Closing the evidence → patch → retest loop with targeted search-replace diffs",
+    ],
+    results:
+      "Symphony turns 'does this app actually work?' into a typed, CI-ready signal: it plans, drives a real browser, evaluates against explicit assertions, and patches until green. It complements coding assistants — they write the feature, Symphony verifies it works in a real browser before it ships.",
+    timeline: "2025",
+    tools: ["Python", "Selenium", "Chrome / ChromeDriver", "OpenAI API", "Typer"],
+    links: [{ label: "View Source", url: "https://github.com/Koiiichi/symphony" }],
+  },
+  decodra: {
+    overview:
+      "Decodra is a confidence-aware constrained decoding engine for structured language-model generation. It combines finite-state constrained decoding with token-level confidence tracing to produce schema-valid outputs alongside calibrated per-field confidence scores — exposing how strongly the model supported each generated field, not just whether the output matched the schema.",
+    background:
+      "Most structured-generation frameworks only answer 'did the output match the schema?' Decodra also answers 'how hard did the constraint engine have to steer the model to get there?' During constrained decoding it records both the model's original token distribution and the constrained distribution after masking, then aggregates those signals into per-field confidence — without ever prompting the model to self-report uncertainty.",
+    architecture: [
+      "engine.py — the constrained decoding loop with logits masking",
+      "confidence.py — token-signal aggregation into per-field scores",
+      "field_tracker.py — JSON parser state and field attribution",
+      "schemas.py — the benchmark schema suite",
+      "Compiles each Pydantic schema into an Outlines Core regex index, then uses an Outlines Guide to compute the valid next-token IDs for each FSM state",
+    ],
+    challenges: [
+      "Deriving calibrated confidence from inference mechanics (constraint pressure) rather than model self-reporting",
+      "FSM-based token masking that guarantees schema validity while preserving the model's original distribution for measurement",
+      "Per-field attribution from token-level logits via JSON parser state tracking",
+      "Keeping execution local-first and deterministic over retry loops",
+    ],
+    results:
+      "Decodra targets ~98% first-pass schema validity (vs ~76% unconstrained) at ~14% mean inference overhead, while surfacing per-field confidence so downstream systems can flag unreliable fields, retry low-confidence regions, route to stronger models, or trigger human review only where needed. Experimental and under active development.",
+    timeline: "2026",
+    tools: ["Python", "Outlines", "HuggingFace Transformers", "Pydantic"],
+    links: [{ label: "View Source", url: "https://github.com/Koiiichi/Decodra" }],
+  },
+
   cocode: {
     overview: "CoCode is a collaborative, web-based code editor designed for real-time programming and team workflows. Inspired by the simplicity of Google Docs and the familiarity of desktop IDEs, it combines multi-user concurrency, conflict resolution, and project persistence with a VS Code–like interface powered by Monaco Editor. What started as a \"glorified Notepad++ online\" grew into a fully featured development platform for teams.",
     background: "The idea began with the frustration of juggling local editors and external collaboration tools for quick coding sessions. The vision was to create a browser-based environment that felt as effortless as sharing a Google Doc — open a link, start coding, and see changes sync live. As the project grew, the focus shifted from a lightweight text editor into a scalable IDE-like system: persistent projects, structured file management, secure authentication, and real-time collaboration. The challenge was balancing the simplicity of early prototypes with the power and polish expected of a serious coding platform.",

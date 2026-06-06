@@ -3,13 +3,14 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
-import { ArrowUpRight, X } from 'lucide-react';
+import { ArrowUpRight, X, Boxes } from 'lucide-react';
 import projectsData from '@/data/projects.json';
 import { Project } from '@/lib/types';
 import { getLinkIcon, getTechIconPath } from '@/lib/icon-utils';
 import { projectDetails } from './project-details';
 import { TechIcon } from '../tech-icon';
 import { useFocusLine } from '@/lib/hooks/useFocusLine';
+import { BrandIcon } from '../brand-icon';
 
 export function ProjectsCarousel() {
   const [selectedProject, setSelectedProject] = useState<string | null>(null);
@@ -68,36 +69,22 @@ export function ProjectsCarousel() {
                 transition={{ duration: 0.2, ease: "easeOut" }}
                 onClick={() => openModal(project.slug)}
               >
-                <div className="flex flex-col gap-4">
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="flex-1">
-                      <h3 className="text-xl font-semibold text-foreground group-hover:text-accent-1 transition-colors">
+                <div className="flex items-start gap-4">
+                  <span className="mt-0.5 flex-shrink-0 text-foreground/80 transition-colors group-hover:text-accent-1">
+                    {project.icon ? (
+                      <BrandIcon src={project.icon} size={28} />
+                    ) : (
+                      <Boxes className="h-7 w-7" strokeWidth={1.5} />
+                    )}
+                  </span>
+                  <div className="flex-1">
+                    <div className="flex items-start justify-between gap-3">
+                      <h3 className="text-lg font-semibold text-foreground transition-colors group-hover:text-accent-1">
                         {project.title}
                       </h3>
-                      <p className="text-sm text-muted mt-1">{project.summary}</p>
+                      <ArrowUpRight className="h-5 w-5 flex-shrink-0 text-muted transition-colors group-hover:text-accent-1" />
                     </div>
-                    <ArrowUpRight className="h-5 w-5 text-muted group-hover:text-accent-1 transition-colors" />
-                  </div>
-                  
-                  <div className="flex flex-wrap gap-2">
-                    {project.tags.map((tag) => {
-                      const iconPath = getTechIconPath(tag);
-                      return (
-                        <span
-                          key={tag}
-                          className="inline-flex items-center gap-1.5 rounded-full bg-surface-muted px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.15em] text-muted"
-                        >
-                          {iconPath && (
-                            <TechIcon
-                              src={iconPath}
-                              size={12}
-                              className="h-3 w-3 flex-shrink-0 opacity-80"
-                            />
-                          )}
-                          {tag}
-                        </span>
-                      );
-                    })}
+                    <p className="mt-1 text-sm leading-relaxed text-muted">{project.summary}</p>
                   </div>
                 </div>
               </motion.div>

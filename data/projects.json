@@ -1,48 +1,37 @@
 [
   {
-    "slug": "symphony-lite",
-    "title": "Symphony-Lite — Agentic Web Orchestration",
-    "summary": "Multi-agent orchestration framework autonomously generating and refining web apps through natural language goals and typed quality gates.",
-    "tags": ["Python", "Typer", "Selenium", "OpenAI API"],
+    "slug": "symphony",
+    "title": "Symphony — Web Reliability Orchestrator",
+    "summary": "An LLM-first reliability orchestrator that drives real browser flows, evaluates them against typed assertions, and patches the app until it passes.",
+    "icon": "/project-icons/symphony-lightmode.svg",
+    "tags": ["Python", "LLM", "Selenium", "CI"],
     "links": {
-      "repo": "https://github.com/Koiiichi/symphony-lite"
+      "repo": "https://github.com/Koiiichi/symphony"
     },
-    "media": { "type": "image", "src": "/media/symphony-lite.svg", "alt": "Symphony-Lite workflow diagram" },
-    "metrics": ["20% faster iteration", "Fully automated app generation"],
+    "media": { "type": "image", "src": "/media/symphony-lite.svg", "alt": "Symphony orchestration diagram" },
+    "metrics": ["Typed pass/fail gate", "Evidence-based auto-patch loop"],
     "role": "Lead Developer & Architect",
-    "timeframe": "August – October 2025"
+    "timeframe": "2025"
   },
   {
-    "slug": "planetary-explorer",
-    "title": "Planetary Explorer — NASA Space Apps",
-    "summary": "AI-powered planetary visualization platform unifying NASA and USGS imagery with semantic search and interactive exploration.",
-    "tags": ["React", "Next.js", "FastAPI", "DeepSeek API", "OpenSeadragon", "Vercel"],
+    "slug": "decodra",
+    "title": "Decodra — Confidence-Aware Decoding",
+    "summary": "Confidence-aware constrained decoding: schema-valid LLM output with per-field confidence scores drawn from inference mechanics, not self-reporting.",
+    "icon": "/project-icons/decodra-lightmode.svg",
+    "tags": ["Python", "LLMs", "Outlines", "HuggingFace"],
     "links": {
-      "repo": "https://github.com/ketjandr/nasa-spaceapps-project"
+      "repo": "https://github.com/Koiiichi/Decodra"
     },
-    "media": { "type": "image", "src": "/media/planetary-explorer.svg", "alt": "Planetary Explorer interface" },
-    "metrics": ["Sub-second semantic queries", "Cross-planet imagery discovery"],
-    "role": "Full-Stack Developer",
-    "timeframe": "September 2025"
-  },
-  {
-    "slug": "cocode",
-    "title": "CoCode — Collaborative Code Editor",
-    "summary": "Real-time collaborative code editor with multi-user sync",
-    "tags": ["TypeScript", "React", "Tailwind CSS", "Firebase", "Vercel"],
-    "links": {
-      "site": "https://co-c0de.vercel.app/",
-      "repo": "https://github.com/Koiiichi/CoCode"
-    },
-    "media": { "type": "image", "src": "/media/cocode-poster.svg", "alt": "CoCode interface preview" },
-    "metrics": ["Real-time collaboration", "Git automation scripts"],
-    "role": "Full-Stack Developer",
-    "timeframe": "October 2024 — June 2025"
+    "media": { "type": "image", "src": "/media/mlox-poster.svg", "alt": "Decodra constrained decoding" },
+    "metrics": ["~98% first-pass schema validity", "Per-field confidence scores"],
+    "role": "Author",
+    "timeframe": "2026"
   },
   {
     "slug": "chabacrunch",
     "title": "ChabaCrunch — Restaurant Analytics",
-    "summary": "Restaurant analytics pipeline processing 8M+ transactions",
+    "summary": "A restaurant analytics pipeline crunching millions of transactions into forecasts and ML-driven insight.",
+    "icon": "/project-icons/chabacrunch-lightmode.svg",
     "tags": ["Python", "Pandas", "scikit-learn"],
     "links": {
       "repo": "https://github.com/Koiiichi/ChabaCrunch-CXC2025"
@@ -53,29 +42,31 @@
     "timeframe": "February 2025"
   },
   {
+    "slug": "planetary-explorer",
+    "title": "Planetary Explorer — NASA Space Apps",
+    "summary": "AI-powered planetary visualization unifying NASA and USGS imagery with semantic search and zoomable exploration.",
+    "icon": null,
+    "tags": ["React", "Next.js", "FastAPI", "DeepSeek API"],
+    "links": {
+      "repo": "https://github.com/ketjandr/nasa-spaceapps-project"
+    },
+    "media": { "type": "image", "src": "/media/planetary-explorer.svg", "alt": "Planetary Explorer interface" },
+    "metrics": ["Sub-second semantic queries", "Cross-planet imagery discovery"],
+    "role": "Full-Stack Developer",
+    "timeframe": "September 2025"
+  },
+  {
     "slug": "mlox",
     "title": "MLOX — Augmented Lox in C",
-    "summary": "Custom interpreted language built in C with modern runtime features",
+    "summary": "A bytecode-interpreted language in C, extending Lox with OOP primitives, native methods, and file I/O.",
+    "icon": null,
     "tags": ["C", "Make"],
     "links": {
       "repo": "https://github.com/Koiiichi/mlox"
     },
     "media": { "type": "image", "src": "/media/mlox-poster.svg", "alt": "MLOX bytecode preview" },
-    "metrics": ["Virtual machine architecture", "Recursive descent parsing"],
+    "metrics": ["Stack-based VM", "Recursive descent parsing"],
     "role": "Language Designer & Developer",
     "timeframe": "June 2025 — August 2025"
-  },
-  {
-    "slug": "harmonics",
-    "title": "Project Harmonics — Data Sonification",
-    "summary": "Data sonification tool transforming physics datasets into sound",
-    "tags": ["Python", "Pandas", "MIDI"],
-    "links": {
-      "repo": "https://github.com/Koiiichi/project-harmonics"
-    },
-    "media": { "type": "image", "src": "/media/harmonics-poster.svg", "alt": "Project Harmonics visualization" },
-    "metrics": ["30+ students reached", "Accessible STEM education"],
-    "role": "Research Developer & Educator",
-    "timeframe": "March 2023"
   }
 ]
