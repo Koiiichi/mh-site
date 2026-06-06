@@ -363,7 +363,7 @@ export function ParticleSphere() {
       {/* Dimming scrim — fades page content beneath the orb. */}
       <div
         ref={scrimRef}
-        className="pointer-events-none fixed left-0 top-0 z-20 rounded-full"
+        className="particle-scrim pointer-events-none fixed left-0 top-0 z-20 rounded-full"
         style={{
           background:
             'radial-gradient(circle, var(--bg) 0%, var(--bg) 34%, transparent 70%)',
@@ -373,7 +373,7 @@ export function ParticleSphere() {
       {/* The orb stage — rendered above content. */}
       <div
         ref={stageRef}
-        className="pointer-events-none fixed left-0 top-0 z-30 rounded-full"
+        className="particle-stage pointer-events-none fixed left-0 top-0 z-30 rounded-full"
         style={{ border: '1px solid var(--border)' }}
         aria-hidden="true"
       />

@@ -36,6 +36,7 @@ export function ProjectsCarousel() {
     const scrollbarWidth = window.innerWidth - documentElement.clientWidth;
 
     body.style.overflow = 'hidden';
+    body.classList.add('modal-open');
     if (scrollbarWidth > 0) {
       body.style.paddingRight = `${scrollbarWidth}px`;
     }
@@ -43,6 +44,7 @@ export function ProjectsCarousel() {
     return () => {
       body.style.overflow = previousOverflow;
       body.style.paddingRight = previousPaddingRight;
+      body.classList.remove('modal-open');
     };
   }, [selectedProject]);
 

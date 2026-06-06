@@ -94,35 +94,37 @@ export default function HomePage() {
 
       <Now />
 
-      {/* Connect — cherry-bonsai bookend: orb centered, links below (mirrors hero). */}
+      {/* Connect — content left, cherry-bonsai orb on the right rail. */}
       <section
         id="connect"
-        className="flex min-h-[90vh] flex-col items-center justify-end gap-8 pb-[14vh] text-center"
+        className="flex min-h-[80vh] flex-col justify-center md:pr-[44%]"
       >
-        <header className="flex flex-col gap-2">
-          <p className="font-mono text-xs uppercase tracking-[0.3em] text-muted">Contact</p>
-          <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">Connect</h2>
-        </header>
-        <p className="max-w-xl text-base text-muted">
-          Feel free to reach out on LinkedIn or by email.
-        </p>
-        <div ref={connectRef} className="flex flex-wrap justify-center gap-3">
-          {connectLinks.map((link) => {
-            const IconComponent = link.icon;
-            return (
-              <a
-                key={link.label}
-                data-focus-item
-                href={link.href}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-subtle bg-surface px-4 py-2.5 text-sm font-medium transition-all duration-200 hover:border-accent-1 hover:text-accent-1 hover:shadow-md"
-              >
-                <IconComponent className="h-4 w-4" />
-                {link.label}
-              </a>
-            );
-          })}
+        <div ref={connectRef} className="space-y-8 md:border-r md:border-subtle md:pr-12">
+          <header className="flex flex-col gap-2">
+            <p className="font-mono text-xs uppercase tracking-[0.3em] text-muted">Contact</p>
+            <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">Connect</h2>
+          </header>
+          <p className="max-w-xl text-base text-muted">
+            Feel free to reach out on LinkedIn or by email.
+          </p>
+          <div className="flex flex-wrap gap-3">
+            {connectLinks.map((link) => {
+              const IconComponent = link.icon;
+              return (
+                <a
+                  key={link.label}
+                  data-focus-item
+                  href={link.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full border border-subtle bg-surface px-4 py-2.5 text-sm font-medium transition-all duration-200 hover:border-accent-1 hover:text-accent-1 hover:shadow-md"
+                >
+                  <IconComponent className="h-4 w-4" />
+                  {link.label}
+                </a>
+              );
+            })}
+          </div>
         </div>
       </section>
       <FooterClock />

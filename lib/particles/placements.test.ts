@@ -19,10 +19,12 @@ describe('placementFor', () => {
 
   it('keeps hero/footer centered and prominent, sides lowkey', () => {
     expect(PLACEMENTS.hero.cx).toBeCloseTo(0.5, 6);
-    expect(PLACEMENTS.footer.cx).toBeCloseTo(0.5, 6);
     expect(PLACEMENTS.work.cx).toBeGreaterThan(0.5); // to the side
     expect(PLACEMENTS.work.opacity).toBeLessThan(1); // lowkey
     expect(PLACEMENTS.hero.scale).toBeGreaterThan(PLACEMENTS.work.scale);
+    // Connect and Footer share one locked side-rail placement.
+    expect(PLACEMENTS.connect).toEqual(PLACEMENTS.footer);
+    expect(PLACEMENTS.footer.cx).toBeGreaterThan(0.5);
   });
 });
 

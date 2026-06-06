@@ -178,3 +178,15 @@ a:focus-visible::after {
 .dark .tech-icon[src*="default"] {
   filter: none;
 }
+
+/* Hide the particle orb while a project modal is open (it lives above the page
+   content's stacking context, so it would otherwise paint over the modal). */
+body.modal-open .particle-stage,
+body.modal-open .particle-scrim {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transition: opacity 0.25s ease;
+}
+body.modal-open .particle-stage canvas {
+  pointer-events: none !important;
+}

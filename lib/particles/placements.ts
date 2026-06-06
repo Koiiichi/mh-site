@@ -44,10 +44,11 @@ export const PLACEMENTS: Record<string, Placement> = {
   work: { cx: 0.76, cy: 0.5, scale: 0.42, opacity: 0.85 },
   projects: { cx: 0.24, cy: 0.5, scale: 0.58, opacity: 1 },
   now: { cx: 0.76, cy: 0.5, scale: 0.46, opacity: 0.8 },
-  connect: { cx: 0.5, cy: 0.34, scale: 0.74, opacity: 1 },
-  // Footer shares Connect's placement → the orb LOCKS in place and only morphs
-  // (cherry → brass), instead of drifting between the two closing sections.
-  footer: { cx: 0.5, cy: 0.34, scale: 0.74, opacity: 1 },
+  // Connect + Footer: a locked side-rail companion (not centered — it would
+  // overlap the closing content). Identical placement → the orb stays put and
+  // only morphs (cherry → brass).
+  connect: { cx: 0.78, cy: 0.5, scale: 0.46, opacity: 0.9 },
+  footer: { cx: 0.78, cy: 0.5, scale: 0.46, opacity: 0.9 },
 };
 
 export const DEFAULT_PLACEMENT: Placement = PLACEMENTS.hero;
