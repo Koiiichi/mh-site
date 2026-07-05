@@ -1,0 +1,24 @@
+<svg width="1280" height="720" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg" role="img">
+  <title>Symphony orchestration diagram</title>
+  <desc>A minimal browser reliability loop from goal to browser evidence to patch and retest.</desc>
+  <rect width="1280" height="720" fill="#f7f7f6"/>
+  <rect x="96" y="92" width="1088" height="536" rx="32" fill="#ffffff" stroke="#dededb"/>
+  <text x="142" y="170" font-family="Geist, Inter, system-ui, sans-serif" font-size="48" font-weight="600" fill="#111111">Symphony</text>
+  <text x="142" y="220" font-family="Geist Mono, ui-monospace, SFMono-Regular, monospace" font-size="18" letter-spacing="3" fill="#777777">PLAN / DRIVE / OBSERVE / PATCH / RETEST</text>
+  <g fill="none" stroke="#111111" stroke-width="2">
+    <rect x="150" y="348" width="170" height="92" rx="18"/>
+    <rect x="410" y="348" width="170" height="92" rx="18"/>
+    <rect x="670" y="348" width="170" height="92" rx="18"/>
+    <rect x="930" y="348" width="170" height="92" rx="18"/>
+  </g>
+  <g font-family="Geist Mono, ui-monospace, SFMono-Regular, monospace" font-size="16" fill="#111111" text-anchor="middle">
+    <text x="235" y="400">TASKGRAPH</text>
+    <text x="495" y="400">BROWSER</text>
+    <text x="755" y="400">EVIDENCE</text>
+    <text x="1015" y="400">PATCH</text>
+  </g>
+  <path d="M340 394 H390 M600 394 H650 M860 394 H910" stroke="#999999" stroke-width="1.8" stroke-linecap="round"/>
+  <path d="M390 394 L378 387 L378 401 Z M650 394 L638 387 L638 401 Z M910 394 L898 387 L898 401 Z" fill="#111111"/>
+  <path d="M1015 468 C1015 542 235 542 235 468" fill="none" stroke="#999999" stroke-width="1.8" stroke-dasharray="5 8"/>
+  <path d="M235 468 L226 482 L244 482 Z" fill="#111111"/>
+</svg>

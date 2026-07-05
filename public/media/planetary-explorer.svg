@@ -1,0 +1,18 @@
+<svg width="1280" height="720" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg" role="img">
+  <title>Planetary Explorer interface</title>
+  <desc>A minimal planetary map and semantic search composition.</desc>
+  <rect width="1280" height="720" fill="#f7f7f6"/>
+  <rect x="96" y="92" width="1088" height="536" rx="32" fill="#ffffff" stroke="#dededb"/>
+  <text x="142" y="170" font-family="Geist, Inter, system-ui, sans-serif" font-size="48" font-weight="600" fill="#111111">Planetary Explorer</text>
+  <text x="142" y="220" font-family="Geist Mono, ui-monospace, SFMono-Regular, monospace" font-size="18" letter-spacing="3" fill="#777777">NASA IMAGERY / SEMANTIC SEARCH / DEEP ZOOM</text>
+  <circle cx="392" cy="430" r="142" fill="#fbfbfa" stroke="#111111" stroke-width="2"/>
+  <path d="M276 392 C332 360 430 350 508 388 M258 452 C352 420 436 426 526 462 M318 520 C382 494 446 498 498 526" fill="none" stroke="#999999" stroke-width="2"/>
+  <rect x="660" y="330" width="430" height="64" rx="32" fill="#fbfbfa" stroke="#dededb"/>
+  <text x="700" y="371" font-family="Geist Mono, ui-monospace, SFMono-Regular, monospace" font-size="18" fill="#111111">search: layered craters near ridge</text>
+  <g font-family="Geist Mono, ui-monospace, SFMono-Regular, monospace" font-size="17" fill="#111111">
+    <rect x="660" y="436" width="190" height="84" rx="18" fill="none" stroke="#111111" stroke-width="2"/>
+    <text x="696" y="486">MARS</text>
+    <rect x="900" y="436" width="190" height="84" rx="18" fill="none" stroke="#111111" stroke-width="2"/>
+    <text x="934" y="486">MOON</text>
+  </g>
+</svg>

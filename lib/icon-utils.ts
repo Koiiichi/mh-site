@@ -109,6 +109,9 @@ export function getLinkIcon(label: string): LinkIcon {
   if (lowerLabel.includes('devpost')) {
     return 'devpost';
   }
+  if (lowerLabel.includes('report') || lowerLabel.includes('pdf') || lowerLabel.includes('paper')) {
+    return FileText;
+  }
   if (lowerLabel.includes('source') || lowerLabel.includes('github') || lowerLabel.includes('repo')) {
     return Github;
   }

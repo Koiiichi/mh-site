@@ -6,9 +6,8 @@ import Link from 'next/link';
 import { ArrowUpRight, X, Boxes } from 'lucide-react';
 import projectsData from '@/data/projects.json';
 import { Project } from '@/lib/types';
-import { getLinkIcon, getTechIconPath } from '@/lib/icon-utils';
+import { getLinkIcon } from '@/lib/icon-utils';
 import { projectDetails } from './project-details';
-import { TechIcon } from '../tech-icon';
 import { useFocusLine } from '@/lib/hooks/useFocusLine';
 import { BrandIcon } from '../brand-icon';
 
@@ -215,24 +214,14 @@ export function ProjectsCarousel() {
                         <div>
                           <h3 className="text-xl font-semibold mb-3">Tools</h3>
                           <div className="flex flex-wrap gap-2">
-                            {details.tools.map((tool: string) => {
-                              const iconPath = getTechIconPath(tool);
-                              return (
-                                <span
-                                  key={tool}
-                                  className="inline-flex items-center gap-2 rounded-full bg-surface-muted px-3 py-1 text-sm text-muted"
-                                >
-                                  {iconPath && (
-                                    <TechIcon
-                                      src={iconPath}
-                                      size={14}
-                                      className="h-3.5 w-3.5 flex-shrink-0 opacity-80"
-                                    />
-                                  )}
-                                  {tool}
-                                </span>
-                              );
-                            })}
+                            {details.tools.map((tool: string) => (
+                              <span
+                                key={tool}
+                                className="inline-flex items-center rounded-full bg-surface-muted px-3 py-1 text-sm text-muted"
+                              >
+                                {tool}
+                              </span>
+                            ))}
                           </div>
                         </div>
                       </div>

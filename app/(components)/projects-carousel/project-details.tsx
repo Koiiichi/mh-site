@@ -85,29 +85,28 @@ export const projectDetails: Record<string, ProjectDetail> = {
       { label: "View Source", url: "https://github.com/Koiiichi/CoCode" }
     ]
   },
-  mlox: {
-    overview: "MLOX is a custom interpreted programming language built in C, extending the Lox language from Crafting Interpreters with modern runtime features. Designed as both a learning project and a language playground, MLOX introduces ternary operators, object-oriented primitives, native string methods, mathematical operations, and file I/O. The project blends language design theory with practical compiler engineering, showcasing how interpreters evolve from minimal teaching tools into extensible, real-world systems.",
-    background: "The motivation for MLOX came from studying Crafting Interpreters by Bob Nystrom and wanting to go beyond simply replicating Lox. Lox served as the foundation, but the curiosity was in exploring \"what if this language felt more practical and closer to what developers expect today?\" This led to experimenting with runtime enhancements: building richer arithmetic operators, introducing ternary syntax for cleaner conditional expressions, and adding object-oriented primitives to edge Lox closer to a modern scripting language. The process was not just about adding features, but about deeply understanding parser design, bytecode execution, and virtual machine architecture.",
+  hyoka: {
+    overview: "Hyoka is an open-ended SOC threat-hunting benchmark built from real Windows attack telemetry. It wraps OTRF Security-Datasets recordings into Harbor tasks, hides the ground truth from the agent, and scores findings by F1 against Sigma and behavior-derived malicious event sets.",
+    background: "The project asks whether current agents can perform realistic detection work without hints, obvious indicators, or narrow multiple-choice framing. Each task gives an agent raw Windows event logs in SQLite and asks it to identify the malicious event IDs. The benchmark report summarizes 35 pilot trials against gemini-3.5-flash, where every task recorded 0% pass@3 under perfect-F1 scoring.",
     architecture: [
-      "Core Interpreter: Written in C with a focus on performance and clarity",
-      "Parsing: Recursive descent parser extended to handle ternary operators and new language constructs",
-      "Bytecode VM: Stack-based virtual machine handling execution with dispatch loops and dynamic memory management",
-      "Object-Oriented Primitives: Extended value system to support class-like structures, methods, and property access",
-      "Native Methods: Implemented standard library features for string manipulation, file I/O, and math operations",
-      "Documentation: Doxygen-style wiki generated directly from annotated C source to provide language documentation"
+      "Task suite: seven Harbor-format threat-hunting tasks spanning credential access, lateral movement, persistence, discovery, execution, defense evasion, and privilege escalation",
+      "Data layer: OTRF Windows telemetry deterministically time-shifted and entity-obfuscated before being packaged into task environments",
+      "Scoring: hidden ground-truth event sets scored with fractional F1, so over-flagging benign activity and missing partial chains both hurt reward",
+      "Quality gates: oracle solutions, no-output checks, and lazy-baseline probes that prove tasks cannot be solved with a single grep or flag-all strategy",
+      "Reporting: reproducible scripts that aggregate pilot logs into an HTML/PDF benchmark report and exported figures"
     ],
     challenges: [
-      "Extending the grammar while keeping the recursive descent parser clean and readable",
-      "Managing memory safety in C without garbage collection frameworks, while supporting dynamic objects and strings",
-      "Designing OOP primitives that feel natural while preserving interpreter simplicity",
-      "Ensuring that runtime enhancements (e.g. file I/O, string ops) didn't compromise performance or increase complexity unnecessarily"
+      "Preserving real-world ambiguity while keeping every task objectively gradable",
+      "Preventing answer leakage through task files, Docker layers, or verifier artifacts",
+      "Designing hidden ground truth that rewards correlated investigation instead of keyword matching",
+      "Separating genuinely hard threat-hunting tasks from synthetic tasks that frontier models can already solve"
     ],
-    results: "MLOX evolved into more than just a Lox fork — it became a sandbox for experimenting with language design. The project demonstrates the trade-offs between minimalism vs. practicality, showing how small syntactic and runtime additions can transform the feel of a language. By building a bytecode interpreter in C, MLOX provided hands-on experience with parsing theory, virtual machine execution, and the delicate balance between performance and extensibility. The Doxygen-generated documentation also turned the project into a language others could learn and use.",
-    timeline: "June 2025 – August 2025",
-    tools: ["C", "Make", "Doxygen", "Vim", "GCC/Clang"],
+    results: "Hyoka delivered a seven-task benchmark with a published report, reproducible scoring scripts, and a clear failure signal: aggregate mean F1 was 0.119 across 35 trials, with 0% pass@3 on every task. The result makes the benchmark useful as a headroom test for SOC-style agent evaluation.",
+    timeline: "2026",
+    tools: ["Python", "Harbor", "SQLite", "pytest", "Sigma", "OTRF Security-Datasets"],
     links: [
-      { label: "View Source", url: "https://github.com/Koiiichi/mlox" },
-      { label: "Documentation", url: "https://github.com/Koiiichi/mlox#documentation" }
+      { label: "View Source", url: "https://github.com/Koiiichi/hy-ka" },
+      { label: "Benchmark Report", url: "/reports/hyoka-benchmark-report.pdf" }
     ]
   },
 
@@ -165,29 +164,28 @@ export const projectDetails: Record<string, ProjectDetail> = {
 },
 
 
-  chabacrunch: {
-    overview: "ChabaCrunch is a data science project built during the TouchBistro x UW Hackathon (Feb 2025) that analyzed over 8 million restaurant transactions across Canada and the U.S. The system unified messy bill- and venue-level datasets into an analysis-ready pipeline, enabling insights into tipping culture across cities, venue concepts, and order types. By merging data cleaning, feature engineering, and predictive modeling, ChabaCrunch revealed that tipping behaviors are shaped more by venue type and order style than by country borders — offering restaurants actionable strategies to optimize service, boost tips, and improve operations.",
-    background: "The project was inspired by the team's shared interest in machine learning, natural language understanding, and data visualization. Building on outreach experiences like Project Harmonics, the goal was to design something impactful and well-structured for real-world use. We saw an opportunity in the TouchBistro dataset to answer fundamental questions: Do Canadians and Americans tip differently? How do venue concepts (bars, cafés, fine dining) affect tipping? What role does order type (dine-in, takeout, delivery) play? The messy, large-scale data provided the perfect challenge to explore these ideas while also developing technical expertise in pipeline design, memory optimization, and ML-driven imputation.",
+  vellum: {
+    overview: "Vellum is an async, event-driven agent that monitors a Gmail inbox, understands free-form regulatory filing requests, scrapes the Nova Scotia UARB portal, and replies with a ZIP archive plus structured matter metadata.",
+    background: "The goal was to make document retrieval feel like sending a normal email. A user can put a matter number and requested document types in either the subject or body, then Vellum parses the request, fetches the relevant portal documents, packages them, and replies with a delivery link and summary.",
     architecture: [
-      "Data Integration: Merged bills.csv and venues.csv on venue_xref_id to build a unified dataset",
-      "Data Cleaning: Tagged transactions as refunds vs. sales based on negative monetary values, removed invalid rows (e.g., negative order durations), applied concept-based outlier capping at the 99th percentile for sales to prevent skew",
-      "Feature Engineering: Derived tip percentage per transaction, aggregated venue-level features (avg bill size, avg tip %, takeout fraction)",
-      "Modeling: Used a tuned Random Forest to impute missing venue concepts (22% missing) with ~85% accuracy. Hyperparameter tuning was a key difficulty, requiring extensive trial-and-error",
-      "Exploratory Data Analysis: Visualized average tip percentages and amounts by city, explored concept distributions (bars vs. cafés) in high vs. low tipping locales, boxplot analysis of tip amounts, order duration, and billed amounts by order type",
-      "Collaboration: Built iteratively in Google Colab for reproducibility, memory efficiency, and multi-user development"
+      "Listener: Gmail push notifications arrive through Pub/Sub and a FastAPI webhook acknowledges them immediately",
+      "Queue: parsed jobs enter an asyncio.Queue with a bounded worker pool to control concurrent browser sessions",
+      "Parser: a single LLM call extracts matter number and document types from free-form email text, guarded by a rate limiter",
+      "Scraper: Playwright drives the UARB FileMaker WebDirect portal, extracts matter metadata, handles paginated lists, and intercepts downloads",
+      "Delivery: ZIP packaging writes one folder per document type plus job_summary.json, uploads to Cloud Storage, and sends the reply through Resend"
     ],
     challenges: [
-      "Data Quality: Outliers, zero values, and missing fields (e.g., waiter UUIDs, venue concepts) required tailored fixes",
-      "Memory Management: Processing 3.3 GB datasets under Colab's 12 GB cap demanded numeric downcasting and garbage collection",
-      "Model Tuning: Predicting missing venue concepts with Random Forest involved navigating imbalanced classes, merging rare concepts, and tuning parameters like depth, estimators, and class weights",
-      "Time Constraints: Hackathon format forced trade-offs between depth of analysis and model complexity"
+      "Keeping email intake flexible while still producing a strict ParsedRequest for the worker pipeline",
+      "Bounding Playwright concurrency so the system stays responsive without hammering the UARB portal",
+      "Handling empty tabs, missing matters, download retries, and provider mailer failures with clear user replies",
+      "Packaging scraped files with enough structured metadata to make the result useful beyond a raw document dump"
     ],
-    results: "ChabaCrunch delivered a complete pipeline that achieved ~85% accuracy in imputing missing venue concepts, demonstrated that venue type (bars/family dining vs. cafés/fast casual) is the strongest predictor of tipping behavior, showed order style matters significantly — dine-in and bar tabs yield higher tips, while takeout/delivery lag, and found no simple Canada vs. U.S. divide; tipping norms are more local and cultural than national. The project underscored the importance of robust preprocessing, iterative refinement, and collaborative workflows. It also highlighted how hackathon projects can bridge raw data and actionable insights, turning messy CSVs into strategic recommendations.",
-    timeline: "February 2025",
-    tools: ["Python", "Pandas", "scikit-learn", "NumPy", "Matplotlib", "Seaborn", "Google Colab"],
+    results: "Vellum turns regulatory filing retrieval into an inbox workflow: tagged emails become queued jobs, scraped portal documents, structured metadata, and a packaged ZIP response. The system is deployable on Cloud Run and includes tests for parsing, scraping, mailing, listening, and the full pipeline.",
+    timeline: "2026",
+    tools: ["Python", "FastAPI", "Playwright", "Gmail API", "Pub/Sub", "Cloud Run", "Resend", "OpenAI"],
     links: [
-      { label: "Devpost", url: "https://devpost.com/software/chabacrunch" },
-      { label: "View Source", url: "https://github.com/Koiiichi/ChabaCrunch-CXC2025" }
+      { label: "View Source", url: "https://github.com/Koiiichi/vellum" },
+      { label: "Watch Demo", url: "https://www.loom.com/share/198e9c8135fa4581abeb6d1b4208293a" }
     ]
   },
 
