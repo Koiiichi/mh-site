@@ -101,7 +101,7 @@ export const projectDetails: Record<string, ProjectDetail> = {
       "Designing hidden ground truth that rewards correlated investigation instead of keyword matching",
       "Separating genuinely hard threat-hunting tasks from synthetic tasks that frontier models can already solve"
     ],
-    results: "Hyoka delivered a seven-task benchmark with a published report, reproducible scoring scripts, and a clear failure signal: aggregate mean F1 was 0.119 across 35 trials, with 0% pass@3 on every task. The result makes the benchmark useful as a headroom test for SOC-style agent evaluation.",
+    results: "Hyoka delivered a seven-task benchmark with a published report, reproducible scoring scripts, and a clear failure signal: aggregate mean F1 was 0.149 across 35 trials, with 0% pass@3 on every task. The result makes the benchmark useful as a headroom test for SOC-style agent evaluation.",
     timeline: "2026",
     tools: ["Python", "Harbor", "SQLite", "pytest", "Sigma", "OTRF Security-Datasets"],
     links: [
