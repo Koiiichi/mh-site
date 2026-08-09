@@ -26,6 +26,7 @@ const workExperience = [
     role: 'Member of Technical Staff'
   },
   {
+    time: 'Previously',
     company: 'Latii',
     url: 'https://latii.com/',
     role: 'AI R&D Engineer'
