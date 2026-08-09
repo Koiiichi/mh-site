@@ -26,8 +26,8 @@ export function Hero() {
             >
               <span>Work</span>
               <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted/60">
-                {' [available F26]'}
-              </span>
+                {} 
+              </span> 
             </button>
             <button
               onClick={() => handleScrollToSection('#projects')}

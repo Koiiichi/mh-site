@@ -20,7 +20,12 @@ const workExperience = [
     // NOTE: Update when the co-op for spring term is confirmed. 
   //},
   {
-    time: 'Previously',
+    time: 'Incoming',
+    company: 'Abundant',
+    url: 'https://www.abundant.ai/',
+    role: 'Member of Technical Staff'
+  },
+  {
     company: 'Latii',
     url: 'https://latii.com/',
     role: 'AI R&D Engineer'
