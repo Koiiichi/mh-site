@@ -25,11 +25,6 @@ export default function DesignPhilosophyPage() {
       </header>
 
       <LorePoem />
-
-      <p className="max-w-sm text-xs leading-6 text-muted/60">
-        a drift of particles that borrows the shape of whatever it settles beside. hover a word
-        and it will hold that one for a moment.
-      </p>
     </main>
   );
 }
