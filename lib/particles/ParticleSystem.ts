@@ -1,14 +1,10 @@
 /**
  * Framework-agnostic three.js particle sphere.
  *
- * Owns the renderer, scene, camera, points and the RAF loop. Kept free of React
- * so the rendering logic is easy to reason about and so later tasks (cursor
- * displacement, morph state machine) extend one place. The React component
+ * Owns the renderer, scene, camera, points and the RAF loop, along with the
+ * cursor attractor and the morph state machine. Kept free of React so the
+ * rendering logic is easy to reason about; the React component
  * (`particle-sphere.tsx`) is a thin lifecycle wrapper around this class.
- *
- * Task 4 scope: idle state only — Fibonacci sphere, etched point sprites, slow
- * Y rotation, sine breathing, monochrome theme color, reduced-motion static
- * render. Cursor (Task 5) and morph (Task 6) hooks are stubbed where noted.
  */
 
 import * as THREE from 'three';
@@ -59,7 +55,7 @@ const CAMERA_Z = 3.2;
 const MAX_PIXEL_RATIO = 2;
 const CURSOR_RADIUS_PX = 120; // influence radius in screen pixels
 const CURSOR_STRENGTH = 0.55; // peak pull fraction toward cursor
-const CURSOR_DAMPING = 0.12; // smoothing per frame (matches spec's 0.12)
+const CURSOR_DAMPING = 0.12; // smoothing per frame
 
 const MORPH_STAGGER = 0.4; // per-particle delay spread; must match shader
 const MORPH_DURATION = 1.6; // seconds, form → form

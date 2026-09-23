@@ -57,8 +57,8 @@ function targetPixels(
 /**
  * Particle orb in a contained circular stage. The orb renders ABOVE the page
  * content and a soft scrim dims whatever content sits beneath it — so the orb
- * reads cleanly and content "fades under it" as the orb transits (per the
- * design sketch). As the active section changes, the stage eases (position +
+ * reads cleanly and content "fades under it" as the orb transits. As the
+ * active section changes, the stage eases (position +
  * scale + opacity) to that section's placement. Drag the orb's core to spin it.
  */
 export function ParticleSphere() {

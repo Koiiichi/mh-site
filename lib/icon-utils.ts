@@ -37,7 +37,6 @@ const exactTechIcons: Record<string, string> = {
   'midi libraries': getAssetPath('/tech-icons/music.svg'),
   'digital audio workstation (daw)': getAssetPath('/tech-icons/music.svg'),
   'data visualization': getAssetPath('/tech-icons/default.svg'),
-  // New icons
   'json': getAssetPath('/tech-icons/json.svg'),
   'bash': getAssetPath('/tech-icons/bash.svg'),
   'monaco': getAssetPath('/tech-icons/monaco.svg'),
@@ -75,7 +74,6 @@ const partialTechIcons: Array<{ match: string; icon: string }> = [
   { match: 'data viz', icon: getAssetPath('/tech-icons/default.svg') },
   { match: 'midi', icon: getAssetPath('/tech-icons/midi.svg') },
   { match: 'typer', icon: getAssetPath('/tech-icons/typer.svg') },
-  // New partial matches
   { match: 'json', icon: getAssetPath('/tech-icons/json.svg') },
   { match: 'bash', icon: getAssetPath('/tech-icons/bash.svg') },
   { match: 'shell', icon: getAssetPath('/tech-icons/bash.svg') },

@@ -5,7 +5,7 @@
  * sphere, so the site never blocks on assets.
  *
  * Narrative: seed → living bonsai (hero) → ball → built artifact (projects) →
- * human/brain (now, the thesis) → telephone (connect) → brass bonsai (footer
+ * human/brain (now, the thesis) → shedding cherry bonsai (connect) → brass bonsai (footer
  * finale, "what outlasts"). AFK idle eases back to the living bonsai.
  */
 

@@ -26,7 +26,7 @@ export interface UseScrollSectionOptions {
  * Reads the live geometry of the section elements (by id) on scroll/resize,
  * rAF-throttled, and resolves a single active section via the pure
  * `selectActiveSection` reducer. The particle morph controller subscribes to
- * the returned id; nav clicks feed the same machine separately (Task 8).
+ * the returned id.
  */
 export function useScrollSection(
   options: UseScrollSectionOptions = {},

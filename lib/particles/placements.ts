@@ -27,17 +27,11 @@ export interface Placement {
 export const PLACEMENT_LAMBDA = 3.2;
 
 /**
- * Section → placement. Hero and footer are centered and prominent (the bonsai
- * open/close); work/now/connect are lowkey companions to the side; projects is
- * prominent (it settles left with a carousel in a later pass, but stays on the
- * right rail until then so nothing overlaps).
- */
-/**
- * Section → placement. Hero, Connect and Footer center the orb (the bonsai
- * bookends: living → shedding cherry → brass). The working middle alternates
- * sides for rhythm — Work right, Projects left (carousel needs the width), Now
- * right — while holding a constant vertical center so the orb sweeps calmly.
- * Projects is the prominent centerpiece; Work/Now are quieter companions.
+ * Section → placement. The hero centers the orb; everything after it alternates
+ * sides for rhythm — Work right, Projects left (the carousel needs the width),
+ * Now right, Connect and Footer on a locked right rail — while holding a
+ * constant vertical center so the orb sweeps calmly. Projects is the prominent
+ * centerpiece; Work and Now are quieter companions.
  */
 export const PLACEMENTS: Record<string, Placement> = {
   hero: { cx: 0.5, cy: 0.4, scale: 0.82, opacity: 1 },

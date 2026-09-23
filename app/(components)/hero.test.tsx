@@ -14,7 +14,7 @@ describe('Hero (cleanup)', () => {
     const em = container.querySelector('em.font-newsreader');
     expect(em).not.toBeNull();
     expect(em?.textContent).toMatch(/outlasts/i);
-    // Full headline still reads correctly.
+    // The headline reads as one sentence.
     const h1 = container.querySelector('h1');
     expect(h1?.textContent).toMatch(/Build what outlasts\./i);
   });
@@ -35,11 +35,10 @@ describe('Hero (cleanup)', () => {
 
   it('no longer renders the bouncing chevron or the boxed container', () => {
     const { container, queryByLabelText } = render(<Hero />);
-    // The old chevron button had this aria-label; it should be gone.
+    // No chevron affordance: neither its aria-label nor its icon.
     expect(queryByLabelText(/scroll to work section/i)).toBeNull();
-    // No lucide chevron-down icon remains.
     expect(container.querySelector('.lucide-chevron-down')).toBeNull();
-    // The rounded surface container is gone.
+    // No boxed surface around the hero.
     expect(container.querySelector('.rounded-\\[2\\.75rem\\]')).toBeNull();
   });
 

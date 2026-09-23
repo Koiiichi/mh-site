@@ -3,9 +3,9 @@
  *
  * These produce Float32Array(count*3) buffers normalized to the unit sphere,
  * suitable as morph targets. They serve two purposes:
- *   - demo/development targets for the morph engine (Task 6), and
- *   - placeholders that stand in for real .glb models until those assets land
- *     (Task 7/8), so the section morph map is never blocked.
+ *   - demo/development targets for the morph engine, and
+ *   - placeholders that stand in for a .glb model that is missing or fails to
+ *     load, so the section morph map is never blocked.
  */
 
 import { mulberry32, normalizeToUnitSphere, radialNormals } from './math';
