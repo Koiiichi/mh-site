@@ -20,7 +20,7 @@ const workExperience = [
     // NOTE: Update when the co-op for spring term is confirmed. 
   //},
   {
-    time: 'Incoming',
+    time: 'Now',
     company: 'Abundant',
     url: 'https://www.abundant.ai/',
     role: 'Member of Technical Staff'
