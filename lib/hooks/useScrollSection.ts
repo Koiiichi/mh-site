@@ -12,6 +12,12 @@ export interface UseScrollSectionOptions {
   sectionIds?: readonly string[];
   /** Fraction of viewport height where the trigger line sits (0..1). */
   triggerRatio?: number;
+  /**
+   * Opaque value that forces a fresh measurement when it changes — pass the
+   * route path. Sections are measured on scroll and resize only, so without
+   * this a navigation leaves the section that was active when the user left.
+   */
+  remeasureKey?: string;
 }
 
 /**
@@ -25,7 +31,7 @@ export interface UseScrollSectionOptions {
 export function useScrollSection(
   options: UseScrollSectionOptions = {},
 ): { activeId: string } {
-  const { sectionIds = SECTION_IDS, triggerRatio = 0.6 } = options;
+  const { sectionIds = SECTION_IDS, triggerRatio = 0.6, remeasureKey = '' } = options;
   const [activeId, setActiveId] = useState<string>(sectionIds[0] ?? 'hero');
   const frame = useRef<number | null>(null);
 
@@ -64,8 +70,11 @@ export function useScrollSection(
       frame.current = window.requestAnimationFrame(measure);
     };
 
-    // Initial measurement (after layout).
+    // Initial measurement (after layout), plus one on the next frame: after a
+    // navigation the router may still be restoring scroll position when this
+    // effect runs, and no scroll event follows to correct a stale reading.
     measure();
+    onScroll();
 
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll);
@@ -75,7 +84,7 @@ export function useScrollSection(
       window.removeEventListener('resize', onScroll);
       if (frame.current != null) cancelAnimationFrame(frame.current);
     };
-  }, [idsKey, triggerRatio]);
+  }, [idsKey, triggerRatio, remeasureKey]);
 
   return { activeId };
 }
