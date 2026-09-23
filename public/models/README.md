@@ -9,10 +9,11 @@ are what ship.
 | Trigger            | File                  | Subject                 |
 | ------------------ | --------------------- | ----------------------- |
 | Hero / landing     | `morph-hero.glb`      | living bonsai           |
-| Work               | — (sphere)            | no model; ball state    |
+| Work               | `morph-work.glb`      | briefcase               |
 | Projects           | `morph-projects.glb`  | retro computer          |
 | Now                | `morph-now.glb`       | human brain (the thesis)|
-| Connect            | `morph-connect.glb`   | telephone receiver      |
+| Connect            | `morph-connect.glb`   | cherry bonsai (shedding) |
+| Lore page variant  | `morph-jar.glb`       | jar (the poem's unchosen word) |
 | End of page / footer | `morph-footer.glb`  | brass bonsai (finale)   |
 | AFK idle           | `morph-hero.glb`      | living bonsai (rest)    |
 

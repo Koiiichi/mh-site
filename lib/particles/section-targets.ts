@@ -43,6 +43,14 @@ export const SECTION_TARGETS: Record<string, SectionTarget> = {
 };
 
 /** Special (non-scroll-section) states. */
+/**
+ * Extra targets the lore page can lend Ōbu, loaded only on that page. The jar
+ * belongs to the poem's unchosen variant word, not to any section.
+ */
+export const LORE_TARGETS: Record<string, string> = {
+  jar: 'morph-jar.glb',
+};
+
 export const SPECIAL_TARGETS = {
   /** AFK idle rest — the living bonsai. */
   idle: 'morph-hero.glb',

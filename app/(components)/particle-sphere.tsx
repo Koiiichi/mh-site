@@ -18,7 +18,14 @@ import {
 } from '@/lib/particles/placements';
 import { loadGLB } from '@/lib/particles/loadTarget';
 import type { MorphTarget } from '@/lib/particles/targets';
-import { SECTION_TARGETS, targetConfigFor, modelUrl } from '@/lib/particles/section-targets';
+import {
+  SECTION_TARGETS,
+  LORE_TARGETS,
+  targetConfigFor,
+  modelUrl,
+} from '@/lib/particles/section-targets';
+import { LORE_SETTLE, loreStepIndexAt } from '@/lib/particles/lore';
+import { loreChannel, type LoreLend } from '@/lib/particles/lore-channel';
 import { useScrollSection } from '@/lib/hooks/useScrollSection';
 
 const COLORS = { light: '#1a1a1a', dark: '#e8e8e8' } as const;
@@ -27,8 +34,7 @@ const SCRIM_SCALE = 1.35; // dimming halo extends a bit past the orb
 const HIT_RADIUS = 0.44; // central fraction of the orb that captures drag
 const PARTICLE_SECTION_IDS = ['hero', 'work', 'projects', 'now', 'connect'] as const;
 const LORE_PATH = '/design-philosophy';
-const LORE_SEQUENCE: Array<string | null> = [null, 'hero', 'connect', 'footer'];
-const LORE_STEP_MS = 2600;
+const LORE_TICK_MS = 120; // how often the settle schedule is checked
 
 function colorFor(theme: string | undefined): string {
   return theme === 'light' ? COLORS.light : COLORS.dark;
@@ -66,7 +72,10 @@ export function ParticleSphere() {
   const reducedMotion = useReducedMotion();
   const pathname = usePathname();
   const isLorePage = pathname === LORE_PATH;
-  const { activeId } = useScrollSection({ sectionIds: PARTICLE_SECTION_IDS });
+  const { activeId } = useScrollSection({
+    sectionIds: PARTICLE_SECTION_IDS,
+    remeasureKey: pathname ?? '',
+  });
 
   useEffect(() => {
     const stage = stageRef.current;
@@ -285,10 +294,12 @@ export function ParticleSphere() {
       // Preload section models (real .glb only; missing → stays sphere).
       let cancelled = false;
       if (!reducedMotion) {
-        for (const id of Object.keys(SECTION_TARGETS)) {
-          const cfg = targetConfigFor(id);
-          if (!cfg.model) continue;
-          loadGLB(modelUrl(cfg.model), system.particleCount)
+        const wanted: Array<[string, string]> = Object.keys(SECTION_TARGETS)
+          .map((id) => [id, targetConfigFor(id).model] as [string, string | null])
+          .filter((pair): pair is [string, string] => pair[1] !== null);
+        if (isLorePage) wanted.push(...Object.entries(LORE_TARGETS));
+        for (const [id, model] of wanted) {
+          loadGLB(modelUrl(model), system.particleCount)
             .then((target) => {
               if (cancelled) return;
               buffersRef.current.set(id, target);
@@ -344,23 +355,58 @@ export function ParticleSphere() {
     system.setIdleSpin(zen ? 0.05 : 0.12);
   }, [activeId, isLorePage, reducedMotion]);
 
-  // Lore page: Ōbu loops through its small lineage as a quiet exhibit.
+  // Lore page: Ōbu passes through the shapes it remembers, holding each one
+  // longer than the last, until it settles on the living bonsai. Hovering a
+  // noun in the poem lends it that shape until the pointer leaves.
   useEffect(() => {
     activeRef.current = isLorePage ? 'lore' : activeRef.current;
     const system = systemRef.current;
-    if (!isLorePage || !system || !system.supported || reducedMotion) return;
+    if (!isLorePage || !system || !system.supported) return;
 
-    let index = 0;
-    const showLoreState = () => {
-      const id = LORE_SEQUENCE[index % LORE_SEQUENCE.length];
-      system.showShape(id ? buffersRef.current.get(id) ?? null : null);
+    let lent: LoreLend;
+    let settledIndex = -1;
+    const start = performance.now();
+
+    const shapeFor = (id: string | null) =>
+      id ? buffersRef.current.get(id) ?? null : null;
+
+    const show = (id: string | null) => {
+      system.showShape(shapeFor(id));
       system.setIdleSpin(0.045);
-      index += 1;
     };
 
-    showLoreState();
-    const timer = window.setInterval(showLoreState, LORE_STEP_MS);
-    return () => window.clearInterval(timer);
+    // Reduced motion: no passes, it is simply at rest.
+    const restingIndex = LORE_SETTLE.length - 1;
+    const step = () => {
+      if (lent !== undefined) return;
+      const index = reducedMotion
+        ? restingIndex
+        : loreStepIndexAt(performance.now() - start);
+      if (index === settledIndex) return;
+      settledIndex = index;
+      show(LORE_SETTLE[index].id);
+    };
+
+    step();
+    const timer = reducedMotion ? null : window.setInterval(step, LORE_TICK_MS);
+
+    const unsubscribe = loreChannel.subscribe((next) => {
+      lent = next;
+      if (next === undefined) {
+        // Hand it back to the schedule.
+        const index = reducedMotion ? restingIndex : loreStepIndexAt(performance.now() - start);
+        settledIndex = index;
+        show(LORE_SETTLE[index].id);
+        return;
+      }
+      show(next);
+    });
+
+    return () => {
+      unsubscribe();
+      loreChannel.release();
+      if (timer !== null) window.clearInterval(timer);
+    };
   }, [isLorePage, reducedMotion]);
 
   // Update color on theme change without rebuilding the scene.
