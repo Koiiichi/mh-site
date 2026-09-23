@@ -191,3 +191,49 @@ export function shuffledIndices(n: number, seed: number): number[] {
   }
   return arr;
 }
+
+/**
+ * Unit normals pointing straight out from the origin — exact for the sphere
+ * and a reasonable shading approximation for procedural placeholder shapes.
+ * A point at the origin gets +Z so the shader never sees a zero vector.
+ */
+export function radialNormals(positions: Float32Array): Float32Array {
+  const out = new Float32Array(positions.length);
+  for (let i = 0; i < positions.length; i += 3) {
+    const x = positions[i];
+    const y = positions[i + 1];
+    const z = positions[i + 2];
+    const len = Math.sqrt(x * x + y * y + z * z);
+    if (len < 1e-8) {
+      out[i + 2] = 1;
+      continue;
+    }
+    out[i] = x / len;
+    out[i + 1] = y / len;
+    out[i + 2] = z / len;
+  }
+  return out;
+}
+
+/**
+ * Some model exports carry inverted winding, so their normals face inward and
+ * the whole shape would shade as its own back side. If most normals point
+ * toward the (already recentered) origin, flip them all. Returns the input
+ * unchanged when it is already outward-facing.
+ */
+export function orientNormalsOutward(
+  positions: Float32Array,
+  normals: Float32Array,
+): Float32Array {
+  let inward = 0;
+  const count = positions.length / 3;
+  for (let i = 0; i < positions.length; i += 3) {
+    const d =
+      positions[i] * normals[i] +
+      positions[i + 1] * normals[i + 1] +
+      positions[i + 2] * normals[i + 2];
+    if (d < 0) inward++;
+  }
+  if (count === 0 || inward / count <= 0.6) return normals;
+  return normals.map((v) => -v);
+}

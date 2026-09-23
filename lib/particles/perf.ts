@@ -3,8 +3,8 @@
  * unit-tested so the tiering/timing policy is verifiable without a browser.
  */
 
-export const PARTICLE_COUNT_DESKTOP = 13000;
-export const PARTICLE_COUNT_MOBILE = 5000;
+export const PARTICLE_COUNT_DESKTOP = 40000;
+export const PARTICLE_COUNT_MOBILE = 14000;
 export const MOBILE_MAX_WIDTH = 767;
 
 /** Max frame delta in seconds — prevents spiral-of-death after tab resume. */

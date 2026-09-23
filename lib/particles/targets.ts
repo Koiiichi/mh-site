@@ -8,7 +8,16 @@
  *     (Task 7/8), so the section morph map is never blocked.
  */
 
-import { mulberry32, normalizeToUnitSphere } from './math';
+import { mulberry32, normalizeToUnitSphere, radialNormals } from './math';
+
+/**
+ * A morph destination: `count` object-space points plus a unit surface normal
+ * for each (drives the shader's lighting and silhouette emphasis).
+ */
+export interface MorphTarget {
+  positions: Float32Array;
+  normals: Float32Array;
+}
 
 export type ProceduralShape = 'torus' | 'box' | 'lattice' | 'helix';
 
@@ -101,4 +110,14 @@ export function proceduralTarget(
   const rng = mulberry32(seed);
   const raw = GENERATORS[shape](count, rng);
   return normalizeToUnitSphere(raw, 1);
+}
+
+/** Procedural target with radial normals — the placeholder when a model fails. */
+export function proceduralMorphTarget(
+  shape: ProceduralShape,
+  count: number,
+  seed = 1,
+): MorphTarget {
+  const positions = proceduralTarget(shape, count, seed);
+  return { positions, normals: radialNormals(positions) };
 }

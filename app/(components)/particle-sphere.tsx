@@ -17,6 +17,7 @@ import {
   type PlacementPixels,
 } from '@/lib/particles/placements';
 import { loadGLB } from '@/lib/particles/loadTarget';
+import type { MorphTarget } from '@/lib/particles/targets';
 import { SECTION_TARGETS, targetConfigFor, modelUrl } from '@/lib/particles/section-targets';
 import { useScrollSection } from '@/lib/hooks/useScrollSection';
 
@@ -58,7 +59,7 @@ export function ParticleSphere() {
   const stageRef = useRef<HTMLDivElement | null>(null);
   const scrimRef = useRef<HTMLDivElement | null>(null);
   const systemRef = useRef<ParticleSystem | null>(null);
-  const buffersRef = useRef<Map<string, Float32Array>>(new Map());
+  const buffersRef = useRef<Map<string, MorphTarget>>(new Map());
   const activeRef = useRef<string>('hero');
 
   const { resolvedTheme } = useTheme();
@@ -288,10 +289,10 @@ export function ParticleSphere() {
           const cfg = targetConfigFor(id);
           if (!cfg.model) continue;
           loadGLB(modelUrl(cfg.model), system.particleCount)
-            .then((buf) => {
+            .then((target) => {
               if (cancelled) return;
-              buffersRef.current.set(id, buf);
-              if (activeRef.current === id) system.showShape(buf);
+              buffersRef.current.set(id, target);
+              if (activeRef.current === id) system.showShape(target);
             })
             .catch(() => {});
         }

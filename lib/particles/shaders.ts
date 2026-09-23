@@ -1,10 +1,12 @@
 /**
  * GLSL shaders for the particle sphere.
  *
- * Phase 1 / Task 4 covers the idle "etching" look: round point sprites with
- * per-particle size and opacity variation, monochrome color, slow breathing.
- * Uniforms/attributes are named so later tasks can layer in cursor
- * displacement (Task 5) and morph interpolation (Task 6) without restructuring.
+ * The "etching" look: soft gaussian grain with per-particle size and opacity
+ * variation, monochrome color, slow breathing. Each particle carries a surface
+ * normal, so the cloud is lit like a solid: a fixed key light shapes the form,
+ * silhouettes (normals perpendicular to the view) gather extra grain, and far
+ * surfaces recede. In ink mode (dark grain on a light page) shadows gather the
+ * grain instead, like an engraving.
  */
 
 /**
@@ -77,17 +79,26 @@ export const particleVertexShader = /* glsl */ `
   uniform float uBulge;      // mid-morph noise displacement amplitude
   uniform float uNoiseScale; // spatial frequency of the morph noise
 
+  uniform vec3  uLightDir; // world-space key light direction (unit)
+  uniform float uShade;    // 0 = flat grain, 1 = full lighting + rim
+  uniform float uInk;      // 0 = light grain on dark, 1 = dark grain on light
+
+  uniform float uCameraDistance; // camera z; the orb sits at the origin
+
   attribute float aScale;            // per-particle size factor (etching grain)
   attribute float aOpacity;          // per-particle opacity (etching depth)
   attribute vec3  aPositionTarget;   // morph destination (object space)
+  attribute vec3  aNormalTarget;     // morph destination normal (object space)
   attribute float aDelay;            // per-particle stagger delay (0..MAX)
   attribute float aTint;             // 1 = chromatic accent particle
 
   varying float vOpacity;
   varying float vTint;
   varying float vDepth;
+  varying float vShade;
 
   ${glslSimplexNoise}
+
 
   // Per-particle staggered progress. MAX must match MORPH_STAGGER in JS.
   const float MORPH_STAGGER = 0.4;
@@ -125,17 +136,37 @@ export const particleVertexShader = /* glsl */ `
     float falloff = smoothstep(uCursorRadius, 0.0, dist);
     worldPosition.xyz += toCursor * falloff * uCursorStrength;
 
+    // Surface shading. Normals blend with the morph; mid-transition they can
+    // cancel out, so guard the zero vector and fade shading out while the
+    // bulge scatters the shape (a scattered cloud has no surface to light).
+    vec3 objNormal = mix(normal, aNormalTarget, local);
+    float nLen = length(objNormal);
+    objNormal = nLen > 0.0001 ? objNormal / nLen : vec3(0.0, 0.0, 1.0);
+    vec3 worldNormal = normalize(mat3(modelMatrix) * objNormal);
+    vec3 viewDir = normalize(cameraPosition - worldPosition.xyz);
+    float facing = dot(worldNormal, viewDir);
+    // Two-sided key light: back faces are lit as seen, then dimmed below.
+    float diffuse = max(dot(facing < 0.0 ? -worldNormal : worldNormal, uLightDir), 0.0);
+    float lit = mix(0.2 + 0.8 * diffuse, 1.0 - 0.7 * diffuse, uInk);
+    float backFade = mix(0.4, 1.0, smoothstep(-0.35, 0.2, facing));
+    float rim = pow(1.0 - abs(facing), 2.0);
+    float shade = lit * backFade + rim * 0.5;
+    vShade = mix(1.0, shade, uShade * (1.0 - bulge));
+
     vec4 mvPosition = viewMatrix * worldPosition;
     gl_Position = projectionMatrix * mvPosition;
 
-    // Perspective size: nearer points (smaller -z) render slightly larger,
-    // giving the cloud depth. Guard against divide-by-zero at the camera plane.
+    // Perspective size relative to the orb's center plane: nearer points
+    // render slightly larger, giving the cloud depth.
     float depth = max(-mvPosition.z, 0.001);
-    gl_PointSize = aScale * uSize * uPixelRatio / depth;
+    float perspective = uCameraDistance / depth;
+    gl_PointSize = aScale * uSize * uPixelRatio * perspective
+      * (0.7 + 0.3 * min(vShade, 1.4));
 
     vOpacity = aOpacity;
     vTint = aTint;
-    vDepth = depth;
+    // -1 at the orb's nearest extent, +1 at its farthest (unit radius).
+    vDepth = depth - uCameraDistance;
   }
 `;
 
@@ -148,23 +179,25 @@ export const particleFragmentShader = /* glsl */ `
   varying float vOpacity;
   varying float vTint;
   varying float vDepth;
+  varying float vShade;
 
   void main() {
-    // Round point sprite with a soft etched edge.
+    // Soft grain: a tight gaussian core plus a faint halo, so dense regions
+    // read as tone rather than as overlapping discs.
     vec2 coord = gl_PointCoord - vec2(0.5);
-    float dist = length(coord);
-    float alpha = smoothstep(0.5, 0.40, dist);
-    if (alpha <= 0.001) discard;
+    float r2 = dot(coord, coord);
+    float alpha = exp(-r2 * 24.0) + exp(-r2 * 7.0) * 0.3;
+    if (alpha < 0.01) discard;
 
     // Chromatic accent: tinted particles render in faint cyan (the "flicker").
     vec3 color = mix(uColor, uAccentColor, vTint);
     float opacity = mix(vOpacity, 0.18, vTint);
 
-    // Depth fade: particles nearer the camera stay crisp, far ones recede.
-    // Sharpens any shape's silhouette and adds depth (camera at z~3.2).
-    float depthFade = mix(1.0, 0.4, clamp((vDepth - 2.0) / 2.6, 0.0, 1.0));
-    opacity *= depthFade;
+    // Depth fade: the near side of the orb stays crisp, the far side recedes.
+    // Sharpens any shape's silhouette and adds depth.
+    float depthFade = mix(1.0, 0.4, clamp(0.46 + vDepth * 0.385, 0.0, 1.0));
+    opacity *= depthFade * vShade;
 
-    gl_FragColor = vec4(color, opacity * alpha);
+    gl_FragColor = vec4(color, min(opacity * alpha, 1.0));
   }
 `;

@@ -10,6 +10,8 @@ import {
   morphValue,
   accentMask,
   dampToward,
+  radialNormals,
+  orientNormalsOutward,
 } from './math';
 
 function distFromOrigin(buf: Float32Array, i: number): number {
@@ -253,5 +255,35 @@ describe('screenToNdc', () => {
     const r = screenToNdc(0, 0, 0, 0);
     expect(Number.isNaN(r.x)).toBe(false);
     expect(Number.isNaN(r.y)).toBe(false);
+  });
+});
+
+describe('radialNormals', () => {
+  it('returns unit vectors pointing away from the origin', () => {
+    const pos = new Float32Array([2, 0, 0, 0, -3, 0, 1, 1, 1]);
+    const n = radialNormals(pos);
+    expect(Array.from(n.slice(0, 3))).toEqual([1, 0, 0]);
+    expect(Array.from(n.slice(3, 6))).toEqual([0, -1, 0]);
+    expect(Math.hypot(n[6], n[7], n[8])).toBeCloseTo(1, 6);
+  });
+
+  it('falls back to +Z for a point at the origin', () => {
+    expect(Array.from(radialNormals(new Float32Array([0, 0, 0])))).toEqual([0, 0, 1]);
+  });
+});
+
+describe('orientNormalsOutward', () => {
+  const pos = fibonacciSphere(200, 1);
+
+  it('flips a cloud whose normals mostly point inward', () => {
+    const inward = radialNormals(pos).map((v) => -v);
+    const out = orientNormalsOutward(pos, inward);
+    expect(out).not.toBe(inward);
+    expect(Array.from(out)).toEqual(Array.from(radialNormals(pos)));
+  });
+
+  it('leaves outward-facing normals untouched', () => {
+    const outward = radialNormals(pos);
+    expect(orientNormalsOutward(pos, outward)).toBe(outward);
   });
 });

@@ -12,9 +12,18 @@
  */
 
 import * as THREE from 'three';
-import { fibonacciSphere, mulberry32, lerp, morphValue, accentMask, dampToward } from './math';
+import {
+  fibonacciSphere,
+  mulberry32,
+  lerp,
+  morphValue,
+  accentMask,
+  dampToward,
+  radialNormals,
+} from './math';
 import { cappedDelta } from './perf';
 import { particleVertexShader, particleFragmentShader } from './shaders';
+import type { MorphTarget } from './targets';
 
 export interface ParticleSystemOptions {
   count?: number;
@@ -33,11 +42,11 @@ export interface ParticleSystemOptions {
 }
 
 const DEFAULTS = {
-  count: 12000,
+  count: 40000,
   color: '#1a1a1a',
   reducedMotion: false,
   radius: 1,
-  size: 9,
+  size: 4.4,
   rotationSpeed: 0.0009,
   seed: 1337,
 };
@@ -47,12 +56,13 @@ const BREATH_AMPLITUDE = 0.0125; // 1.0 .. 1.025
 
 const FOV = 50;
 const CAMERA_Z = 3.2;
+const MAX_PIXEL_RATIO = 2;
 const CURSOR_RADIUS_PX = 120; // influence radius in screen pixels
 const CURSOR_STRENGTH = 0.55; // peak pull fraction toward cursor
 const CURSOR_DAMPING = 0.12; // smoothing per frame (matches spec's 0.12)
 
 const MORPH_STAGGER = 0.4; // per-particle delay spread; must match shader
-const MORPH_DURATION = 1.0; // seconds (each leg of object→ball→object)
+const MORPH_DURATION = 1.6; // seconds, form → form
 const MORPH_BULGE = 0.18; // mid-transition noise displacement amplitude
 const MORPH_NOISE_SCALE = 1.5;
 
@@ -60,6 +70,15 @@ const MORPH_NOISE_SCALE = 1.5;
 const SURFACE_JITTER = 0//0.045; // radial + tangential roughness
 const STRAY_RATIO = 0//0.08; // fraction of particles that drift off the shell
 const STRAY_DISTANCE = 0//0.05; // how far strays can float outward
+// Tangential scatter that breaks the Fibonacci lattice. At full-viewport scale
+// its regular spacing otherwise beats against the soft grain as moiré rings.
+// Points are re-projected onto the shell, so the sphere stays clean.
+const LATTICE_JITTER = 0.014;
+
+// Surface lighting. The key light sits upper-left, slightly toward the camera,
+// and stays fixed in world space so shading holds steady while the shape spins.
+const LIGHT_DIR = new THREE.Vector3(-0.55, 0.65, 0.55).normalize();
+const SHADE_STRENGTH = 1;
 
 const CHROMATIC_RATIO = 0.05; // ~5% of particles get the cyan accent
 const ACCENT_COLOR = '#b0d4d4'; // faint desaturated cyan
@@ -69,7 +88,7 @@ const IDLE_SPIN = 0.12; // idle Y angular velocity (rad/s)
 const DRAG_SENSITIVITY = 0.006; // radians of rotation per pixel dragged
 const SPIN_DECAY = 1.8; // how fast release-inertia settles to idle (lambda)
 const SPIN_MAX = 3.0; // clamp angular velocity (rad/s)
-const BALL_THRESHOLD = 0.15; // attraction only active when progress < this
+const BALL_THRESHOLD = 0.15; // attraction fades in over the last 15% of a morph to the sphere
 
 export class ParticleSystem {
   supported: boolean = false;
@@ -90,6 +109,8 @@ export class ParticleSystem {
   private elapsed = 0;
   /** Smoothed-to color target for theme transitions. */
   private colorTarget = new THREE.Color();
+  /** Ink mode target: 1 when the grain is darker than mid-grey (light theme). */
+  private inkTarget = 0;
 
   // Cursor attractor state (world space). Smoothed toward targets each frame.
   private cursorTarget = new THREE.Vector3();
@@ -103,14 +124,18 @@ export class ParticleSystem {
   private dragging = false;
   private lastSpinTime = 0;
 
-  // Morph progress animation state.
-  private progressFrom = 0;
-  private progressTo = 0;
+  // Morph state. The geometry always holds a "from" form (position/normal)
+  // and a "to" form (aPositionTarget/aNormalTarget); uProgress runs 0 → 1.
+  // Switching mid-morph bakes the in-flight state into "from", so forms flow
+  // directly into one another instead of routing through the sphere.
+  private sphere: MorphTarget | null = null;
+  private currentTarget: MorphTarget | null = null;
+  private delays: Float32Array | null = null;
+  private progressFrom = 1;
+  private progressTo = 1;
+  private morphDuration = MORPH_DURATION;
   private morphStartTime = 0;
   private morphing = false;
-  // When morphing back to the sphere to switch shapes, the next target waits
-  // here and is applied once progress reaches 0 (shape -> sphere -> new shape).
-  private pendingTarget: Float32Array | null = null;
 
   constructor(
     private canvas: HTMLCanvasElement,
@@ -163,9 +188,17 @@ export class ParticleSystem {
       let r = radius + (jrng() - 0.5) * 2 * SURFACE_JITTER;
       if (jrng() < STRAY_RATIO) r += jrng() * STRAY_DISTANCE;
       const t = SURFACE_JITTER * 0.6;
-      positions[i * 3] = nx * r + (jrng() - 0.5) * t;
-      positions[i * 3 + 1] = ny * r + (jrng() - 0.5) * t;
-      positions[i * 3 + 2] = nz * r + (jrng() - 0.5) * t;
+      let px = nx * r + (jrng() - 0.5) * t;
+      let py = ny * r + (jrng() - 0.5) * t;
+      let pz = nz * r + (jrng() - 0.5) * t;
+      // Lattice jitter, then back onto this particle's shell radius.
+      px += (jrng() - 0.5) * 2 * LATTICE_JITTER;
+      py += (jrng() - 0.5) * 2 * LATTICE_JITTER;
+      pz += (jrng() - 0.5) * 2 * LATTICE_JITTER;
+      const k = r / (Math.hypot(px, py, pz) || 1);
+      positions[i * 3] = px * k;
+      positions[i * 3 + 1] = py * k;
+      positions[i * 3 + 2] = pz * k;
     }
 
     // Per-particle etching variation (deterministic).
@@ -174,23 +207,32 @@ export class ParticleSystem {
     const opacities = new Float32Array(count);
     const delays = new Float32Array(count);
     for (let i = 0; i < count; i++) {
-      // size 0.8..2.2 (radius-ish), opacity 0.55..0.95
-      scales[i] = 0.8 + rng() * 1.4;
-      opacities[i] = 0.55 + rng() * 0.4;
+      // size 0.6..1.6, opacity 0.25..0.6 — finer and lighter than a sparse
+      // cloud would need, since ~3x the grain overlaps into tone.
+      scales[i] = 0.6 + rng() * 1.0;
+      opacities[i] = 0.25 + rng() * 0.35;
       delays[i] = rng() * MORPH_STAGGER; // 0..0.4 stagger
     }
 
-    // Morph target defaults to the sphere itself, so uProgress is a no-op until
-    // an actual target shape is supplied via setMorphTarget().
+    // Start settled on the sphere: from = to = sphere, progress = 1.
     const target = positions.slice();
+    const normals = radialNormals(positions);
+    this.sphere = { positions: positions.slice(), normals: normals.slice() };
+    this.currentTarget = this.sphere;
+    this.delays = delays;
 
     this.geometry = new THREE.BufferGeometry();
     this.geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    this.geometry.setAttribute('normal', new THREE.BufferAttribute(normals, 3));
     this.geometry.setAttribute('aScale', new THREE.BufferAttribute(scales, 1));
     this.geometry.setAttribute('aOpacity', new THREE.BufferAttribute(opacities, 1));
     this.geometry.setAttribute(
       'aPositionTarget',
       new THREE.BufferAttribute(target, 3),
+    );
+    this.geometry.setAttribute(
+      'aNormalTarget',
+      new THREE.BufferAttribute(normals.slice(), 3),
     );
     this.geometry.setAttribute('aDelay', new THREE.BufferAttribute(delays, 1));
     this.geometry.setAttribute(
@@ -209,9 +251,13 @@ export class ParticleSystem {
         uCursor: { value: new THREE.Vector3() },
         uCursorRadius: { value: 0.5 },
         uCursorStrength: { value: 0 },
-        uProgress: { value: 0 },
+        uProgress: { value: 1 },
         uBulge: { value: MORPH_BULGE },
         uNoiseScale: { value: MORPH_NOISE_SCALE },
+        uCameraDistance: { value: CAMERA_Z },
+        uLightDir: { value: LIGHT_DIR.clone() },
+        uShade: { value: SHADE_STRENGTH },
+        uInk: { value: 0 },
       },
       vertexShader: particleVertexShader,
       fragmentShader: particleFragmentShader,
@@ -223,17 +269,19 @@ export class ParticleSystem {
     this.points = new THREE.Points(this.geometry, this.material);
     this.scene.add(this.points);
     this.colorTarget.set(this.opts.color);
+    this.inkTarget = inkFor(this.colorTarget);
+    this.material.uniforms.uInk.value = this.inkTarget;
   }
 
   /** Half the world-space height visible at the z=0 plane. */
-  private worldHalfHeight(): number {
+  worldHalfHeight(): number {
     return Math.tan(((FOV / 2) * Math.PI) / 180) * CAMERA_Z;
   }
 
   /** Resize the renderer/camera to the given CSS pixel dimensions. */
   setSize(width: number, height: number, pixelRatio = 1) {
     if (!this.renderer || !this.camera || !this.material) return;
-    const dpr = Math.min(pixelRatio, 2); // cap DPR (perf; refined in Task 10)
+    const dpr = Math.min(pixelRatio, MAX_PIXEL_RATIO);
     this.renderer.setPixelRatio(dpr);
     this.renderer.setSize(width, height, false);
     this.camera.aspect = width / Math.max(height, 1);
@@ -315,43 +363,47 @@ export class ParticleSystem {
   }
 
   /**
-   * Replace the morph destination buffer. Must contain count*3 floats (object
-   * space). Does not animate; call morphTo() to play the transition.
+   * Replace the morph destination (positions + normals). Each buffer must hold
+   * count*3 floats in object space. Does not animate; call morphTo() to play.
    */
-  setMorphTarget(target: Float32Array) {
+  setMorphTarget(target: MorphTarget) {
     if (!this.geometry) return;
-    const attr = this.geometry.getAttribute('aPositionTarget') as
-      | THREE.BufferAttribute
-      | undefined;
-    if (!attr) return;
-    const dest = attr.array as Float32Array;
-    const n = Math.min(dest.length, target.length);
-    dest.set(target.subarray(0, n));
-    attr.needsUpdate = true;
+    const pairs: Array<[string, Float32Array]> = [
+      ['aPositionTarget', target.positions],
+      ['aNormalTarget', target.normals],
+    ];
+    for (const [name, source] of pairs) {
+      const attr = this.geometry.getAttribute(name) as THREE.BufferAttribute | undefined;
+      if (!attr) continue;
+      const dest = attr.array as Float32Array;
+      dest.set(source.subarray(0, Math.min(dest.length, source.length)));
+      attr.needsUpdate = true;
+    }
   }
 
   /**
-   * Animate the master progress toward `to` (0 = sphere, 1 = target shape)
-   * over `duration` seconds. Under reduced motion it snaps instantly.
+   * Animate the master progress toward `to` over `duration` seconds. Under
+   * reduced motion it snaps instantly.
    */
   morphTo(to: number, duration = MORPH_DURATION) {
     if (!this.material) return;
     const current = this.material.uniforms.uProgress.value as number;
-    if (this.opts.reducedMotion) {
+    if (this.opts.reducedMotion || duration <= 0) {
       this.material.uniforms.uProgress.value = to;
-      this.renderOnce();
+      this.morphing = false;
+      if (this.opts.reducedMotion) this.renderOnce();
       return;
     }
     this.progressFrom = current;
     this.progressTo = to;
+    this.morphDuration = duration;
     this.morphStartTime = this.elapsed;
-    this.morphing = duration > 0;
-    if (!this.morphing) this.material.uniforms.uProgress.value = to;
+    this.morphing = true;
   }
 
-  /** Current master progress (0=sphere, 1=target). */
+  /** Current master progress (0 = "from" form, 1 = "to" form). */
   get progress(): number {
-    return (this.material?.uniforms.uProgress.value as number) ?? 0;
+    return (this.material?.uniforms.uProgress.value as number) ?? 1;
   }
 
   /** Number of particles in the system. */
@@ -362,41 +414,65 @@ export class ParticleSystem {
   /**
    * High-level morph entry point for the section state machine.
    *
-   * Pass a target buffer to form that shape, or null to return to the sphere.
-   * Switching directly between two shapes routes through the sphere
-   * (shape -> sphere -> new shape) so transitions always read cleanly.
+   * Pass a target to form that shape, or null to return to the sphere. Forms
+   * morph directly into one another; asking for the form already shown (or
+   * already on its way) is a no-op.
    */
-  showShape(buffer: Float32Array | null) {
-    if (!buffer) {
-      this.pendingTarget = null;
-      this.morphTo(0);
-      return;
+  showShape(target: MorphTarget | null) {
+    const desired = target ?? this.sphere;
+    if (!desired || desired === this.currentTarget) return;
+    if (this.progress > 0.001) this.bakeCurrentState();
+    this.setMorphTarget(desired);
+    this.currentTarget = desired;
+    this.morphTo(1);
+  }
+
+  /**
+   * Fold the in-flight morph into the "from" form: each particle's current
+   * staggered position/normal (without the transient noise bulge) becomes its
+   * new starting point, and progress resets to 0.
+   */
+  private bakeCurrentState() {
+    if (!this.geometry || !this.material || !this.delays) return;
+    const p = this.progress;
+    const fromPos = this.geometry.getAttribute('position') as THREE.BufferAttribute;
+    const fromNrm = this.geometry.getAttribute('normal') as THREE.BufferAttribute;
+    const toPos = this.geometry.getAttribute('aPositionTarget') as THREE.BufferAttribute;
+    const toNrm = this.geometry.getAttribute('aNormalTarget') as THREE.BufferAttribute;
+    const fp = fromPos.array as Float32Array;
+    const fn = fromNrm.array as Float32Array;
+    const tp = toPos.array as Float32Array;
+    const tn = toNrm.array as Float32Array;
+    for (let i = 0; i < this.delays.length; i++) {
+      // Mirrors the vertex shader's per-particle staggered progress.
+      const local = Math.min(1, Math.max(0, (p - this.delays[i]) / (1 - MORPH_STAGGER)));
+      if (local <= 0) continue;
+      const j = i * 3;
+      fp[j] = lerp(fp[j], tp[j], local);
+      fp[j + 1] = lerp(fp[j + 1], tp[j + 1], local);
+      fp[j + 2] = lerp(fp[j + 2], tp[j + 2], local);
+      const nx = lerp(fn[j], tn[j], local);
+      const ny = lerp(fn[j + 1], tn[j + 1], local);
+      const nz = lerp(fn[j + 2], tn[j + 2], local);
+      const len = Math.hypot(nx, ny, nz);
+      if (len > 1e-4) {
+        fn[j] = nx / len;
+        fn[j + 1] = ny / len;
+        fn[j + 2] = nz / len;
+      }
     }
-    if (this.progress <= 0.001 && !this.morphing) {
-      this.pendingTarget = null;
-      this.setMorphTarget(buffer);
-      this.morphTo(1);
-    } else {
-      // Currently showing / mid-transitioning a shape: ease back to the
-      // sphere first, then the pending target takes over.
-      this.pendingTarget = buffer;
-      this.morphTo(0);
-    }
+    fromPos.needsUpdate = true;
+    fromNrm.needsUpdate = true;
+    this.material.uniforms.uProgress.value = 0;
+    this.morphing = false;
   }
 
   private updateMorph(elapsed: number) {
     if (!this.morphing || !this.material) return;
-    const raw = (elapsed - this.morphStartTime) / MORPH_DURATION;
+    const raw = (elapsed - this.morphStartTime) / this.morphDuration;
     if (raw >= 1) {
       this.material.uniforms.uProgress.value = this.progressTo;
       this.morphing = false;
-      // Arrived back at the sphere with a queued shape — form it now.
-      if (this.progressTo === 0 && this.pendingTarget) {
-        const next = this.pendingTarget;
-        this.pendingTarget = null;
-        this.setMorphTarget(next);
-        this.morphTo(1);
-      }
       return;
     }
     this.material.uniforms.uProgress.value = morphValue(
@@ -410,8 +486,10 @@ export class ParticleSystem {
   setColor(hex: string) {
     this.opts.color = hex;
     this.colorTarget.set(hex);
+    this.inkTarget = inkFor(this.colorTarget);
     if (this.material && this.opts.reducedMotion) {
       (this.material.uniforms.uColor.value as THREE.Color).set(hex);
+      this.material.uniforms.uInk.value = this.inkTarget;
       this.renderOnce();
     }
   }
@@ -421,7 +499,10 @@ export class ParticleSystem {
     if (!this.material) return;
     const color = this.material.uniforms.uColor.value as THREE.Color;
     // Frame-rate-independent smoothing (~0.6s settle).
-    color.lerp(this.colorTarget, Math.min(1, delta * 8));
+    const k = Math.min(1, delta * 8);
+    color.lerp(this.colorTarget, k);
+    const ink = this.material.uniforms.uInk;
+    ink.value = lerp(ink.value as number, this.inkTarget, k);
   }
 
   private updateUniforms(elapsed: number) {
@@ -460,7 +541,10 @@ export class ParticleSystem {
     cursor.lerp(this.cursorTarget, CURSOR_DAMPING);
     // Attraction is reserved for the ball: fade it out as we morph to a shape.
     const progress = this.material.uniforms.uProgress.value as number;
-    const ballFactor = Math.max(0, 1 - progress / BALL_THRESHOLD);
+    const ballFactor =
+      this.currentTarget === this.sphere
+        ? Math.max(0, 1 - (1 - progress) / BALL_THRESHOLD)
+        : 0;
     const u = this.material.uniforms.uCursorStrength;
     u.value = lerp(
       u.value as number,
@@ -515,4 +599,9 @@ export class ParticleSystem {
     this.camera = null;
     this.renderer = null;
   }
+}
+
+/** 1 for dark grain (ink on a light page), 0 for light grain on a dark page. */
+function inkFor(color: THREE.Color): number {
+  return color.r * 0.299 + color.g * 0.587 + color.b * 0.114 < 0.5 ? 1 : 0;
 }
