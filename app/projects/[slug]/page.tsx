@@ -139,8 +139,8 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
       </section>
       <section className="space-y-4 text-base text-muted">
         <p>
-          This case study is in progress. I’m curating deeper process notes, architecture diagrams, and learnings. Reach
-          out if you’d like an early walkthrough or to explore collaboration.
+          I&apos;m still writing the process notes, architecture diagrams, and what I learned. Contact me for an early
+          walkthrough or to discuss working together.
         </p>
       </section>
     </div>

@@ -39,7 +39,7 @@
       "repo": "https://github.com/Koiiichi/Decodra"
     },
     "media": { "type": "image", "src": "/media/decodra-poster.svg", "alt": "Decodra constrained decoding" },
-    "metrics": ["~98% first-pass schema validity", "Per-field confidence scores"],
+    "metrics": ["Target: ~98% first-pass schema validity", "Per-field confidence scores"],
     "role": "Author",
     "timeframe": "2026"
   },

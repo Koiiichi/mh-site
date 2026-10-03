@@ -13,38 +13,38 @@ interface ProjectDetail {
 export const projectDetails: Record<string, ProjectDetail> = {
   symphony: {
     overview:
-      "Symphony is an LLM-first web reliability orchestrator. It runs goal-driven browser flows against a web application, evaluates the results against a first-class reliability gate, and drives an evidence-based patch cycle until the app passes or the pass limit is reached — replacing brittle keyword heuristics with a structured plan emitted by an LLM and executed by a deterministic browser layer.",
+      "Symphony uses an LLM to plan browser tests for a web application. A deterministic browser layer executes the structured plan, replacing brittle keyword heuristics. Symphony checks the results against explicit reliability requirements and uses the evidence to guide patches and reruns until the app passes or reaches the pass limit.",
     background:
-      "Symphony is a runtime reliability tool, not a coding assistant. Where assistants operate on source code (read → suggest → you test), Symphony operates on a running application (run → drive a real browser → observe → patch → retest). Code edits are a side effect, not the primary action. It grew out of wanting an actual pass/fail signal for whether an app works in a browser — not just whether the code looks right.",
+      "I wanted a pass/fail signal for whether an app works in a browser. Coding assistants read source code and suggest changes for you to test. Symphony starts the application, drives a browser, and uses its observations to patch and retest the app. It makes code edits as part of checking the running application.",
     architecture: [
-      "Plan: an LLM reads minimal project context and emits a typed TaskGraph — an ordered DAG of nodes with explicit dependency edges; a heuristic graph (detect → start → test → finalize) is the fallback when LLM output is invalid",
-      "Execute: nodes run in topological order — stack detection, service startup, browser flows via a validated Flow DSL (no arbitrary scripts, only structured actions), API checks, and search-replace code patches; screenshots are captured at every step",
+      "Plan: an LLM reads minimal project context and emits a typed TaskGraph, an ordered DAG of nodes with explicit dependency edges; a heuristic graph (detect → start → test → finalize) is the fallback when LLM output is invalid",
+      "Execute: nodes run in topological order, covering stack detection, service startup, browser flows via a validated Flow DSL (structured actions only; arbitrary scripts are rejected), API checks, and search-replace code patches; the browser captures screenshots at every step",
       "Evaluate: a Reliability Evaluator checks every flow assertion, HTTP expectation, and accessibility requirement, emitting a machine-readable report with typed failure reasons and exit code 0/1",
       "Patch: on failure, the evidence is fed back to the LLM, which proposes a targeted source patch; the graph reruns until pass or pass-limit",
       "Providers: OpenAI or Gemini, auto-detected; deterministic browser execution via Chrome + ChromeDriver",
     ],
     challenges: [
-      "Keeping LLM-driven execution strictly deterministic — the model emits validated structured actions, never arbitrary scripts",
+      "Keeping LLM-driven execution strictly deterministic by validating the model's structured actions and rejecting arbitrary scripts",
       "Designing a typed TaskGraph with dependency edges plus a heuristic fallback for invalid model output",
       "Producing a machine-readable pass/fail report suitable for CI (exit 0/1)",
       "Closing the evidence → patch → retest loop with targeted search-replace diffs",
     ],
     results:
-      "Symphony turns 'does this app actually work?' into a typed, CI-ready signal: it plans, drives a real browser, evaluates against explicit assertions, and patches until green. It complements coding assistants — they write the feature, Symphony verifies it works in a real browser before it ships.",
+      "Symphony produces typed pass/fail reports for CI from browser tests and explicit assertions. Failed checks feed a patch-and-retest loop. Teams can use it with coding assistants to check features in a real browser before release.",
     timeline: "2025",
     tools: ["Python", "Selenium", "Chrome / ChromeDriver", "OpenAI API", "Typer"],
     links: [{ label: "View Source", url: "https://github.com/Koiiichi/symphony" }],
   },
   decodra: {
     overview:
-      "Decodra is a confidence-aware constrained decoding engine for structured language-model generation. It combines finite-state constrained decoding with token-level confidence tracing to produce schema-valid outputs alongside calibrated per-field confidence scores — exposing how strongly the model supported each generated field, not just whether the output matched the schema.",
+      "Decodra is a confidence-aware constrained decoding engine for structured language-model generation. It combines finite-state constrained decoding with token-level confidence tracing to produce schema-valid outputs and calibrated per-field confidence scores. These scores measure how strongly the model supported each generated field.",
     background:
-      "Most structured-generation frameworks only answer 'did the output match the schema?' Decodra also answers 'how hard did the constraint engine have to steer the model to get there?' During constrained decoding it records both the model's original token distribution and the constrained distribution after masking, then aggregates those signals into per-field confidence — without ever prompting the model to self-report uncertainty.",
+      "Most structured-generation frameworks report schema validity alone. Decodra also measures how much the constraint engine steered the model. During constrained decoding it records the model's original token distribution and the constrained distribution after masking, then aggregates those signals into per-field confidence. It does not prompt the model to self-report uncertainty.",
     architecture: [
-      "engine.py — the constrained decoding loop with logits masking",
-      "confidence.py — token-signal aggregation into per-field scores",
-      "field_tracker.py — JSON parser state and field attribution",
-      "schemas.py — the benchmark schema suite",
+      "engine.py: the constrained decoding loop with logits masking",
+      "confidence.py: token-signal aggregation into per-field scores",
+      "field_tracker.py: JSON parser state and field attribution",
+      "schemas.py: the benchmark schema suite",
       "Compiles each Pydantic schema into an Outlines Core regex index, then uses an Outlines Guide to compute the valid next-token IDs for each FSM state",
     ],
     challenges: [
@@ -111,9 +111,9 @@ export const projectDetails: Record<string, ProjectDetail> = {
   },
 
   'planetary-explorer': {
-  overview: "Planetary Explorer is an AI-powered planetary visualization platform built for NASA Space Apps 2025. It unifies NASA and USGS imagery datasets of Mars, the Moon, and Mercury into an interactive environment that lets users semantically search, explore, and contextualize planetary features. The goal was to make complex planetary data accessible through intelligent search and fluid, zoomable navigation — bridging the gap between professional researchers and the public.",
+  overview: "Planetary Explorer was built for NASA Space Apps 2025. It combines NASA and USGS imagery of Mars, the Moon, and Mercury so users can search for planetary features by meaning, examine their context, and zoom into the imagery. The goal was to make the data easier for researchers and the public to explore.",
   video: "https://t1wn0tszxgdwtn1i.public.blob.vercel-storage.com/planetary-explorer-demo.mp4",
-  background: "The project began during NASA Space Apps 2025, when the team noticed that planetary data from NASA Trek and the USGS Gazetteer were often siloed, making it hard for users to explore related regions across planets. We envisioned a unified explorer that combined these sources into a smooth, AI-enhanced interface — capable of understanding what users meant, not just what they typed. The system had to handle gigapixel imagery, semantic search, and cross-planet relationships, while staying performant enough to run in a browser.",
+  background: "During NASA Space Apps 2025, we found that the separation between NASA Trek and USGS Gazetteer data made it hard to explore related regions across planets. We wanted to combine those sources and let users search by meaning. The explorer needed to handle gigapixel imagery and relationships between planets while keeping search and navigation fast enough for a browser.",
   architecture: [
     "Frontend: React + Next.js powered interface for planetary browsing and dynamic UI rendering",
     "Imagery Viewer: OpenSeadragon integration for smooth deep-zoom navigation across gigapixel NASA imagery",
@@ -128,7 +128,7 @@ export const projectDetails: Record<string, ProjectDetail> = {
     "Implementing smooth, lag-free multi-body zoom on high-resolution maps with OpenSeadragon",
     "Designing a responsive UI that felt both scientific and exploratory for general audiences"
   ],
-  results: "Planetary Explorer achieved its vision of making planetary data intuitive to explore. The final prototype could perform sub-second semantic searches across gigapixel imagery, visualize related planetary features, and allow users to 'fly' between Mars, the Moon, and Mercury seamlessly. It was recognized by NASA Space Apps judges for accessibility and UX design. The system serves as a proof of concept for AI-augmented planetary exploration tools that democratize access to scientific data.",
+  results: "The prototype ran semantic searches across gigapixel imagery in under a second. Users could view related planetary features and navigate between Mars, the Moon, and Mercury. NASA Space Apps judges recognized it for accessibility and UX design.",
   timeline: "September 2025",
   tools: ["React", "Next.js", "FastAPI", "DeepSeek API", "OpenSeadragon", "Vercel", "Python", "TypeScript"],
   links: [

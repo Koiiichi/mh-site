@@ -5,8 +5,9 @@
   <text x="120" y="360" fill="#E7E9EC" font-family="'Inter', 'Helvetica Neue', Arial, sans-serif" font-size="120" font-weight="700">
     Muneeb Hassan
   </text>
-  <text x="120" y="450" fill="#8A8F98" font-family="'IBM Plex Mono', 'Courier New', monospace" font-size="42" letter-spacing="0.02em">
-    Design Engineer · Systems Thinker · Builder
+  <text x="120" y="450" fill="#8A8F98" font-family="'IBM Plex Mono', 'Courier New', monospace" font-size="32" letter-spacing="0.02em">
+    <tspan x="120">Backend systems and data workflows</tspan>
+    <tspan x="120" dy="44">Occasional embedded projects</tspan>
   </text>
   <defs>
     <radialGradient id="paint0_radial" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(240 180) rotate(90) scale(160)">

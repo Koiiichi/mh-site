@@ -14,15 +14,15 @@ const archiveEntries = [
     content: (
       <>
         <p>
-          <em>Learning by building</em> — chasing the satisfaction of solving a problem cleanly and understanding how the pieces fit together. I&apos;m drawn to systems that balance logic with feel — constantly thinking about how to connect abstract, ambitious ideas into tangible products without overwhelming the mind with the sheer complexity of building them using the toolset I currently have. That toolset still needs expansion and refinement, something that <em>time and experience will carve naturally as a niche forms.</em>
+          I enjoy solving a problem cleanly and understanding how the pieces fit together. I care about how a system feels to use as much as how it works. I keep trying to turn ambitious ideas into products without getting overwhelmed by what it takes to build them with the tools I know. There&apos;s still plenty to learn, and I expect to find my niche with time and experience.
         </p>
 
         <p>
-          I&apos;m exploring how agentic systems can make creation more collaborative — how small automations can expand what one person can build. The more I learn, the more I realize <em>engineering is less about syntax and more about empathy.</em>
+          I&apos;m exploring how agentic systems can make creation more collaborative and how small automations can expand what one person can build. As I learn, empathy matters more to me in engineering.
         </p>
 
         <p>
-          Lately, I&apos;ve been enjoying more contemporary sounds — textured R&amp;B and its many syncopated subgenres. Ambient soundscapes otherwise drone in my ear: think obscure Aphex Twin B-sides, anything that hums with intention — my sole replacement for the white noise of my ceiling fan, which has become a limited offering.
+          Lately, I&apos;ve been enjoying more contemporary sounds: textured R&amp;B and its many syncopated subgenres. Ambient soundscapes otherwise drone in my ear: think obscure Aphex Twin B-sides, anything that hums with intention. They&apos;re my sole replacement for the white noise of my ceiling fan, which has become a limited offering.
         </p>
       </>
     ),
@@ -59,15 +59,15 @@ export function Now() {
   const currentContent = mode === 'now' ? (
     <>
       <p>
-        Lately, I&apos;ve been lingering on the interdisciplinary nature of things, wondering whether everything I do is quietly linked beneath the surface. A web of ideas, habits, and abstractions stitched together by a human mind that can&apos;t help but search for continuity. As I work, I keep circling the same question: how does the mind comprehend at all, and how does this bit-based machine manage to approximate something so profoundly human? It mimics us convincingly, yet operates from a foundation that is entirely foreign.
+        Lately, I&apos;ve been wondering how my interests connect and how much of that connection comes from my own need to find patterns. Working on agentic systems keeps bringing me back to questions about how people understand things and how computers approximate that understanding. I find it strange that a machine can imitate us convincingly while working so differently.
       </p>
 
       <p>
-        Translating human intuition into computational form has become the most challenging part of my process. Building agentic workflows forces me to confront that gap directly, aligning human approaches with systems that do not think, feel, or hesitate. The difficulty isn&apos;t technical so much as conceptual, shaping intent into something a machine can execute without stripping away the nuance that made it meaningful in the first place.
+        Translating human intuition into computational form has become the hardest part of my process. Building agentic workflows means making intent precise enough for a machine to execute while preserving the nuance that matters. For me, that conceptual work is harder than the technical implementation.
       </p>
 
       <p>
-        Sonically or musically if you may, my habits have shifted alongside my routines. I&apos;ve moved away from droning soundscapes toward something more immediate and energetic as my days grow more active. Lately, I&apos;ve been drawn to dense, 808-heavy, almost sinister production, the kind that arrives without warning, Metro Boomin occupying much of that space. Still, I can feel myself drifting back toward more somber R&amp;B as the weather dulls and isolation creeps in, like <em>Sampha</em> waiting patiently in rotation.
+        My listening habits have shifted with my routines. As my days grow more active, I&apos;ve moved away from droning soundscapes toward dense, 808-heavy production that feels almost sinister and arrives without warning. I&apos;ve been listening to a lot of Metro Boomin. Still, I can feel myself drifting back toward more somber R&amp;B as the weather dulls and isolation creeps in, like <em>Sampha</em> waiting patiently in rotation.
       </p>
     </>
   ) : (
